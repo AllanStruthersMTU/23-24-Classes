@@ -10,10 +10,10 @@
 NotebookFileLineBreakTest
 NotebookFileLineBreakTest
 NotebookDataPosition[       158,          7]
-NotebookDataLength[     28017,        599]
-NotebookOptionsPosition[     23961,        528]
-NotebookOutlinePosition[     24563,        548]
-CellTagsIndexPosition[     24520,        545]
+NotebookDataLength[     30508,        674]
+NotebookOptionsPosition[     26040,        597]
+NotebookOutlinePosition[     26642,        617]
+CellTagsIndexPosition[     26599,        614]
 WindowFrame->Normal*)
 
 (* Beginning of Notebook Content *)
@@ -473,7 +473,8 @@ then I know what f is. \n"
 }], "Text",
  CellChangeTimes->{{3.9036893816567717`*^9, 3.9036895124027324`*^9}, {
   3.9036896037812924`*^9, 3.903689606398836*^9}, {3.903689686069832*^9, 
-  3.903689703117586*^9}},ExpressionUUID->"73a234c3-e304-4cfa-96b7-\
+  3.903689703117586*^9}, {3.9036898497604833`*^9, 
+  3.9036898523464613`*^9}},ExpressionUUID->"73a234c3-e304-4cfa-96b7-\
 6cc8eec50f57"],
 
 Cell[CellGroupData[{
@@ -522,7 +523,75 @@ Cell[BoxData[
    3.903689676488845*^9}, {3.903689745563822*^9, 3.903689755478917*^9}},
  CellLabel->
   "Out[264]=",ExpressionUUID->"7ae75dad-8aba-4fcb-ac9d-830e11d6df1f"]
-}, Open  ]]
+}, Open  ]],
+
+Cell[TextData[{
+ "The extra cost in the real divide and conquer algorithm is \[Beta] ",
+ Cell[BoxData[
+  FormBox[
+   SuperscriptBox["n", "2"], TraditionalForm]],
+  FormatType->TraditionalForm,ExpressionUUID->
+  "1be0f72c-1f16-45fb-a7a6-42f26132ebd7"]
+}], "Text",
+ CellChangeTimes->{{3.9036898742521396`*^9, 
+  3.9036899162321196`*^9}},ExpressionUUID->"cc2f147f-5128-4cd7-b0bd-\
+93a8a87d5afe"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"RSolve", "[", " ", 
+   RowBox[{
+    RowBox[{"{", 
+     RowBox[{
+      RowBox[{
+       RowBox[{"f", "[", "n", "]"}], "==", 
+       RowBox[{
+        RowBox[{"2", " ", 
+         RowBox[{"f", "[", 
+          RowBox[{"n", "/", "2"}], "]"}]}], "+", 
+        RowBox[{"\[Beta]", " ", 
+         SuperscriptBox["n", "2"]}]}]}], ",", 
+      RowBox[{
+       RowBox[{"f", "[", "1", "]"}], "==", "1"}]}], "}"}], ",", " ", 
+    RowBox[{"f", "[", "n", "]"}], ",", "n"}], "]"}], "//", 
+  "FullSimplify"}]], "Input",
+ CellChangeTimes->{{3.9036898612191124`*^9, 3.903689862749049*^9}, 
+   3.9036899224426165`*^9},
+ CellLabel->
+  "In[266]:=",ExpressionUUID->"754b35d6-317c-4b4a-8873-f3a14d4e8f9d"],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{"{", 
+   RowBox[{
+    RowBox[{"f", "[", "n", "]"}], "\[Rule]", 
+    RowBox[{"n", "+", 
+     RowBox[{"2", " ", 
+      RowBox[{"(", 
+       RowBox[{
+        RowBox[{"-", "1"}], "+", "n"}], ")"}], " ", "n", " ", "\[Beta]"}]}]}],
+    "}"}], "}"}]], "Output",
+ CellChangeTimes->{3.9036898639546313`*^9, 3.903689923333074*^9},
+ CellLabel->
+  "Out[266]=",ExpressionUUID->"e91b2888-0b14-4634-8353-bed3b88c7f25"]
+}, Open  ]],
+
+Cell[TextData[{
+ "People would write this as ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{"f", "(", "n", ")"}], "=", 
+    RowBox[{"O", "(", 
+     SuperscriptBox["n", "2"], ")"}]}], TraditionalForm]],
+  FormatType->TraditionalForm,ExpressionUUID->
+  "46886975-0450-4a08-ae07-3f08d815a209"]
+}], "Text",
+ CellChangeTimes->{{3.903689942305813*^9, 
+  3.903689976691208*^9}},ExpressionUUID->"b33128bb-aa03-4be5-a7a8-\
+8ea94b9d751f"]
 }, Open  ]]
 }, Open  ]]
 },
@@ -594,11 +663,17 @@ Cell[20143, 433, 851, 12, 27, "SubitemNumbered",ExpressionUUID->"ec109fda-3849-4
 Cell[20997, 447, 789, 11, 27, "SubitemNumbered",ExpressionUUID->"fdd01864-1d6c-4f3f-b9e0-b56584409931"]
 }, Open  ]]
 }, Open  ]],
-Cell[21813, 462, 619, 14, 126, "Text",ExpressionUUID->"73a234c3-e304-4cfa-96b7-6cc8eec50f57"],
+Cell[21813, 462, 672, 15, 126, "Text",ExpressionUUID->"73a234c3-e304-4cfa-96b7-6cc8eec50f57"],
 Cell[CellGroupData[{
-Cell[22457, 480, 679, 19, 28, "Input",ExpressionUUID->"7a08db91-f604-4cdf-b793-6c4dd9159e64"],
-Cell[23139, 501, 782, 22, 61, "Output",ExpressionUUID->"7ae75dad-8aba-4fcb-ac9d-830e11d6df1f"]
-}, Open  ]]
+Cell[22510, 481, 679, 19, 28, "Input",ExpressionUUID->"7a08db91-f604-4cdf-b793-6c4dd9159e64"],
+Cell[23192, 502, 782, 22, 61, "Output",ExpressionUUID->"7ae75dad-8aba-4fcb-ac9d-830e11d6df1f"]
+}, Open  ]],
+Cell[23989, 527, 392, 10, 34, "Text",ExpressionUUID->"cc2f147f-5128-4cd7-b0bd-93a8a87d5afe"],
+Cell[CellGroupData[{
+Cell[24406, 541, 712, 21, 31, "Input",ExpressionUUID->"754b35d6-317c-4b4a-8873-f3a14d4e8f9d"],
+Cell[25121, 564, 442, 13, 32, "Output",ExpressionUUID->"e91b2888-0b14-4634-8353-bed3b88c7f25"]
+}, Open  ]],
+Cell[25578, 580, 434, 13, 35, "Text",ExpressionUUID->"b33128bb-aa03-4be5-a7a8-8ea94b9d751f"]
 }, Open  ]]
 }, Open  ]]
 }
