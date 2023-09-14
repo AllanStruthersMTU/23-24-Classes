@@ -1,0 +1,607 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 12.3' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       158,          7]
+NotebookDataLength[     28017,        599]
+NotebookOptionsPosition[     23961,        528]
+NotebookOutlinePosition[     24563,        548]
+CellTagsIndexPosition[     24520,        545]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+
+Cell[CellGroupData[{
+Cell["Bulge Chasing Eigenvalues", "Title",
+ CellChangeTimes->CompressedData["
+1:eJwd0U1I03Ecx/G/TuqfhIegTJqgY0KIU/CQepDxnwaNhEANYoKIWLhDKXP0
+YC4S0Zu6+RgrLIaJUlpTD6EHp8P1X050KKXMxxq6zQ3dfARR+35+hw+v2+fy
+Ti6vKnwczXGcjAZV0SrO2R8UpjyWKGjmvfl7ZI2RvwebzzNjw6TjZc9VGChw
+pUbIfuEvs6DP8nGfbNsZ+gTjXiTJpANBIWs/zGy8mTOSSFY7RGb7gfqfjvx+
+1+GFKSsf/Gay4kpvAKoeWW3vybevTyeh1f4q7SvJm5Tp0MU16SZJ+cN4PWzp
+GLfBulWROdxZO/SbnJsxf4O8yz0BC9U1NjjqN25Ce2TbC2MWnvuh+lpzAGqn
+3Z//kJmpnj74xqG0Q+m7WuZKtvMnFLueiVC+W7wAbwxWLsL7uYpleClsYoak
+hnW45bMyiw2/vLD0WOODBm19EGY/CYfY/6EiAufjtcy1w84jmKzIOoYnTyUX
+sEzfLVkiE77UX4Z35DIezm7700M/goJmKzED9oq6rsgY9dFndMOl27fajddD
+gqvBydzIa31gIi1nR8yixUGNlWxzekrgf0HDQvo=
+  "],ExpressionUUID->"e2963c2e-c009-4cf8-851d-5ca4355293b4"],
+
+Cell[CellGroupData[{
+
+Cell["State of the Art: Dense non-symmetric A", "Section",
+ CellChangeTimes->{{3.9036874684942474`*^9, 
+  3.9036874945037975`*^9}},ExpressionUUID->"d18603b6-5f99-41b8-9194-\
+43442b533ddf"],
+
+Cell[CellGroupData[{
+
+Cell["Reduce A to Hessenberg H using Householder transformations.", \
+"ItemNumbered",
+ CellChangeTimes->{{3.9036202559069204`*^9, 3.9036205476056614`*^9}, {
+  3.9036209044088583`*^9, 3.903620914121957*^9}, {3.90362234268802*^9, 
+  3.903622362403719*^9}, {3.9036224884470024`*^9, 3.903622498250781*^9}, {
+  3.9036226781382647`*^9, 3.9036227292017627`*^9}, {3.903685789373844*^9, 
+  3.9036858048258924`*^9}, {3.903687405260816*^9, 3.903687460025*^9}, {
+  3.903687491624073*^9, 3.9036875372180085`*^9}, {3.9036875736301246`*^9, 
+  3.903687574005038*^9}},ExpressionUUID->"788ad4ec-d231-45cd-b903-\
+86080306a38c"],
+
+Cell["Trailing tiled updates done in parallel ", "SubitemNumbered",
+ CellChangeTimes->{{3.9036202559069204`*^9, 3.9036205476056614`*^9}, {
+  3.9036209044088583`*^9, 3.903620914121957*^9}, {3.90362234268802*^9, 
+  3.903622362403719*^9}, {3.9036224884470024`*^9, 3.903622498250781*^9}, {
+  3.9036226781382647`*^9, 3.9036227292017627`*^9}, {3.903685789373844*^9, 
+  3.9036858048258924`*^9}, {3.903687405260816*^9, 3.903687460025*^9}, {
+  3.903687491624073*^9, 
+  3.903687566836281*^9}},ExpressionUUID->"c3ab963c-3a7e-488d-b475-\
+46ab38825256"],
+
+Cell[TextData[{
+ "Create bulge incorporating shifts ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"(", 
+    RowBox[{
+     SubscriptBox["\[Mu]", "1"], ",", "\[Ellipsis]", ",", 
+     SubscriptBox["\[Mu]", "p"]}], ")"}], TraditionalForm]],
+  FormatType->TraditionalForm,ExpressionUUID->
+  "30db5821-96e8-43bb-9702-e1540ae55df8"],
+ " using the Implicit QR trick. Chase bulge to end using Householder \
+transformations. Repeat as necessary. "
+}], "ItemNumbered",
+ CellChangeTimes->{{3.9036202559069204`*^9, 3.9036205476056614`*^9}, {
+  3.9036209044088583`*^9, 3.903620914121957*^9}, {3.90362234268802*^9, 
+  3.903622362403719*^9}, {3.9036224884470024`*^9, 3.903622498250781*^9}, {
+  3.9036226781382647`*^9, 3.9036227292017627`*^9}, {3.903685789373844*^9, 
+  3.9036858048258924`*^9}, {3.903687405260816*^9, 3.903687460025*^9}, {
+  3.903687491624073*^9, 3.903687671500955*^9}, {3.9036882964656014`*^9, 
+  3.903688309054289*^9}},ExpressionUUID->"96eeabd3-be75-4d22-a731-\
+52d3044bd00d"],
+
+Cell[CellGroupData[{
+
+Cell["Trailing tiled updates done in parallel.", "SubitemNumbered",
+ CellChangeTimes->{{3.9036202559069204`*^9, 3.9036205476056614`*^9}, {
+  3.9036209044088583`*^9, 3.903620914121957*^9}, {3.90362234268802*^9, 
+  3.903622362403719*^9}, {3.9036224884470024`*^9, 3.903622498250781*^9}, {
+  3.9036226781382647`*^9, 3.9036227292017627`*^9}, {3.903685789373844*^9, 
+  3.9036858048258924`*^9}, {3.903687405260816*^9, 3.903687460025*^9}, {
+  3.903687491624073*^9, 3.9036876856772346`*^9}, {3.903688130081781*^9, 
+  3.903688136406684*^9}},ExpressionUUID->"856c7a15-30ce-4ea2-a3a9-\
+62615735586b"],
+
+Cell["\<\
+In practice, including too many shifts in one pulse produces \
+\[OpenCurlyDoubleQuote]shift blurring\[CloseCurlyDoubleQuote] which reduces \
+accuracy. Current code incorporates a train of small bulges.  An red/black \
+coloring argument shows you can parallelize the train of bulges a bit in \
+addition to the trailing updates.\
+\>", "SubitemNumbered",
+ CellChangeTimes->{{3.9036202559069204`*^9, 3.9036205476056614`*^9}, {
+  3.9036209044088583`*^9, 3.903620914121957*^9}, {3.90362234268802*^9, 
+  3.903622362403719*^9}, {3.9036224884470024`*^9, 3.903622498250781*^9}, {
+  3.9036226781382647`*^9, 3.9036227292017627`*^9}, {3.903685789373844*^9, 
+  3.9036858048258924`*^9}, {3.903687405260816*^9, 3.903687460025*^9}, {
+  3.903687491624073*^9, 
+  3.9036878734994307`*^9}},ExpressionUUID->"fddc7585-a980-48c9-a92c-\
+54f6131505eb"],
+
+Cell[TextData[{
+ "If the shift ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["\[Mu]", "1"], TraditionalForm]],
+  FormatType->TraditionalForm,ExpressionUUID->
+  "3df05d7b-bd7a-4e32-a095-272c091a9103"],
+ " is close to an eigenvalue then the shift argument inputs little of the \
+corresponding eigenvector into the process.  As a result there is a lot of \
+the eigenvector at the end of the process. If the shift is equal to an \
+eigenvalue there is none of the corresponding eigenvector in the input and as \
+a result the output is entirely that eigenvector."
+}], "SubitemNumbered",
+ CellChangeTimes->{{3.9036202559069204`*^9, 3.9036205476056614`*^9}, {
+  3.9036209044088583`*^9, 3.903620914121957*^9}, {3.90362234268802*^9, 
+  3.903622362403719*^9}, {3.9036224884470024`*^9, 3.903622498250781*^9}, {
+  3.9036226781382647`*^9, 3.9036227292017627`*^9}, {3.903685789373844*^9, 
+  3.9036858048258924`*^9}, {3.903687405260816*^9, 3.903687460025*^9}, {
+  3.903687491624073*^9, 3.9036881144117837`*^9}, {3.903688153084841*^9, 
+  3.903688153084841*^9}, {3.9036889820618224`*^9, 
+  3.9036889820618224`*^9}},ExpressionUUID->"f1f352da-ed46-4072-a027-\
+b97b83a662f0"],
+
+Cell["\<\
+Additional tricks involve running trains of bulges in both directions.\
+\>", "SubitemNumbered",
+ CellChangeTimes->{{3.9036202559069204`*^9, 3.9036205476056614`*^9}, {
+  3.9036209044088583`*^9, 3.903620914121957*^9}, {3.90362234268802*^9, 
+  3.903622362403719*^9}, {3.9036224884470024`*^9, 3.903622498250781*^9}, {
+  3.9036226781382647`*^9, 3.9036227292017627`*^9}, {3.903685789373844*^9, 
+  3.9036858048258924`*^9}, {3.903687405260816*^9, 3.903687460025*^9}, {
+  3.903687491624073*^9, 3.9036881144117837`*^9}, {3.903688153084841*^9, 
+  3.903688153084841*^9}, {3.903688983343107*^9, 
+  3.9036890057974396`*^9}},ExpressionUUID->"3c3896d2-43eb-4200-8103-\
+0f00ec18402c"]
+}, Open  ]],
+
+Cell["\<\
+Aggressive early deflation runs the spike trick on the bulge when it gets to \
+the bottom of the matrix and identifies converged eigenvalues in a bottom \
+block with tiny entries in the spike. \
+\>", "ItemNumbered",
+ CellChangeTimes->{{3.9036202559069204`*^9, 3.9036205476056614`*^9}, {
+  3.9036209044088583`*^9, 3.903620914121957*^9}, {3.90362234268802*^9, 
+  3.903622362403719*^9}, {3.9036224884470024`*^9, 3.903622498250781*^9}, {
+  3.9036226781382647`*^9, 3.9036227292017627`*^9}, {3.903685789373844*^9, 
+  3.9036858048258924`*^9}, {3.903687405260816*^9, 3.903687460025*^9}, {
+  3.903687491624073*^9, 3.9036881144117837`*^9}, {3.903688160935665*^9, 
+  3.903688319068263*^9}, {3.9036885244989057`*^9, 
+  3.903688541791218*^9}},ExpressionUUID->"40a4ecff-2b3b-4b03-a8be-\
+992da09d09bd"],
+
+Cell["\<\
+Converged eigenvalues are deflated. The next shifts are chosen from the \
+non-converged eigenvalues of the lower block.  \
+\>", "ItemNumbered",
+ CellChangeTimes->{{3.9036202559069204`*^9, 3.9036205476056614`*^9}, {
+  3.9036209044088583`*^9, 3.903620914121957*^9}, {3.90362234268802*^9, 
+  3.903622362403719*^9}, {3.9036224884470024`*^9, 3.903622498250781*^9}, {
+  3.9036226781382647`*^9, 3.9036227292017627`*^9}, {3.903685789373844*^9, 
+  3.9036858048258924`*^9}, {3.903687405260816*^9, 3.903687460025*^9}, {
+  3.903687491624073*^9, 3.9036881144117837`*^9}, {3.903688160935665*^9, 
+  3.903688319068263*^9}, {3.9036885244989057`*^9, 
+  3.903688682440242*^9}},ExpressionUUID->"d4b19277-6068-4f76-bc0d-\
+1e2f8ec85ee2"],
+
+Cell["\<\
+The heuristic here is that you are sweeping eigenvectors near the old shifts \
+to the bottom. As a result, the lower block is rich in the desired \
+eigenvectors/eigenvalues.  In practice, this shift selection criterion works \
+well once the system has started to converge.\
+\>", "SubitemNumbered",
+ CellChangeTimes->{{3.9036202559069204`*^9, 3.9036205476056614`*^9}, {
+  3.9036209044088583`*^9, 3.903620914121957*^9}, {3.90362234268802*^9, 
+  3.903622362403719*^9}, {3.9036224884470024`*^9, 3.903622498250781*^9}, {
+  3.9036226781382647`*^9, 3.9036227292017627`*^9}, {3.903685789373844*^9, 
+  3.9036858048258924`*^9}, {3.903687405260816*^9, 3.903687460025*^9}, {
+  3.903687491624073*^9, 3.9036881144117837`*^9}, {3.903688160935665*^9, 
+  3.903688319068263*^9}, {3.9036885244989057`*^9, 
+  3.9036888497192554`*^9}},ExpressionUUID->"16a25878-ec53-4e22-98e5-\
+61ededaa4637"]
+}, Open  ]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[TextData[{
+ "State of the Art Implicit QR: ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"A", "=", 
+    RowBox[{"A", "\[Transpose]"}]}], TraditionalForm]],
+  FormatType->TraditionalForm,ExpressionUUID->
+  "26ef0bba-b040-4d20-981c-fe3316a2ce70"]
+}], "Section",
+ CellChangeTimes->{{3.9036874684942474`*^9, 3.9036874945037975`*^9}, {
+  3.9036888695996494`*^9, 
+  3.9036889032825356`*^9}},ExpressionUUID->"5c9082ed-05a1-4e78-bd40-\
+44a50bd8d731"],
+
+Cell[CellGroupData[{
+
+Cell["\<\
+Reduce A to T Hessenberg symmetric tridiagonal using Householder \
+transformations.\
+\>", "ItemNumbered",
+ CellChangeTimes->{{3.9036202559069204`*^9, 3.9036205476056614`*^9}, {
+  3.9036209044088583`*^9, 3.903620914121957*^9}, {3.90362234268802*^9, 
+  3.903622362403719*^9}, {3.9036224884470024`*^9, 3.903622498250781*^9}, {
+  3.9036226781382647`*^9, 3.9036227292017627`*^9}, {3.903685789373844*^9, 
+  3.9036858048258924`*^9}, {3.903687405260816*^9, 3.903687460025*^9}, {
+  3.903687491624073*^9, 3.9036875372180085`*^9}, {3.9036875736301246`*^9, 
+  3.903687574005038*^9}, {3.9036889101933517`*^9, 
+  3.9036889487671523`*^9}},ExpressionUUID->"2e0ad8f9-feb4-4a00-9d4f-\
+f84cd6645090"],
+
+Cell["Trailing tiled updates done in parallel ", "SubitemNumbered",
+ CellChangeTimes->{{3.9036202559069204`*^9, 3.9036205476056614`*^9}, {
+  3.9036209044088583`*^9, 3.903620914121957*^9}, {3.90362234268802*^9, 
+  3.903622362403719*^9}, {3.9036224884470024`*^9, 3.903622498250781*^9}, {
+  3.9036226781382647`*^9, 3.9036227292017627`*^9}, {3.903685789373844*^9, 
+  3.9036858048258924`*^9}, {3.903687405260816*^9, 3.903687460025*^9}, {
+  3.903687491624073*^9, 
+  3.903687566836281*^9}},ExpressionUUID->"0dca070a-2b0b-42ca-acc2-\
+1de5894a6e74"],
+
+Cell[TextData[{
+ "Create bulge incorporating shifts ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"(", 
+    RowBox[{
+     SubscriptBox["\[Mu]", "1"], ",", "\[Ellipsis]", ",", 
+     SubscriptBox["\[Mu]", "p"]}], ")"}], TraditionalForm]],
+  FormatType->TraditionalForm,ExpressionUUID->
+  "d21f568e-4065-439c-bae6-30aaac475c32"],
+ " using the Implicit QR trick. Chase bulge to end using Householder \
+transformations. Repeat. "
+}], "ItemNumbered",
+ CellChangeTimes->{{3.9036202559069204`*^9, 3.9036205476056614`*^9}, {
+  3.9036209044088583`*^9, 3.903620914121957*^9}, {3.90362234268802*^9, 
+  3.903622362403719*^9}, {3.9036224884470024`*^9, 3.903622498250781*^9}, {
+  3.9036226781382647`*^9, 3.9036227292017627`*^9}, {3.903685789373844*^9, 
+  3.9036858048258924`*^9}, {3.903687405260816*^9, 3.903687460025*^9}, {
+  3.903687491624073*^9, 3.903687671500955*^9}, {3.9036882964656014`*^9, 
+  3.903688309054289*^9}, {3.9036890248111277`*^9, 
+  3.9036890265091653`*^9}},ExpressionUUID->"1193da84-9599-425a-b434-\
+47c9d3719a94"],
+
+Cell[CellGroupData[{
+
+Cell["Since T is tridiagonal there are no trailing updates. ", \
+"SubitemNumbered",
+ CellChangeTimes->{{3.9036202559069204`*^9, 3.9036205476056614`*^9}, {
+  3.9036209044088583`*^9, 3.903620914121957*^9}, {3.90362234268802*^9, 
+  3.903622362403719*^9}, {3.9036224884470024`*^9, 3.903622498250781*^9}, {
+  3.9036226781382647`*^9, 3.9036227292017627`*^9}, {3.903685789373844*^9, 
+  3.9036858048258924`*^9}, {3.903687405260816*^9, 3.903687460025*^9}, {
+  3.903687491624073*^9, 3.9036876856772346`*^9}, {3.903688130081781*^9, 
+  3.903688136406684*^9}, {3.9036889379354057`*^9, 
+  3.903688968989728*^9}},ExpressionUUID->"ad916f8b-d7c3-4851-9f0b-\
+6fba5d0a5724"],
+
+Cell["\<\
+In practice, including too many shifts in one pulse produces \
+\[OpenCurlyDoubleQuote]shift blurring\[CloseCurlyDoubleQuote] which reduces \
+accuracy. Current code incorporates a train of small bulges.  An red/black \
+coloring argument shows you can parallelize the train of bulges a bit in \
+addition to the trailing updates.\
+\>", "SubitemNumbered",
+ CellChangeTimes->{{3.9036202559069204`*^9, 3.9036205476056614`*^9}, {
+  3.9036209044088583`*^9, 3.903620914121957*^9}, {3.90362234268802*^9, 
+  3.903622362403719*^9}, {3.9036224884470024`*^9, 3.903622498250781*^9}, {
+  3.9036226781382647`*^9, 3.9036227292017627`*^9}, {3.903685789373844*^9, 
+  3.9036858048258924`*^9}, {3.903687405260816*^9, 3.903687460025*^9}, {
+  3.903687491624073*^9, 
+  3.9036878734994307`*^9}},ExpressionUUID->"9808bffa-d2c0-44a0-abb1-\
+f6b79afd813c"],
+
+Cell[TextData[{
+ "If the shift ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["\[Mu]", "1"], TraditionalForm]],
+  FormatType->TraditionalForm,ExpressionUUID->
+  "e7942d11-f092-4d82-848d-7b79cc1b3c4f"],
+ " is close to an eigenvalue then the shift argument inputs little of the \
+corresponding eigenvector into the process.  As a result there is a lot of \
+the eigenvector at the end of the process. If the shift is equal to an \
+eigenvalue there is none of the corresponding eigenvector in the input and as \
+a result the output is entirely that eigenvector."
+}], "SubitemNumbered",
+ CellChangeTimes->{{3.9036202559069204`*^9, 3.9036205476056614`*^9}, {
+  3.9036209044088583`*^9, 3.903620914121957*^9}, {3.90362234268802*^9, 
+  3.903622362403719*^9}, {3.9036224884470024`*^9, 3.903622498250781*^9}, {
+  3.9036226781382647`*^9, 3.9036227292017627`*^9}, {3.903685789373844*^9, 
+  3.9036858048258924`*^9}, {3.903687405260816*^9, 3.903687460025*^9}, {
+  3.903687491624073*^9, 3.9036881144117837`*^9}, {3.903688153084841*^9, 
+  3.903688153084841*^9}},ExpressionUUID->"e948a2cc-322f-4bb2-b497-\
+42b7be7aea97"]
+}, Open  ]],
+
+Cell["\<\
+Aggressive early deflation runs the spike trick on the bulge when it gets to \
+the bottom of the matrix and identifies converged eigenvalues in a bottom \
+block with tiny entries in the spike. \
+\>", "ItemNumbered",
+ CellChangeTimes->{{3.9036202559069204`*^9, 3.9036205476056614`*^9}, {
+  3.9036209044088583`*^9, 3.903620914121957*^9}, {3.90362234268802*^9, 
+  3.903622362403719*^9}, {3.9036224884470024`*^9, 3.903622498250781*^9}, {
+  3.9036226781382647`*^9, 3.9036227292017627`*^9}, {3.903685789373844*^9, 
+  3.9036858048258924`*^9}, {3.903687405260816*^9, 3.903687460025*^9}, {
+  3.903687491624073*^9, 3.9036881144117837`*^9}, {3.903688160935665*^9, 
+  3.903688319068263*^9}, {3.9036885244989057`*^9, 
+  3.903688541791218*^9}},ExpressionUUID->"c46c5af7-dd6d-4471-8dd2-\
+4c365ae3bcac"],
+
+Cell["\<\
+Converged eigenvalues are deflated. The next shifts are chosen from the \
+non-converged eigenvalues of the lower block.  \
+\>", "ItemNumbered",
+ CellChangeTimes->{{3.9036202559069204`*^9, 3.9036205476056614`*^9}, {
+  3.9036209044088583`*^9, 3.903620914121957*^9}, {3.90362234268802*^9, 
+  3.903622362403719*^9}, {3.9036224884470024`*^9, 3.903622498250781*^9}, {
+  3.9036226781382647`*^9, 3.9036227292017627`*^9}, {3.903685789373844*^9, 
+  3.9036858048258924`*^9}, {3.903687405260816*^9, 3.903687460025*^9}, {
+  3.903687491624073*^9, 3.9036881144117837`*^9}, {3.903688160935665*^9, 
+  3.903688319068263*^9}, {3.9036885244989057`*^9, 
+  3.903688682440242*^9}},ExpressionUUID->"1e7194de-48fa-4249-a570-\
+2b4c6447ef2b"],
+
+Cell["\<\
+The heuristic here is that you are sweeping eigenvectors near the old shifts \
+to the bottom. As a result, the lower block is rich in the desired \
+eigenvectors/eigenvalues.  In practice, this shift selection criterion works \
+well once the system has started to converge.\
+\>", "SubitemNumbered",
+ CellChangeTimes->{{3.9036202559069204`*^9, 3.9036205476056614`*^9}, {
+  3.9036209044088583`*^9, 3.903620914121957*^9}, {3.90362234268802*^9, 
+  3.903622362403719*^9}, {3.9036224884470024`*^9, 3.903622498250781*^9}, {
+  3.9036226781382647`*^9, 3.9036227292017627`*^9}, {3.903685789373844*^9, 
+  3.9036858048258924`*^9}, {3.903687405260816*^9, 3.903687460025*^9}, {
+  3.903687491624073*^9, 3.9036881144117837`*^9}, {3.903688160935665*^9, 
+  3.903688319068263*^9}, {3.9036885244989057`*^9, 
+  3.9036888497192554`*^9}},ExpressionUUID->"be7f2a8e-4db5-46ae-a3a3-\
+d5ea71360f33"]
+}, Open  ]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[TextData[{
+ "State of the Art \[OpenCurlyDoubleQuote]Divide and Conquer\
+\[CloseCurlyDoubleQuote]: ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"A", "=", 
+    RowBox[{"A", "\[Transpose]"}]}], TraditionalForm]],
+  FormatType->TraditionalForm,ExpressionUUID->
+  "4dc13eed-4e55-4da1-a70c-6671b58b337a"]
+}], "Section",
+ CellChangeTimes->{{3.9036874684942474`*^9, 3.9036874945037975`*^9}, {
+  3.9036888695996494`*^9, 3.9036889032825356`*^9}, {3.903689054320486*^9, 
+  3.9036890556610622`*^9}, {3.903689133611244*^9, 
+  3.903689140947466*^9}},ExpressionUUID->"2a93088d-654d-4974-9206-\
+f503058bf299"],
+
+Cell["\<\
+https://en.wikipedia.org/wiki/Divide-and-conquer_eigenvalue_algorithm\
+\>", "Text",
+ CellChangeTimes->{
+  3.9036891498575706`*^9},ExpressionUUID->"62d7c174-9dbe-46ce-94f0-\
+15c4760cd3cf"],
+
+Cell[CellGroupData[{
+
+Cell["\<\
+Reduce A to T Hessenberg symmetric tridiagonal using Householder \
+transformations.\
+\>", "ItemNumbered",
+ CellChangeTimes->{{3.9036202559069204`*^9, 3.9036205476056614`*^9}, {
+  3.9036209044088583`*^9, 3.903620914121957*^9}, {3.90362234268802*^9, 
+  3.903622362403719*^9}, {3.9036224884470024`*^9, 3.903622498250781*^9}, {
+  3.9036226781382647`*^9, 3.9036227292017627`*^9}, {3.903685789373844*^9, 
+  3.9036858048258924`*^9}, {3.903687405260816*^9, 3.903687460025*^9}, {
+  3.903687491624073*^9, 3.9036875372180085`*^9}, {3.9036875736301246`*^9, 
+  3.903687574005038*^9}, {3.9036889101933517`*^9, 
+  3.9036889487671523`*^9}},ExpressionUUID->"da76b886-af38-4fc9-b6c7-\
+8fed37f7459a"],
+
+Cell["Trailing tiled updates done in parallel ", "SubitemNumbered",
+ CellChangeTimes->{{3.9036202559069204`*^9, 3.9036205476056614`*^9}, {
+  3.9036209044088583`*^9, 3.903620914121957*^9}, {3.90362234268802*^9, 
+  3.903622362403719*^9}, {3.9036224884470024`*^9, 3.903622498250781*^9}, {
+  3.9036226781382647`*^9, 3.9036227292017627`*^9}, {3.903685789373844*^9, 
+  3.9036858048258924`*^9}, {3.903687405260816*^9, 3.903687460025*^9}, {
+  3.903687491624073*^9, 
+  3.903687566836281*^9}},ExpressionUUID->"180e84ac-9645-47a5-912f-\
+1f358434d099"],
+
+Cell["\<\
+Split matrix in two using the structure in the wiki article. \
+\>", "ItemNumbered",
+ CellChangeTimes->{{3.9036202559069204`*^9, 3.9036205476056614`*^9}, {
+  3.9036209044088583`*^9, 3.903620914121957*^9}, {3.90362234268802*^9, 
+  3.903622362403719*^9}, {3.9036224884470024`*^9, 3.903622498250781*^9}, {
+  3.9036226781382647`*^9, 3.9036227292017627`*^9}, {3.903685789373844*^9, 
+  3.9036858048258924`*^9}, {3.903687405260816*^9, 3.903687460025*^9}, {
+  3.903687491624073*^9, 3.903687671500955*^9}, {3.9036882964656014`*^9, 
+  3.903688309054289*^9}, {3.9036890248111277`*^9, 3.9036890265091653`*^9}, {
+  3.9036890855412226`*^9, 3.9036891023846097`*^9}, {3.903689212884653*^9, 
+  3.9036892507057357`*^9}, {3.903689293622775*^9, 
+  3.903689326781542*^9}},ExpressionUUID->"dbf5a3e1-e2d2-45e3-a9ae-\
+80e1e14c3c92"],
+
+Cell[CellGroupData[{
+
+Cell["Compute the \[OpenCurlyDoubleQuote]correction\[CloseCurlyDoubleQuote] \
+using the secular equation", "SubitemNumbered",
+ CellChangeTimes->{{3.9036202559069204`*^9, 3.9036205476056614`*^9}, {
+  3.9036209044088583`*^9, 3.903620914121957*^9}, {3.90362234268802*^9, 
+  3.903622362403719*^9}, {3.9036224884470024`*^9, 3.903622498250781*^9}, {
+  3.9036226781382647`*^9, 3.9036227292017627`*^9}, {3.903685789373844*^9, 
+  3.9036858048258924`*^9}, {3.903687405260816*^9, 3.903687460025*^9}, {
+  3.903687491624073*^9, 3.903687671500955*^9}, {3.9036882964656014`*^9, 
+  3.903688309054289*^9}, {3.9036890248111277`*^9, 3.9036890265091653`*^9}, {
+  3.9036890855412226`*^9, 3.9036891023846097`*^9}, {3.903689212884653*^9, 
+  3.9036892507057357`*^9}, {3.903689293622775*^9, 
+  3.9036893476782017`*^9}},ExpressionUUID->"ec109fda-3849-4144-ab1d-\
+e2acc6da8873"],
+
+Cell["Repeat until the fragments are tiny.", "SubitemNumbered",
+ CellChangeTimes->{{3.9036202559069204`*^9, 3.9036205476056614`*^9}, {
+  3.9036209044088583`*^9, 3.903620914121957*^9}, {3.90362234268802*^9, 
+  3.903622362403719*^9}, {3.9036224884470024`*^9, 3.903622498250781*^9}, {
+  3.9036226781382647`*^9, 3.9036227292017627`*^9}, {3.903685789373844*^9, 
+  3.9036858048258924`*^9}, {3.903687405260816*^9, 3.903687460025*^9}, {
+  3.903687491624073*^9, 3.903687671500955*^9}, {3.9036882964656014`*^9, 
+  3.903688309054289*^9}, {3.9036890248111277`*^9, 3.9036890265091653`*^9}, {
+  3.9036890855412226`*^9, 3.9036891023846097`*^9}, {3.903689212884653*^9, 
+  3.9036892507057357`*^9}, {3.903689293622775*^9, 
+  3.9036893754881744`*^9}},ExpressionUUID->"fdd01864-1d6c-4f3f-b9e0-\
+b56584409931"]
+}, Open  ]]
+}, Open  ]],
+
+Cell[TextData[{
+ "The key to understanding why this is useful is recursion. \nSuppose I have \
+a function ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"f", "(", "n", ")"}], TraditionalForm]],
+  FormatType->TraditionalForm,ExpressionUUID->
+  "0e56f6f3-5a3b-422a-abdd-18944c00525b"],
+ " of n and I know that for instance\n\tf(n) = \[Alpha] f(n/2) + \[Beta] \n\
+then I know what f is. \n"
+}], "Text",
+ CellChangeTimes->{{3.9036893816567717`*^9, 3.9036895124027324`*^9}, {
+  3.9036896037812924`*^9, 3.903689606398836*^9}, {3.903689686069832*^9, 
+  3.903689703117586*^9}},ExpressionUUID->"73a234c3-e304-4cfa-96b7-\
+6cc8eec50f57"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"RSolve", "[", " ", 
+   RowBox[{
+    RowBox[{"{", 
+     RowBox[{
+      RowBox[{
+       RowBox[{"f", "[", "n", "]"}], "==", 
+       RowBox[{
+        RowBox[{"\[Alpha]", " ", 
+         RowBox[{"f", "[", 
+          RowBox[{"n", "/", "2"}], "]"}]}], "+", "\[Beta]"}]}], ",", 
+      RowBox[{
+       RowBox[{"f", "[", "1", "]"}], "==", "1"}]}], "}"}], ",", " ", 
+    RowBox[{"f", "[", "n", "]"}], ",", "n"}], "]"}], "//", 
+  "FullSimplify"}]], "Input",
+ CellChangeTimes->{{3.903689532659607*^9, 3.903689675708125*^9}, {
+  3.9036897447735243`*^9, 3.90368975443266*^9}},
+ CellLabel->
+  "In[264]:=",ExpressionUUID->"7a08db91-f604-4cdf-b793-6c4dd9159e64"],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{"{", 
+   RowBox[{
+    RowBox[{"f", "[", "n", "]"}], "\[Rule]", 
+    FractionBox[
+     RowBox[{
+      RowBox[{"-", "\[Beta]"}], "+", 
+      RowBox[{
+       SuperscriptBox["\[Alpha]", 
+        FractionBox[
+         RowBox[{"Log", "[", "n", "]"}], 
+         RowBox[{"Log", "[", "2", "]"}]]], " ", 
+       RowBox[{"(", 
+        RowBox[{
+         RowBox[{"-", "1"}], "+", "\[Alpha]", "+", "\[Beta]"}], ")"}]}]}], 
+     RowBox[{
+      RowBox[{"-", "1"}], "+", "\[Alpha]"}]]}], "}"}], "}"}]], "Output",
+ CellChangeTimes->{
+  3.903689551357814*^9, 3.9036895913309784`*^9, {3.903689621742877*^9, 
+   3.903689676488845*^9}, {3.903689745563822*^9, 3.903689755478917*^9}},
+ CellLabel->
+  "Out[264]=",ExpressionUUID->"7ae75dad-8aba-4fcb-ac9d-830e11d6df1f"]
+}, Open  ]]
+}, Open  ]]
+}, Open  ]]
+},
+WindowToolbars->"EditBar",
+WindowSize->{1141, 580},
+WindowMargins->{{1765, Automatic}, {Automatic, 33}},
+TaggingRules->Association[
+ "PresenterSettings" -> Association["Dialogs" -> {}], "TryRealOnly" -> False],
+FrontEndVersion->"12.3 for Microsoft Windows (64-bit) (May 11, 2021)",
+StyleDefinitions->FrontEnd`FileName[{"PresenterTools"}, "Aqua.nb", 
+  CharacterEncoding -> "UTF-8"],
+ExpressionUUID->"75d9d0a8-7ed6-44d6-be3b-76c52def2110"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[CellGroupData[{
+Cell[580, 22, 730, 12, 123, "Title",ExpressionUUID->"e2963c2e-c009-4cf8-851d-5ca4355293b4"],
+Cell[CellGroupData[{
+Cell[1335, 38, 188, 3, 65, "Section",ExpressionUUID->"d18603b6-5f99-41b8-9194-43442b533ddf"],
+Cell[CellGroupData[{
+Cell[1548, 45, 608, 9, 34, "ItemNumbered",ExpressionUUID->"788ad4ec-d231-45cd-b903-86080306a38c"],
+Cell[2159, 56, 540, 8, 27, "SubitemNumbered",ExpressionUUID->"c3ab963c-3a7e-488d-b475-46ab38825256"],
+Cell[2702, 66, 972, 20, 57, "ItemNumbered",ExpressionUUID->"96eeabd3-be75-4d22-a731-52d3044bd00d"],
+Cell[CellGroupData[{
+Cell[3699, 90, 588, 8, 27, "SubitemNumbered",ExpressionUUID->"856c7a15-30ce-4ea2-a3a9-62615735586b"],
+Cell[4290, 100, 836, 14, 47, "SubitemNumbered",ExpressionUUID->"fddc7585-a980-48c9-a92c-54f6131505eb"],
+Cell[5129, 116, 1153, 21, 67, "SubitemNumbered",ExpressionUUID->"f1f352da-ed46-4072-a027-b97b83a662f0"],
+Cell[6285, 139, 677, 11, 27, "SubitemNumbered",ExpressionUUID->"3c3896d2-43eb-4200-8103-0f00ec18402c"]
+}, Open  ]],
+Cell[6977, 153, 797, 13, 57, "ItemNumbered",ExpressionUUID->"40a4ecff-2b3b-4b03-a8be-992da09d09bd"],
+Cell[7777, 168, 725, 12, 34, "ItemNumbered",ExpressionUUID->"d4b19277-6068-4f76-bc0d-1e2f8ec85ee2"],
+Cell[8505, 182, 881, 14, 47, "SubitemNumbered",ExpressionUUID->"16a25878-ec53-4e22-98e5-61ededaa4637"]
+}, Open  ]]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[9435, 202, 441, 12, 65, "Section",ExpressionUUID->"5c9082ed-05a1-4e78-bd40-44a50bd8d731"],
+Cell[CellGroupData[{
+Cell[9901, 218, 691, 12, 34, "ItemNumbered",ExpressionUUID->"2e0ad8f9-feb4-4a00-9d4f-f84cd6645090"],
+Cell[10595, 232, 540, 8, 27, "SubitemNumbered",ExpressionUUID->"0dca070a-2b0b-42ca-acc2-1de5894a6e74"],
+Cell[11138, 242, 1012, 21, 34, "ItemNumbered",ExpressionUUID->"1193da84-9599-425a-b434-47c9d3719a94"],
+Cell[CellGroupData[{
+Cell[12175, 267, 655, 10, 27, "SubitemNumbered",ExpressionUUID->"ad916f8b-d7c3-4851-9f0b-6fba5d0a5724"],
+Cell[12833, 279, 836, 14, 47, "SubitemNumbered",ExpressionUUID->"9808bffa-d2c0-44a0-abb1-f6b79afd813c"],
+Cell[13672, 295, 1100, 20, 67, "SubitemNumbered",ExpressionUUID->"e948a2cc-322f-4bb2-b497-42b7be7aea97"]
+}, Open  ]],
+Cell[14787, 318, 797, 13, 57, "ItemNumbered",ExpressionUUID->"c46c5af7-dd6d-4471-8dd2-4c365ae3bcac"],
+Cell[15587, 333, 725, 12, 34, "ItemNumbered",ExpressionUUID->"1e7194de-48fa-4249-a570-2b4c6447ef2b"],
+Cell[16315, 347, 881, 14, 47, "SubitemNumbered",ExpressionUUID->"be7f2a8e-4db5-46ae-a3a3-d5ea71360f33"]
+}, Open  ]]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[17245, 367, 594, 14, 65, "Section",ExpressionUUID->"2a93088d-654d-4974-9206-f503058bf299"],
+Cell[17842, 383, 197, 5, 34, "Text",ExpressionUUID->"62d7c174-9dbe-46ce-94f0-15c4760cd3cf"],
+Cell[CellGroupData[{
+Cell[18064, 392, 691, 12, 34, "ItemNumbered",ExpressionUUID->"da76b886-af38-4fc9-b6c7-8fed37f7459a"],
+Cell[18758, 406, 540, 8, 27, "SubitemNumbered",ExpressionUUID->"180e84ac-9645-47a5-912f-1f358434d099"],
+Cell[19301, 416, 817, 13, 34, "ItemNumbered",ExpressionUUID->"dbf5a3e1-e2d2-45e3-a9ae-80e1e14c3c92"],
+Cell[CellGroupData[{
+Cell[20143, 433, 851, 12, 27, "SubitemNumbered",ExpressionUUID->"ec109fda-3849-4144-ab1d-e2acc6da8873"],
+Cell[20997, 447, 789, 11, 27, "SubitemNumbered",ExpressionUUID->"fdd01864-1d6c-4f3f-b9e0-b56584409931"]
+}, Open  ]]
+}, Open  ]],
+Cell[21813, 462, 619, 14, 126, "Text",ExpressionUUID->"73a234c3-e304-4cfa-96b7-6cc8eec50f57"],
+Cell[CellGroupData[{
+Cell[22457, 480, 679, 19, 28, "Input",ExpressionUUID->"7a08db91-f604-4cdf-b793-6c4dd9159e64"],
+Cell[23139, 501, 782, 22, 61, "Output",ExpressionUUID->"7ae75dad-8aba-4fcb-ac9d-830e11d6df1f"]
+}, Open  ]]
+}, Open  ]]
+}, Open  ]]
+}
+]
+*)
+
