@@ -10,10 +10,10 @@
 NotebookFileLineBreakTest
 NotebookFileLineBreakTest
 NotebookDataPosition[       158,          7]
-NotebookDataLength[    489637,       8831]
-NotebookOptionsPosition[    484120,       8738]
-NotebookOutlinePosition[    484631,       8757]
-CellTagsIndexPosition[    484588,       8754]
+NotebookDataLength[    501528,       9194]
+NotebookOptionsPosition[    495287,       9092]
+NotebookOutlinePosition[    495798,       9111]
+CellTagsIndexPosition[    495755,       9108]
 WindowFrame->Normal*)
 
 (* Beginning of Notebook Content *)
@@ -8494,6 +8494,360 @@ IAiCIAiCIAiCIAiCIAiCIAiCIAiCIAiCIAiCIAiCIAgt/B9hrIQi
   PlotRange->{{0, 561.6}, {0, 351.6}}]], "Input",ExpressionUUID->"eda0bd4d-\
 4a3a-4967-a485-28a1561eacf1"]
 }, Open  ]]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["5.3 Diagonalization", "Section",
+ CellChangeTimes->{{3.9062857721201787`*^9, 3.906285783145425*^9}, {
+  3.906461263019992*^9, 
+  3.9064612704642897`*^9}},ExpressionUUID->"4b370e5a-1b0e-481a-9ae5-\
+17e3dc8a37e3"],
+
+Cell[TextData[{
+ "We can pretend that most square matrices are diagonal!  The matrix ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"A", "=", 
+    RowBox[{"(", GridBox[{
+       {"3", "1"},
+       {"1", "3"}
+      }], ")"}]}], TraditionalForm]],
+  FormatType->TraditionalForm,ExpressionUUID->
+  "648cf792-c43b-4d11-8085-f29bbea9b172"],
+ " is similar to ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"(", GridBox[{
+      {"4", "0"},
+      {"0", "2"}
+     }], ")"}], TraditionalForm]],
+  FormatType->TraditionalForm,ExpressionUUID->
+  "f00466a3-6e88-45c7-9fcc-0369757c3dbd"],
+ " since \t",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{" ", 
+    RowBox[{"A", "  ", "=", 
+     RowBox[{"P", ".", 
+      RowBox[{"(", GridBox[{
+         {"4", "0"},
+         {"0", "2"}
+        }], ")"}], ".", 
+      SuperscriptBox["P", 
+       RowBox[{"-", "1"}]]}]}]}], TraditionalForm]],
+  FormatType->TraditionalForm,ExpressionUUID->
+  "ce296270-20be-45c5-a0f1-adfcc7783366"],
+ "\nfor ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"P", "=", 
+    RowBox[{"(", GridBox[{
+       {"1", "1"},
+       {"1", 
+        RowBox[{"-", "1"}]}
+      }], ")"}]}], TraditionalForm]],
+  FormatType->TraditionalForm,ExpressionUUID->
+  "98b13240-8060-4207-a4f1-d22aafd20642"],
+ ".   Where did ",
+ Cell[BoxData[
+  FormBox["P", TraditionalForm]],
+  FormatType->TraditionalForm,ExpressionUUID->
+  "ae4338ae-8e6e-46d8-9c84-bc03e00af694"],
+ " come from?  Well, the first column ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    SubscriptBox["p", "1"], "=", 
+    RowBox[{"(", GridBox[{
+       {"1"},
+       {"1"}
+      }], ")"}]}], TraditionalForm]],
+  FormatType->TraditionalForm,ExpressionUUID->
+  "3366b8c0-c860-4a6c-b08d-ebacd92f9b5d"],
+ " is an eigenvector associated with ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"\[Lambda]", "=", "4"}], TraditionalForm]],
+  FormatType->TraditionalForm,ExpressionUUID->
+  "e1d7fb34-0e8b-4712-9d5a-46182655740a"],
+ " and the second column ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    SubscriptBox["p", "2"], "=", 
+    RowBox[{"(", GridBox[{
+       {"1"},
+       {
+        RowBox[{"-", "1"}]}
+      }], ")"}]}], TraditionalForm]],
+  FormatType->TraditionalForm,ExpressionUUID->
+  "bf58e747-8ce2-48c0-a6cc-f12af501ae4a"],
+ " is an eigenvector associated with ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"\[Lambda]", "=", "2"}], TraditionalForm]],
+  FormatType->TraditionalForm,ExpressionUUID->
+  "17581dd9-36a5-4b6e-8191-6551f7da5e7d"],
+ ".    "
+}], "Text",
+ CellChangeTimes->{{3.9062858390694942`*^9, 3.9062858617449627`*^9}, {
+  3.906461284766593*^9, 3.9064613221279716`*^9}, {3.9064614191370573`*^9, 
+  3.90646151033305*^9}, {3.906461643810007*^9, 3.906461835319107*^9}, {
+  3.906462068123519*^9, 3.906462214680561*^9}, {3.9064622663208084`*^9, 
+  3.9064623813849144`*^9}, {3.906462420538162*^9, 
+  3.906462479991314*^9}},ExpressionUUID->"295cdb6a-0b4d-4cbb-a2b2-\
+9ec8695ed30a"],
+
+Cell[TextData[{
+ "Definition: ",
+ Cell[BoxData[
+  FormBox["A", TraditionalForm]],
+  FormatType->TraditionalForm,ExpressionUUID->
+  "cca7f581-e83f-4cbb-8665-c813e4726e85"],
+ " is ",
+ StyleBox["diagonalizable",
+  FontVariations->{"Underline"->True}],
+ " if ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"A", "=", 
+    RowBox[{"P", " ", "D", " ", 
+     SuperscriptBox["P", 
+      RowBox[{"-", "1"}]]}]}], TraditionalForm]],
+  FormatType->TraditionalForm,ExpressionUUID->
+  "107bb1c3-30d2-43cb-897f-d043f7d9a926"],
+ " for a diagonal matrix ",
+ Cell[BoxData[
+  FormBox["D", TraditionalForm]],
+  FormatType->TraditionalForm,ExpressionUUID->
+  "16c019d5-8413-48b4-a4ba-e8dbeccb5973"],
+ ". "
+}], "Text",
+ CellChangeTimes->{{3.906462702359604*^9, 3.90646276745671*^9}},
+ Background->RGBColor[
+  0.88, 1, 0.88],ExpressionUUID->"6a27de68-b1f0-4fdb-a2b8-189d24d6ac7a"],
+
+Cell[TextData[{
+ "It is easy to compute powers of a diagonalizable matrix ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"A", "=", 
+    RowBox[{"P", " ", "D", " ", 
+     SuperscriptBox["P", 
+      RowBox[{"-", "1"}]]}]}], TraditionalForm]],
+  FormatType->TraditionalForm,ExpressionUUID->
+  "55e498ad-1310-4ace-b2c4-7f69f2d7f9e0"],
+ ".  Clearly\n\t",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    SuperscriptBox["A", "2"], "=", 
+    RowBox[{
+     RowBox[{"P", " ", "D", " ", 
+      SuperscriptBox["P", 
+       RowBox[{"-", "1"}]], "P", " ", "D", " ", 
+      SuperscriptBox["P", 
+       RowBox[{"-", "1"}]]}], "=", 
+     RowBox[{
+      RowBox[{"P", " ", "D", " ", 
+       RowBox[{"(", 
+        RowBox[{
+         SuperscriptBox["P", 
+          RowBox[{"-", "1"}]], "P"}], ")"}], " ", "D", " ", 
+       SuperscriptBox["P", 
+        RowBox[{"-", "1"}]]}], "=", 
+      RowBox[{
+       RowBox[{"P", " ", "D", " ", "D", " ", 
+        SuperscriptBox["P", 
+         RowBox[{"-", "1"}]]}], "=", 
+       RowBox[{"P", " ", 
+        SuperscriptBox["D", "2"], 
+        SuperscriptBox["P", 
+         RowBox[{"-", "1"}]]}]}]}]}]}], TraditionalForm]],
+  FormatType->TraditionalForm,ExpressionUUID->
+  "c1a6392a-85d6-469c-97ac-ed87ffd5259d"],
+ "\nand it works similarly for higher powers. \n\t",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    SuperscriptBox["A", "k"], "=", 
+    RowBox[{"P", " ", 
+     SuperscriptBox["D", "k"], 
+     SuperscriptBox["P", 
+      RowBox[{"-", "1"}]]}]}], TraditionalForm]],
+  FormatType->TraditionalForm,ExpressionUUID->
+  "ff0a7c57-f8e9-4806-b605-a02b2e873972"],
+ ".  "
+}], "Text",
+ CellChangeTimes->{{3.906461865332323*^9, 3.9064618778802314`*^9}, {
+  3.906462021724839*^9, 3.906462050516616*^9}, {3.906462484709018*^9, 
+  3.9064626316206813`*^9}, {3.906462790072174*^9, 
+  3.906462859116413*^9}},ExpressionUUID->"9ca88ce2-8824-450f-9beb-\
+dd4c25a27d0c"],
+
+Cell[TextData[{
+ "Theorem 5: Diagonalization Theorem. An ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"n", "\[Times]", "n"}], TraditionalForm]],
+  FormatType->TraditionalForm,ExpressionUUID->
+  "33de9939-7750-4fb9-9c71-c3363690b799"],
+ " matrix A is diagonalizable iff it has n Linearly Independent eigenvectors. "
+}], "Text",
+ CellChangeTimes->{{3.9064626388231497`*^9, 3.9064626952971807`*^9}, {
+  3.9064628668646393`*^9, 3.906462909965187*^9}},
+ Background->RGBColor[
+  0.94, 0.88, 0.94],ExpressionUUID->"ef8ec2e4-0fac-4744-a211-dbdf39a3ccb0"],
+
+Cell[TextData[{
+ "Why: Assume ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{"A", " ", 
+     SubscriptBox["v", "i"]}], "=", 
+    RowBox[{
+     SubscriptBox["\[Lambda]", "i"], 
+     SubscriptBox["v", "i"]}]}], TraditionalForm]],
+  FormatType->TraditionalForm,ExpressionUUID->
+  "ea71fbb4-a3aa-4695-bf6e-3f815e80fc58"],
+ " and build ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"P", "=", " ", 
+    RowBox[{"(", GridBox[{
+       {
+        SubscriptBox["v", "1"], 
+        SubscriptBox["v", "2"], "\[Ellipsis]", 
+        SubscriptBox["v", "n"]}
+      }], ")"}]}], TraditionalForm]],
+  FormatType->TraditionalForm,ExpressionUUID->
+  "b836fd7b-ab7d-46b4-8764-d0b13b1c2e7e"],
+ ".  Then \n\t",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{"A", " ", "P"}], "=", 
+    RowBox[{
+     RowBox[{"A", " ", 
+      RowBox[{"(", GridBox[{
+         {
+          SubscriptBox["v", "1"], 
+          SubscriptBox["v", "2"], "\[Ellipsis]", 
+          SubscriptBox["v", "n"]}
+        }], ")"}]}], "=", " ", 
+     RowBox[{
+      RowBox[{"(", GridBox[{
+         {
+          SubscriptBox["Av", "1"], 
+          SubscriptBox["Av", "2"], "\[Ellipsis]", 
+          SubscriptBox["Av", "n"]}
+        }], ")"}], "=", "  ", 
+      RowBox[{"(", 
+       RowBox[{
+        SubscriptBox["\[Lambda]", "1"], GridBox[{
+          {
+           SubscriptBox["v", "1"], 
+           RowBox[{
+            SubscriptBox["\[Lambda]", "2"], 
+            SubscriptBox["v", "2"]}], "\[Ellipsis]", 
+           RowBox[{
+            SubscriptBox["\[Lambda]", "n"], 
+            SubscriptBox["v", "n"]}]}
+         }]}], ")"}], " "}]}]}], TraditionalForm]],
+  FormatType->TraditionalForm,ExpressionUUID->
+  "9e7ab610-a19b-4fca-acc9-8a3c21fe9c3a"],
+ "\nand \n\t",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{Cell[TextData[Cell[BoxData[
+      FormBox[
+       RowBox[{"(", GridBox[{
+          {
+           SubscriptBox["\[Lambda]", "1"], "0", "\[Ellipsis]", "0"},
+          {"0", 
+           SubscriptBox["\[Lambda]", "2"], " ", "0"},
+          {"\[VerticalEllipsis]", " ", "\[DescendingEllipsis]", 
+           "\[VerticalEllipsis]"},
+          {"0", "0", "\[Ellipsis]", 
+           SubscriptBox["\[Lambda]", "n"]}
+         }], ")"}], TraditionalForm]],
+      FormatType->TraditionalForm,ExpressionUUID->
+      "f8bb0060-7d69-4035-ad3a-716789f0528e"]],ExpressionUUID->
+      "689c8e34-a0ff-40da-be2c-26fa68097521"], "P"}], "=", 
+    RowBox[{
+     RowBox[{Cell[TextData[Cell[BoxData[
+       FormBox[
+        RowBox[{"(", GridBox[{
+           {
+            SubscriptBox["\[Lambda]", "1"], "0", "\[Ellipsis]", "0"},
+           {"0", 
+            SubscriptBox["\[Lambda]", "2"], " ", "0"},
+           {"\[VerticalEllipsis]", " ", "\[DescendingEllipsis]", 
+            "\[VerticalEllipsis]"},
+           {"0", "0", "\[Ellipsis]", 
+            SubscriptBox["\[Lambda]", "n"]}
+          }], ")"}], TraditionalForm]],
+       FormatType->TraditionalForm,ExpressionUUID->
+       "d42e929f-a595-4924-a8e0-6d093259f168"]],ExpressionUUID->
+       "79827ca3-a7a5-4939-99b1-f57c61922a4c"], " ", 
+      RowBox[{"(", GridBox[{
+         {
+          SubscriptBox["v", "1"], 
+          SubscriptBox["v", "2"], "\[Ellipsis]", 
+          SubscriptBox["v", "n"]}
+        }], ")"}]}], "=", 
+     RowBox[{"(", 
+      RowBox[{
+       SubscriptBox["\[Lambda]", "1"], GridBox[{
+         {
+          SubscriptBox["v", "1"], 
+          RowBox[{
+           SubscriptBox["\[Lambda]", "2"], 
+           SubscriptBox["v", "2"]}], "\[Ellipsis]", 
+          RowBox[{
+           SubscriptBox["\[Lambda]", "n"], 
+           SubscriptBox["v", "n"]}]}
+        }]}], ")"}]}]}], TraditionalForm]],
+  FormatType->TraditionalForm,ExpressionUUID->
+  "0a61b6e8-c9a4-4e76-956d-872461af7c2b"],
+ "\nare the same so \n\t",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{"A", " ", "P"}], "=", 
+    RowBox[{"D", " ", "P"}]}], TraditionalForm]],
+  FormatType->TraditionalForm,ExpressionUUID->
+  "7b6d26e9-6c4d-4811-97fe-8a787365e812"]
+}], "Text",
+ CellChangeTimes->{{3.9064626388231497`*^9, 3.9064626952971807`*^9}, {
+  3.9064628668646393`*^9, 3.906463455379264*^9}},
+ Background->RGBColor[
+  0.94, 0.88, 0.94],ExpressionUUID->"b0740a0f-e366-4f88-a3d3-941bd44a8799"],
+
+Cell[TextData[{
+ "Diagonalize ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"(", GridBox[{
+      {"1", "3", "3"},
+      {
+       RowBox[{"-", "3"}], 
+       RowBox[{"-", "5"}], 
+       RowBox[{"-", "3"}]},
+      {"3", "3", "1"}
+     }], ")"}], TraditionalForm]],
+  FormatType->TraditionalForm,ExpressionUUID->
+  "81557532-4a40-4ddc-8c39-55b36c74dc9e"],
+ " \n"
+}], "ItemNumbered",
+ CellChangeTimes->{{3.906285810735995*^9, 3.9062858356952763`*^9}, {
+  3.906285879810129*^9, 3.9062861993666525`*^9}, {3.906286354915329*^9, 
+  3.906286397535026*^9}, {3.9064635072077794`*^9, 
+  3.9064635678307223`*^9}},ExpressionUUID->"9118ca08-a2a8-4e70-a436-\
+50052bc12bb1"]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -8826,10 +9180,19 @@ Cell[50286, 1528, 148, 3, 81, "Subsection",ExpressionUUID->"57246abf-095a-4d02-8
 Cell[50437, 1533, 108138, 1777, 240, "Input",ExpressionUUID->"3b90e729-a28d-4120-bce6-0f930d6cfacd"],
 Cell[158578, 3312, 315866, 5182, 546, "Input",ExpressionUUID->"eda0bd4d-4a3a-4967-a485-28a1561eacf1"]
 }, Open  ]]
+}, Closed]],
+Cell[CellGroupData[{
+Cell[474493, 8500, 217, 4, 77, "Section",ExpressionUUID->"4b370e5a-1b0e-481a-9ae5-17e3dc8a37e3"],
+Cell[474713, 8506, 2836, 93, 248, "Text",ExpressionUUID->"295cdb6a-0b4d-4cbb-a2b2-9ec8695ed30a"],
+Cell[477552, 8601, 850, 27, 76, "Text",ExpressionUUID->"6a27de68-b1f0-4fdb-a2b8-189d24d6ac7a"],
+Cell[478405, 8630, 1853, 56, 157, "Text",ExpressionUUID->"9ca88ce2-8824-450f-9beb-dd4c25a27d0c"],
+Cell[480261, 8688, 541, 12, 111, "Text",ExpressionUUID->"ef8ec2e4-0fac-4744-a211-dbdf39a3ccb0"],
+Cell[480805, 8702, 4164, 125, 335, "Text",ExpressionUUID->"b0740a0f-e366-4f88-a3d3-941bd44a8799"],
+Cell[484972, 8829, 651, 20, 132, "ItemNumbered",ExpressionUUID->"9118ca08-a2a8-4e70-a436-50052bc12bb1"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[474493, 8500, 160, 3, 100, "Section",ExpressionUUID->"5c26734a-889b-46d3-a44c-43d529158be1"],
-Cell[474656, 8505, 9436, 229, 924, "Input",ExpressionUUID->"3608da8d-2ee3-4e7d-a9a8-137ab8c6e9cf",
+Cell[485660, 8854, 160, 3, 100, "Section",ExpressionUUID->"5c26734a-889b-46d3-a44c-43d529158be1"],
+Cell[485823, 8859, 9436, 229, 924, "Input",ExpressionUUID->"3608da8d-2ee3-4e7d-a9a8-137ab8c6e9cf",
  InitializationCell->True]
 }, Closed]]
 }, Open  ]]
