@@ -10,10 +10,10 @@
 NotebookFileLineBreakTest
 NotebookFileLineBreakTest
 NotebookDataPosition[       158,          7]
-NotebookDataLength[    781795,      15698]
-NotebookOptionsPosition[    768041,      15471]
-NotebookOutlinePosition[    768560,      15490]
-CellTagsIndexPosition[    768517,      15487]
+NotebookDataLength[    783955,      15758]
+NotebookOptionsPosition[    770101,      15530]
+NotebookOutlinePosition[    770620,      15549]
+CellTagsIndexPosition[    770577,      15546]
 WindowFrame->Normal*)
 
 (* Beginning of Notebook Content *)
@@ -15140,7 +15140,63 @@ Cell[BoxData[
  CellLabel->
   "Out[64]//MatrixForm=",ExpressionUUID->"cb62895a-456d-4b46-a88b-\
 c61ca01dab5b"]
+}, Open  ]]
+}, Open  ]]
+}, Open  ]]
 }, Open  ]],
+
+Cell[TextData[{
+ "Any real 2\[Times]2 matrix A is similar in real arithmetic to either \n\t",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"A", "~", Cell[TextData[Cell[BoxData[
+     FormBox[
+      RowBox[{"(", GridBox[{
+         {
+          SubscriptBox["\[Lambda]", "1"], "0"},
+         {"0", 
+          SubscriptBox["\[Lambda]", "2"]}
+        }], ")"}], TraditionalForm]],
+     FormatType->TraditionalForm,ExpressionUUID->
+     "5ca33010-e994-4f73-9e75-7d9686ca16dc"]],ExpressionUUID->
+     "c6dc8da1-febe-4186-ac1c-390f7c084733"]}], TraditionalForm]],
+  FormatType->TraditionalForm,ExpressionUUID->
+  "42be259e-8b24-40e6-bae1-1b1f7932fbd7"],
+ "\nif A has real eigenvalues ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["\[Lambda]", "1"], TraditionalForm]],
+  FormatType->TraditionalForm,ExpressionUUID->
+  "f5dfb747-81ac-44fe-9a6b-3093a97f20ef"],
+ "and ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["\[Lambda]", "2"], TraditionalForm]],
+  FormatType->TraditionalForm,ExpressionUUID->
+  "f70523ca-ecde-46e2-ab71-73c7a27e27d2"],
+ "  or \n\t",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"A", "~", 
+    RowBox[{"(", GridBox[{
+       {"a", 
+        RowBox[{"-", "b"}]},
+       {"b", "a"}
+      }], ")"}]}], TraditionalForm]],
+  FormatType->TraditionalForm,ExpressionUUID->
+  "572be331-076b-44d3-96d5-236963369e63"],
+ " \nif A has complex conjugate eigenvalues ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"a", "\[PlusMinus]", " ", 
+    RowBox[{"b", " ", "\[ImaginaryI]"}]}], TraditionalForm]],
+  FormatType->TraditionalForm,ExpressionUUID->
+  "bdb3b8bd-9e87-42f2-9b7b-6068c11a5c71"],
+ ". This is pretty easy to code.    "
+}], "Text",
+ CellChangeTimes->{{3.906978796404236*^9, 
+  3.9069790750173836`*^9}},ExpressionUUID->"ce8b2cad-8b08-40f4-92e1-\
+e64c8eeeb02e"],
 
 Cell[CellGroupData[{
 
@@ -15188,23 +15244,28 @@ Cell[BoxData[{
   3.906906834878693*^9, 3.906906948462423*^9}, {3.9069775949064198`*^9, 
   3.906977634473384*^9}, {3.906977709719694*^9, 3.9069778061835513`*^9}},
  CellLabel->
-  "In[126]:=",ExpressionUUID->"1ad0c1d7-82e2-41e6-b8ed-5742dde4b8e5"],
+  "In[161]:=",ExpressionUUID->"1ad0c1d7-82e2-41e6-b8ed-5742dde4b8e5"],
 
 Cell[BoxData[
  RowBox[{"{", 
-  RowBox[{"0.43874321649856807`", ",", 
-   RowBox[{"-", "0.3616242191209577`"}]}], "}"}]], "Output",
+  RowBox[{
+   RowBox[{"0.5116216529566331`", "\[VeryThinSpace]", "+", 
+    RowBox[{"0.3947271313447955`", " ", "\[ImaginaryI]"}]}], ",", 
+   RowBox[{"0.5116216529566331`", "\[VeryThinSpace]", "-", 
+    RowBox[{"0.3947271313447955`", " ", "\[ImaginaryI]"}]}]}], 
+  "}"}]], "Output",
  CellChangeTimes->{{3.9069777180722284`*^9, 3.9069777327578125`*^9}, {
-  3.9069777717249327`*^9, 3.9069778157235794`*^9}},
+  3.9069777717249327`*^9, 3.9069778157235794`*^9}, {3.9069790841218443`*^9, 
+  3.906979099326846*^9}},
  CellLabel->
-  "Out[127]=",ExpressionUUID->"8f2d1f65-be88-4067-a4f2-73de87182b2b"],
+  "Out[162]=",ExpressionUUID->"7194abc0-38b8-4440-a7d9-cbde0c0300cf"],
 
 Cell[BoxData[
  TagBox[
   RowBox[{"(", "\[NoBreak]", GridBox[{
-     {"0.43874321649856796`", "0"},
-     {"0", 
-      RowBox[{"-", "0.3616242191209577`"}]}
+     {"0.5116216529566331`", "0.3947271313447955`"},
+     {
+      RowBox[{"-", "0.3947271313447954`"}], "0.5116216529566331`"}
     },
     GridBoxAlignment->{"Columns" -> {{Center}}, "Rows" -> {{Baseline}}},
     GridBoxSpacings->{"Columns" -> {
@@ -15217,13 +15278,11 @@ Cell[BoxData[
   Function[BoxForm`e$, 
    MatrixForm[BoxForm`e$]]]], "Output",
  CellChangeTimes->{{3.9069777180722284`*^9, 3.9069777327578125`*^9}, {
-  3.9069777717249327`*^9, 3.9069778157235794`*^9}},
+  3.9069777717249327`*^9, 3.9069778157235794`*^9}, {3.9069790841218443`*^9, 
+  3.9069790993424673`*^9}},
  CellLabel->
-  "Out[130]//MatrixForm=",ExpressionUUID->"86da0b56-bcdc-421c-94e9-\
-3213afb99333"]
-}, Open  ]]
-}, Open  ]]
-}, Open  ]]
+  "Out[165]//MatrixForm=",ExpressionUUID->"8ef5e7ea-994e-43cf-83dc-\
+2b604cd92678"]
 }, Open  ]]
 }, Open  ]]
 }, Open  ]]
@@ -15682,21 +15741,22 @@ Cell[CellGroupData[{
 Cell[753110, 15074, 1066, 30, 182, "Input",ExpressionUUID->"0d46f2de-0fca-4440-880c-6966a8afdc06"],
 Cell[754179, 15106, 575, 11, 48, "Output",ExpressionUUID->"53dc65a9-033b-4686-b3ed-3b7912688689"],
 Cell[754757, 15119, 870, 22, 89, "Output",ExpressionUUID->"cb62895a-456d-4b46-a88b-c61ca01dab5b"]
-}, Open  ]],
-Cell[CellGroupData[{
-Cell[755664, 15146, 1539, 44, 214, "Input",ExpressionUUID->"1ad0c1d7-82e2-41e6-b8ed-5742dde4b8e5"],
-Cell[757206, 15192, 335, 7, 48, "Output",ExpressionUUID->"8f2d1f65-be88-4067-a4f2-73de87182b2b"],
-Cell[757544, 15201, 761, 21, 89, "Output",ExpressionUUID->"86da0b56-bcdc-421c-94e9-3213afb99333"]
-}, Open  ]]
-}, Open  ]]
-}, Open  ]]
 }, Open  ]]
 }, Open  ]]
 }, Open  ]]
 }, Open  ]],
+Cell[755678, 15147, 1737, 51, 238, "Text",ExpressionUUID->"ce8b2cad-8b08-40f4-92e1-e64c8eeeb02e"],
 Cell[CellGroupData[{
-Cell[758414, 15233, 160, 3, 100, "Section",ExpressionUUID->"5c26734a-889b-46d3-a44c-43d529158be1"],
-Cell[758577, 15238, 9436, 229, 924, "Input",ExpressionUUID->"3608da8d-2ee3-4e7d-a9a8-137ab8c6e9cf",
+Cell[757440, 15202, 1539, 44, 214, "Input",ExpressionUUID->"1ad0c1d7-82e2-41e6-b8ed-5742dde4b8e5"],
+Cell[758982, 15248, 567, 12, 48, "Output",ExpressionUUID->"7194abc0-38b8-4440-a7d9-cbde0c0300cf"],
+Cell[759552, 15262, 849, 22, 89, "Output",ExpressionUUID->"8ef5e7ea-994e-43cf-83dc-2b604cd92678"]
+}, Open  ]]
+}, Open  ]]
+}, Open  ]]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[760474, 15292, 160, 3, 100, "Section",ExpressionUUID->"5c26734a-889b-46d3-a44c-43d529158be1"],
+Cell[760637, 15297, 9436, 229, 924, "Input",ExpressionUUID->"3608da8d-2ee3-4e7d-a9a8-137ab8c6e9cf",
  InitializationCell->True]
 }, Closed]]
 }, Open  ]]
