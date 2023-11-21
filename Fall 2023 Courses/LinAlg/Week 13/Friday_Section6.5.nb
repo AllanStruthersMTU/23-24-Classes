@@ -1,0 +1,1593 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 10.4' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       158,          7]
+NotebookDataLength[     57078,       1585]
+NotebookOptionsPosition[     52090,       1509]
+NotebookOutlinePosition[     52605,       1528]
+CellTagsIndexPosition[     52562,       1525]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+
+Cell[CellGroupData[{
+Cell["MA2330", "Title",
+ CellChangeTimes->{{3.9022119421591744`*^9, 3.9022119446720896`*^9}, {
+  3.902212079422366*^9, 
+  3.9022120841135693`*^9}},ExpressionUUID->"2411f8aa-dda1-4de9-9dc1-\
+fddd9660e667"],
+
+Cell[CellGroupData[{
+
+Cell["Chapter 6 : Orthogonality and Least Squares", "Section",
+ CellChangeTimes->{{3.902212090346334*^9, 3.9022121014134884`*^9}, 
+   3.903769019997009*^9, {3.903769131050271*^9, 3.903769135610148*^9}, {
+   3.9094840300048733`*^9, 
+   3.9094840545824013`*^9}},ExpressionUUID->"c605c20a-b238-4a73-a480-\
+b4d65497b721"],
+
+Cell[CellGroupData[{
+
+Cell["6.1 Inner Product, Length and Orthogonality", "Subsection",
+ CellChangeTimes->{{3.9022121076966515`*^9, 3.9022121582154217`*^9}, {
+   3.902753149564061*^9, 3.902753160454166*^9}, {3.903257170993367*^9, 
+   3.9032571816654167`*^9}, {3.9033481088363304`*^9, 
+   3.9033481177150135`*^9}, {3.903769157829028*^9, 3.903769170909472*^9}, {
+   3.909484073129572*^9, 3.909484084627141*^9}, 
+   3.909485796050621*^9},ExpressionUUID->"eca1e36f-5959-455c-9a2a-\
+fa9d292335e6"],
+
+Cell["Much of this is a review from calculus. ", "Text",
+ CellChangeTimes->{{3.909484088566098*^9, 
+  3.9094841034633856`*^9}},ExpressionUUID->"8235d16b-ad30-4196-92a0-\
+950593fa9439"],
+
+Cell[TextData[{
+ "Definition: For ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"u", ",", " ", 
+    RowBox[{"v", " ", "\[Element]", " ", 
+     SuperscriptBox["\[DoubleStruckCapitalR]", "n"]}]}], TraditionalForm]],
+  FormatType->TraditionalForm,ExpressionUUID->
+  "12c123b9-aa1a-4118-98ef-cf1fb4298030"],
+ " the ",
+ StyleBox["inner product ",
+  FontVariations->{"Underline"->True}],
+ "or ",
+ StyleBox["dot product",
+  FontVariations->{"Underline"->True}],
+ " is  ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{"u", ".", "v"}], "=", 
+    RowBox[{
+     RowBox[{
+      SubsuperscriptBox["\[Sum]", 
+       RowBox[{"i", "=", "1"}], "n"], 
+      RowBox[{
+       SubscriptBox["u", "i"], 
+       SubscriptBox["v", "i"]}]}], "=", 
+     RowBox[{
+      RowBox[{"u", "\[Transpose]"}], "v"}]}]}], TraditionalForm]],
+  FormatType->TraditionalForm,ExpressionUUID->
+  "d92208f3-165e-4cd5-843c-081590611cd0"]
+}], "Text",
+ CellChangeTimes->{{3.909484088566098*^9, 3.9094841034633856`*^9}, {
+  3.909484155520605*^9, 3.9094842663629465`*^9}, {3.9094842984731083`*^9, 
+  3.9094843056450357`*^9}},
+ Background->RGBColor[
+  0.88, 1, 0.88],ExpressionUUID->"590bf86e-92ef-4c0c-9d4f-3c0465912263"],
+
+Cell[TextData[{
+ "Definition: For ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"u", "\[Element]", " ", 
+    SuperscriptBox["\[DoubleStruckCapitalR]", "n"]}], TraditionalForm]],
+  FormatType->TraditionalForm,ExpressionUUID->
+  "48758d8c-b805-4aae-8484-27e2deae1fe6"],
+ " the ",
+ StyleBox["length",
+  FontVariations->{"Underline"->True}],
+ " or ",
+ StyleBox["norm",
+  FontVariations->{"Underline"->True}],
+ " of ",
+ Cell[BoxData[
+  FormBox["u", TraditionalForm]],
+  FormatType->TraditionalForm,ExpressionUUID->
+  "2258f0c3-4f7e-4eab-8601-eb076ee287c9"],
+ " is",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{"||", "u", "||"}], "=", 
+    RowBox[{
+     SqrtBox[
+      RowBox[{"u", ".", "u"}]], "=", 
+     SqrtBox[
+      RowBox[{
+       SubsuperscriptBox["\[Sum]", 
+        RowBox[{"i", "=", "1"}], "n"], 
+       SubsuperscriptBox["u", "i", "2"]}]]}]}], TraditionalForm]],
+  FormatType->TraditionalForm,ExpressionUUID->
+  "e849b9c7-c7a8-40ca-ad56-f0d9c5b15fb6"]
+}], "Text",
+ CellChangeTimes->{{3.909484088566098*^9, 3.9094841034633856`*^9}, {
+  3.909484155520605*^9, 3.9094842663629465`*^9}, {3.9094842984731083`*^9, 
+  3.909484424879016*^9}},
+ Background->RGBColor[
+  0.88, 1, 0.88],ExpressionUUID->"e1963972-989d-44a7-8285-ca7387969547"],
+
+Cell[TextData[{
+ "Theorem 1: ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{"u", ".", "v"}], "=", 
+    RowBox[{"v", ".", "u"}]}], TraditionalForm]],
+  FormatType->TraditionalForm,ExpressionUUID->
+  "d113685f-50d5-48c3-b44d-076495edfe94"],
+ ";  ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{
+     RowBox[{"(", 
+      RowBox[{"u", "+", "v"}], ")"}], ".", "w"}], "=", 
+    RowBox[{
+     RowBox[{"u", ".", "w"}], "+", 
+     RowBox[{"v", ".", "w"}]}]}], TraditionalForm]],
+  FormatType->TraditionalForm,ExpressionUUID->
+  "ba531a70-a327-467d-901c-9f9d6735904a"],
+ "; ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{
+     RowBox[{"(", 
+      RowBox[{"c", " ", "u"}], ")"}], ".", "v"}], "=", 
+    RowBox[{
+     RowBox[{"c", " ", 
+      RowBox[{"u", ".", "v"}]}], " ", "=", " ", 
+     RowBox[{"u", ".", 
+      RowBox[{"(", 
+       RowBox[{"c", " ", "v"}], ")"}]}]}]}], TraditionalForm]],
+  FormatType->TraditionalForm,ExpressionUUID->
+  "d7cb94d9-72cb-4d3c-9b5a-d6215fbdbd7e"],
+ "; ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{"u", ".", "u"}], "\[GreaterEqual]", "0"}], TraditionalForm]],
+  FormatType->TraditionalForm,ExpressionUUID->
+  "762602d4-e078-4936-981c-5b08ca1689c2"],
+ "; and ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{"u", ".", "u"}], "=", "0"}], TraditionalForm]],
+  FormatType->TraditionalForm,ExpressionUUID->
+  "38762eca-11f6-452f-a4af-ae19af44a66a"],
+ " iff ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"u", "=", "0"}], TraditionalForm]],
+  FormatType->TraditionalForm,ExpressionUUID->
+  "80faa587-cbbd-44cc-9eb2-eda51d3066d0"],
+ "."
+}], "Text",
+ CellChangeTimes->{{3.909484088566098*^9, 3.9094841034633856`*^9}, {
+  3.909484155520605*^9, 3.9094842663629465`*^9}, {3.9094842984731083`*^9, 
+  3.9094845791252003`*^9}},
+ Background->RGBColor[
+  0.94, 0.88, 0.94],ExpressionUUID->"fb4a75ba-e2cc-444f-8068-1dfd247f3b56"],
+
+Cell[TextData[{
+ "Definition: The ",
+ StyleBox["distance between u and ",
+  FontVariations->{"Underline"->True}],
+ Cell[BoxData[
+  FormBox["v", TraditionalForm]],
+  FormatType->TraditionalForm,
+  FontVariations->{"Underline"->True},ExpressionUUID->
+  "cf56fb81-d9ff-4f4f-b749-f2c27909fe59"],
+ " in ",
+ Cell[BoxData[
+  FormBox[
+   SuperscriptBox["\[DoubleStruckCapitalR]", "n"], TraditionalForm]],
+  FormatType->TraditionalForm,ExpressionUUID->
+  "23a4cf27-a38c-44c1-a558-2595dd156c51"],
+ " is ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{"dist", "(", 
+     RowBox[{"u", ",", "v"}], ")"}], "=", 
+    RowBox[{"||", 
+     RowBox[{"u", "-", "v"}], "||"}]}], TraditionalForm]],
+  FormatType->TraditionalForm,ExpressionUUID->
+  "3fc31d49-0135-4bfc-988b-b1cdaf8df120"],
+ " "
+}], "Text",
+ CellChangeTimes->{{3.909484088566098*^9, 3.9094841034633856`*^9}, {
+  3.909484155520605*^9, 3.9094842663629465`*^9}, {3.9094842984731083`*^9, 
+  3.909484424879016*^9}, {3.909484613582157*^9, 3.9094846700817895`*^9}},
+ Background->RGBColor[
+  0.88, 1, 0.88],ExpressionUUID->"2f4d0206-f7fd-402d-b7ed-2ffb960f3230"],
+
+Cell[TextData[{
+ "Definition: The ",
+ StyleBox["angle between",
+  FontVariations->{"Underline"->True}],
+ " ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"u", ",", 
+    RowBox[{"v", "\[Element]", 
+     SuperscriptBox["\[DoubleStruckCapitalR]", "n"]}]}], TraditionalForm]],
+  FormatType->TraditionalForm,ExpressionUUID->
+  "ba5dcf61-7611-4d20-aaf1-924274feb729"],
+ " is defined by ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{"u", ".", "v"}], "=", 
+    RowBox[{"||", "u", "||", "||", "v", "||", 
+     RowBox[{"cos", "(", "\[Theta]", ")"}]}]}], TraditionalForm]],
+  FormatType->TraditionalForm,ExpressionUUID->
+  "50f806a3-bd58-4c5f-9475-08e6574f4814"],
+ ". They are ",
+ StyleBox["orthogonal",
+  FontVariations->{"Underline"->True}],
+ " if ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{"u", ".", "v"}], "=", "0"}], TraditionalForm]],
+  FormatType->TraditionalForm,ExpressionUUID->
+  "a0a33144-91b7-49b2-9030-fd6639927550"],
+ "."
+}], "Text",
+ CellChangeTimes->{{3.909484088566098*^9, 3.9094841034633856`*^9}, {
+   3.909484155520605*^9, 3.9094842663629465`*^9}, {3.9094842984731083`*^9, 
+   3.909484424879016*^9}, {3.909484613582157*^9, 3.909484817332931*^9}, 
+   3.909484862832632*^9},
+ Background->RGBColor[
+  0.88, 1, 0.88],ExpressionUUID->"8514e053-d171-4c34-ab54-07e771bd285b"],
+
+Cell[TextData[{
+ "Theorem 2: Pythagorean\nVectors ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"u", ",", 
+    RowBox[{"v", "\[Element]", 
+     SuperscriptBox["\[DoubleStruckCapitalR]", "n"]}]}], TraditionalForm]],
+  FormatType->TraditionalForm,ExpressionUUID->
+  "19e738a0-8f08-4265-be47-eb59068dfd6c"],
+ " are orthogonal iff ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{"||", 
+     RowBox[{"u", "+", "v"}], 
+     SuperscriptBox["||", "2"]}], "=", 
+    RowBox[{"||", "u", 
+     SuperscriptBox["||", "2"], 
+     RowBox[{"+", 
+      RowBox[{"||", "v", 
+       SuperscriptBox["||", "2"]}]}]}]}], TraditionalForm]],
+  FormatType->TraditionalForm,ExpressionUUID->
+  "92a3af88-f1c3-4e93-a15c-1004c9513622"],
+ " "
+}], "Text",
+ CellChangeTimes->{{3.909484088566098*^9, 3.9094841034633856`*^9}, {
+  3.909484155520605*^9, 3.9094842663629465`*^9}, {3.9094842984731083`*^9, 
+  3.9094845791252003`*^9}, {3.909484897285681*^9, 3.909484976472904*^9}},
+ Background->RGBColor[
+  0.94, 0.88, 0.94],ExpressionUUID->"c395a324-5568-437c-a5ee-caaa7141c113"],
+
+Cell["Orthogonality extends to subspaces. ", "Text",
+ CellChangeTimes->{{3.9094850025506306`*^9, 
+  3.90948504084778*^9}},ExpressionUUID->"0fd05c52-5ac1-4187-9147-\
+a72b83be8843"],
+
+Cell[TextData[{
+ "Definition: A subspace ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"W", "\[Subset]", 
+    SuperscriptBox["\[DoubleStruckCapitalR]", "n"]}], TraditionalForm]],
+  FormatType->TraditionalForm,ExpressionUUID->
+  "3382596c-084a-49c6-82e1-7a0b56d7a626"],
+ " is ",
+ StyleBox["orthogonal to a vector",
+  FontVariations->{"Underline"->True}],
+ " ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"z", "\[Element]", 
+    SuperscriptBox["\[DoubleStruckCapitalR]", "n"]}], TraditionalForm]],
+  FormatType->TraditionalForm,ExpressionUUID->
+  "b1b0291f-48eb-4b24-8a91-da989b51c645"],
+ " if ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{"w", ".", "z"}], "=", "0"}], TraditionalForm]],
+  FormatType->TraditionalForm,ExpressionUUID->
+  "20fdef27-2359-4025-9daf-ca10b431c9b8"],
+ " for all ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"w", "\[Element]", "W"}], TraditionalForm]],
+  FormatType->TraditionalForm,ExpressionUUID->
+  "6d26fd3d-5940-4ea7-a558-4da0a831bb11"],
+ ". "
+}], "Text",
+ CellChangeTimes->{{3.909484088566098*^9, 3.9094841034633856`*^9}, {
+   3.909484155520605*^9, 3.9094842663629465`*^9}, {3.9094842984731083`*^9, 
+   3.909484424879016*^9}, {3.909484613582157*^9, 3.909484817332931*^9}, 
+   3.909484862832632*^9, {3.909485061004411*^9, 3.9094851571014166`*^9}},
+ Background->RGBColor[
+  0.88, 1, 0.88],ExpressionUUID->"9822ae2a-dc09-4759-a3ea-24fd94736fe6"],
+
+Cell[TextData[{
+ "Definition: The ",
+ StyleBox["orthogonal complement ",
+  FontVariations->{"Underline"->True}],
+ "of a subspace ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"W", "\[Subset]", 
+    SuperscriptBox["\[DoubleStruckCapitalR]", "n"]}], TraditionalForm]],
+  FormatType->TraditionalForm,ExpressionUUID->
+  "9783471e-dfba-4258-bd46-e4c4af77a568"],
+ " is the set of all such z\n\t",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    SuperscriptBox["W", "\[Perpendicular]"], "=", 
+    RowBox[{"{", 
+     RowBox[{"z", ":", " "}]}]}], TraditionalForm]],
+  FormatType->TraditionalForm,ExpressionUUID->
+  "a83738b3-aeac-45d7-920e-6d7316b61ef6"],
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{"w", ".", "z"}], "=", "0"}], TraditionalForm]],
+  FormatType->TraditionalForm,ExpressionUUID->
+  "f691d043-b3d9-441e-8068-f30a39713e75"],
+ " \[ForAll]",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"w", "\[Element]", "W"}], TraditionalForm]],
+  FormatType->TraditionalForm,ExpressionUUID->
+  "7e707ae9-c296-4926-b4d2-38ad41c32e8f"],
+ "} "
+}], "Text",
+ CellChangeTimes->{{3.909484088566098*^9, 3.9094841034633856`*^9}, {
+   3.909484155520605*^9, 3.9094842663629465`*^9}, {3.9094842984731083`*^9, 
+   3.909484424879016*^9}, {3.909484613582157*^9, 3.909484817332931*^9}, 
+   3.909484862832632*^9, {3.909485061004411*^9, 3.909485221317504*^9}, {
+   3.9094852545358663`*^9, 3.9094852691916547`*^9}, {3.9094853005816097`*^9, 
+   3.909485321192317*^9}},
+ Background->RGBColor[
+  0.88, 1, 0.88],ExpressionUUID->"86d7eeed-4366-4ba8-88d1-af52505d1221"],
+
+Cell[TextData[{
+ "Reminder Definition: The ",
+ StyleBox["row space ",
+  FontVariations->{"Underline"->True}],
+ "of a matrix ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"A", "\[Element]", 
+    SuperscriptBox["\[DoubleStruckCapitalR]", 
+     RowBox[{"m", "\[Times]", "n"}]]}], TraditionalForm]],
+  FormatType->TraditionalForm,ExpressionUUID->
+  "3712b5cb-d157-419b-9e85-81bf989cfed2"],
+ " is the span of the rows of ",
+ Cell[BoxData[
+  FormBox["A", TraditionalForm]],
+  FormatType->TraditionalForm,ExpressionUUID->
+  "53026fca-b274-4522-b4e2-5ffbab401532"],
+ " and the ",
+ StyleBox["column space ",
+  FontVariations->{"Underline"->True}],
+ "is the span of the columns. The ",
+ StyleBox["null space",
+  FontVariations->{"Underline"->True}],
+ " of A is the set of all solutions of ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{"A", " ", "x"}], "=", "0"}], TraditionalForm]],
+  FormatType->TraditionalForm,ExpressionUUID->
+  "91440888-b78e-4d51-8811-f20879f5aaab"],
+ ".  Clearly\n\t",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{"row", "(", "A", ")"}], "\[Subset]", 
+    SuperscriptBox["\[DoubleStruckCapitalR]", "n"]}], TraditionalForm]],
+  FormatType->TraditionalForm,ExpressionUUID->
+  "1c53458f-6b22-4b7c-bbf7-028ce3c1cb43"],
+ ",  ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{"col", "(", "A", ")"}], "\[Subset]", 
+    SuperscriptBox["\[DoubleStruckCapitalR]", "m"]}], TraditionalForm]],
+  ExpressionUUID->"0752e8c9-cf47-4b95-9c4f-3ca10d9e207f"],
+ ", ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{"nul", "(", "A", ")"}], "\[Subset]", 
+    SuperscriptBox["\[DoubleStruckCapitalR]", "n"]}], TraditionalForm]],
+  ExpressionUUID->"9912b234-f79c-427d-b9fb-11252d76b0e4"],
+ ", and ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{"nul", "(", 
+     RowBox[{"A", "\[Transpose]"}], ")"}], "\[Subset]", 
+    SuperscriptBox["\[DoubleStruckCapitalR]", "m"]}], TraditionalForm]],
+  FormatType->TraditionalForm,ExpressionUUID->
+  "2f230861-4087-4ecd-b9bf-cfa284b4f5ff"]
+}], "Text",
+ CellChangeTimes->{{3.909484088566098*^9, 3.9094841034633856`*^9}, {
+   3.909484155520605*^9, 3.9094842663629465`*^9}, {3.9094842984731083`*^9, 
+   3.909484424879016*^9}, {3.909484613582157*^9, 3.909484817332931*^9}, 
+   3.909484862832632*^9, {3.909485061004411*^9, 3.909485221317504*^9}, {
+   3.9094852545358663`*^9, 3.9094852691916547`*^9}, {3.9094853005816097`*^9, 
+   3.909485321192317*^9}, {3.909485435092095*^9, 3.9094856946871805`*^9}},
+ Background->RGBColor[
+  0.88, 1, 0.88],ExpressionUUID->"1385baa0-4916-4e38-af2c-f05d166c6148"],
+
+Cell[TextData[{
+ "Theorem 3: \n\t",
+ Cell[BoxData[
+  FormBox[GridBox[{
+     {
+      SuperscriptBox[
+       RowBox[{"(", 
+        RowBox[{"row", "(", "A", ")"}], ")"}], "\[Perpendicular]"], "=", 
+      RowBox[{
+       RowBox[{"nul", "(", "A", ")"}], "  "}]},
+     {
+      SuperscriptBox[
+       RowBox[{"(", 
+        RowBox[{"col", "(", "A", ")"}], ")"}], "\[Perpendicular]"], "=", 
+      RowBox[{"nul", "(", 
+       RowBox[{"A", "\[Transpose]"}], ")"}]}
+    }], TraditionalForm]],
+  FormatType->TraditionalForm,ExpressionUUID->
+  "6b051da7-f81d-4744-ac76-55aed4504a36"]
+}], "Text",
+ CellChangeTimes->{{3.909484088566098*^9, 3.9094841034633856`*^9}, {
+  3.909484155520605*^9, 3.9094842663629465`*^9}, {3.9094842984731083`*^9, 
+  3.9094845791252003`*^9}, {3.909484897285681*^9, 3.909484976472904*^9}, {
+  3.9094853655816107`*^9, 3.9094854205970325`*^9}, {3.9094857060822983`*^9, 
+  3.909485764900403*^9}},
+ Background->RGBColor[
+  0.94, 0.88, 0.94],ExpressionUUID->"02d71a37-543d-48f0-a3a7-6f5746a40014"]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["6.2 Orthogonal Sets", "Subsection",
+ CellChangeTimes->{{3.9022121076966515`*^9, 3.9022121582154217`*^9}, {
+  3.902753149564061*^9, 3.902753160454166*^9}, {3.903257170993367*^9, 
+  3.9032571816654167`*^9}, {3.9033481088363304`*^9, 3.9033481177150135`*^9}, {
+  3.903769157829028*^9, 3.903769170909472*^9}, {3.909484073129572*^9, 
+  3.909484084627141*^9}, {3.909485796050621*^9, 
+  3.909485816190303*^9}},ExpressionUUID->"66a9b92e-9267-4f79-b341-\
+4ac53c3a54f1"],
+
+Cell["The motto is orthogonal sets are very useful. ", "Text",
+ CellChangeTimes->{{3.909484088566098*^9, 3.9094841034633856`*^9}, {
+  3.909486072051037*^9, 
+  3.9094860831173477`*^9}},ExpressionUUID->"b4955f1c-7f4c-4455-8b32-\
+1625624c3a75"],
+
+Cell[TextData[{
+ "Definition: A set of vectors For ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{"{", 
+     RowBox[{
+      SubscriptBox["u", "1"], ",", 
+      SubscriptBox["u", "2"], ",", "\[Ellipsis]", ",", 
+      SubscriptBox["u", "p"]}], "}"}], "in", "  ", 
+    SuperscriptBox["\[DoubleStruckCapitalR]", "n"]}], TraditionalForm]],
+  FormatType->TraditionalForm,ExpressionUUID->
+  "ff61e3e7-72c4-4f36-9688-49c1daf721b1"],
+ " is ",
+ StyleBox["orthogonal",
+  FontVariations->{"Underline"->True}],
+ " if ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{
+     SubscriptBox["u", "i"], ".", 
+     SubscriptBox["u", "j"]}], "=", "0"}], TraditionalForm]],
+  FormatType->TraditionalForm,ExpressionUUID->
+  "1ed33893-a4c8-47ad-ac41-b6b5b6c846eb"],
+ " for ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"i", "\[NotEqual]", "j"}], TraditionalForm]],
+  FormatType->TraditionalForm,ExpressionUUID->
+  "804e1957-efcf-4e70-b9f4-4010ee21561b"],
+ "."
+}], "Text",
+ CellChangeTimes->{{3.909484088566098*^9, 3.9094841034633856`*^9}, {
+  3.909484155520605*^9, 3.9094842663629465`*^9}, {3.9094842984731083`*^9, 
+  3.9094843056450357`*^9}, {3.9094858328641024`*^9, 3.90948590614466*^9}},
+ Background->RGBColor[
+  0.88, 1, 0.88],ExpressionUUID->"462fb059-5411-4346-b0c0-a91a0d2f06fa"],
+
+Cell[TextData[{
+ "Theorem 4: If ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"S", "=", 
+    RowBox[{"{", 
+     RowBox[{
+      SubscriptBox["u", "1"], ",", 
+      SubscriptBox["u", "2"], ",", "\[Ellipsis]", ",", 
+      SubscriptBox["u", "p"]}], "}"}]}], TraditionalForm]],
+  FormatType->TraditionalForm,ExpressionUUID->
+  "9173a98f-4016-4c93-b56c-04e610f1fa65"],
+ " is an orthogonal set of non-zero vectors the ",
+ Cell[BoxData[
+  FormBox["S", TraditionalForm]],
+  FormatType->TraditionalForm,ExpressionUUID->
+  "778b0b6f-5a61-4f65-af3d-b0e412b2d2bb"],
+ " is Linearly Independent (LI). As a result ",
+ Cell[BoxData[
+  FormBox["S", TraditionalForm]],
+  FormatType->TraditionalForm,ExpressionUUID->
+  "489b378d-260c-4fee-b648-5adb33a93737"],
+ " is a basis for ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"span", "(", "S", ")"}], TraditionalForm]],
+  FormatType->TraditionalForm,ExpressionUUID->
+  "9d43037f-4fed-454c-a601-e36a039c8b88"],
+ "."
+}], "Text",
+ CellChangeTimes->{{3.909484088566098*^9, 3.9094841034633856`*^9}, {
+  3.909484155520605*^9, 3.9094842663629465`*^9}, {3.9094842984731083`*^9, 
+  3.9094845791252003`*^9}, {3.9094859297388787`*^9, 3.909486062425968*^9}},
+ Background->RGBColor[
+  0.94, 0.88, 0.94],ExpressionUUID->"d16155f2-8b64-44d8-8902-8f72b8bc52b3"],
+
+Cell[TextData[{
+ "Definition: An ",
+ StyleBox["orthogonal basis",
+  FontVariations->{"Underline"->True}],
+ " for a subspace ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"W", "\[Subset]", 
+    SuperscriptBox["\[DoubleStruckCapitalR]", "n"]}], TraditionalForm]],
+  FormatType->TraditionalForm,ExpressionUUID->
+  "a4b5a49a-ea4d-4fdf-97c1-9c1e36c5adf7"],
+ " is a basis for ",
+ Cell[BoxData[
+  FormBox["W", TraditionalForm]],
+  FormatType->TraditionalForm,ExpressionUUID->
+  "ded51d4a-bcb5-4b31-80f2-da05d1934a43"],
+ " that is orthogonal. "
+}], "Text",
+ CellChangeTimes->{{3.909484088566098*^9, 3.9094841034633856`*^9}, {
+  3.909484155520605*^9, 3.9094842663629465`*^9}, {3.9094842984731083`*^9, 
+  3.909484424879016*^9}, {3.909484613582157*^9, 3.9094846700817895`*^9}, {
+  3.9094860985045476`*^9, 3.9094861813843174`*^9}},
+ Background->RGBColor[
+  0.88, 1, 0.88],ExpressionUUID->"e50ca594-96c0-4421-a685-8b6d92798029"],
+
+Cell[TextData[{
+ "There is a simple recipe for the coefficients ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"y", "=", 
+    RowBox[{
+     RowBox[{
+      SubscriptBox["c", "1"], 
+      SubscriptBox["u", "1"]}], "+", 
+     RowBox[{
+      SubscriptBox["c", "2"], 
+      SubscriptBox["u", "2"]}], "+", "\[Ellipsis]", "+", 
+     RowBox[{
+      SubscriptBox["c", "p"], 
+      SubscriptBox["u", "p"]}]}]}], TraditionalForm]],
+  FormatType->TraditionalForm,ExpressionUUID->
+  "8c4f18a6-0fba-4b28-a3b3-a4863d2be188"],
+ " if the us are orthogonal. "
+}], "Text",
+ CellChangeTimes->{{3.909486516645464*^9, 
+  3.9094865539409485`*^9}},ExpressionUUID->"816ecaf1-646a-4444-97fa-\
+4f6aff6d9bca"],
+
+Cell[TextData[{
+ "Theorem 5: If ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"S", "=", 
+    RowBox[{"{", 
+     RowBox[{
+      SubscriptBox["u", "1"], ",", 
+      SubscriptBox["u", "2"], ",", "\[Ellipsis]", ",", 
+      SubscriptBox["u", "p"]}], "}"}]}], TraditionalForm]],
+  FormatType->TraditionalForm,ExpressionUUID->
+  "2f403338-6094-4bf4-9be1-6b1ff145a9e5"],
+ " is an orthogonal basis for ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"W", "\[Subset]", 
+    SuperscriptBox["\[DoubleStruckCapitalR]", "n"]}], TraditionalForm]],
+  FormatType->TraditionalForm,ExpressionUUID->
+  "97e9550c-4faa-41af-9a33-8cadd699ac54"],
+ " then for ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"y", "\[Element]", "W"}], TraditionalForm]],
+  FormatType->TraditionalForm,ExpressionUUID->
+  "f5fb4774-4b6b-48b1-a5e1-bb9c67ebc075"],
+ " is the linear combination\n\t",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"y", "=", 
+    RowBox[{
+     RowBox[{
+      RowBox[{
+       SubscriptBox["c", "1"], 
+       SubscriptBox["u", "1"]}], "+", 
+      RowBox[{
+       SubscriptBox["c", "2"], 
+       SubscriptBox["u", "2"]}], "+", "\[Ellipsis]", "+", 
+      RowBox[{
+       SubscriptBox["c", "p"], 
+       SubscriptBox["u", "p"]}]}], "=", 
+     RowBox[{
+      SubsuperscriptBox["\[Sum]", 
+       RowBox[{"i", "=", "1"}], "n"], 
+      RowBox[{
+       SubscriptBox["c", "i"], 
+       SubscriptBox["u", "i"]}]}]}]}], TraditionalForm]],
+  FormatType->TraditionalForm,ExpressionUUID->
+  "85536dc1-21e4-45d6-ac1e-557054400380"],
+ "\nwhere \n\t",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    SubscriptBox["c", "i"], "=", 
+    FractionBox[
+     RowBox[{"y", ".", 
+      SubscriptBox["u", "i"]}], 
+     RowBox[{
+      SubscriptBox["u", "i"], ".", 
+      SubscriptBox["u", "i"]}]]}], TraditionalForm]],
+  FormatType->TraditionalForm,ExpressionUUID->
+  "e17ee91e-a213-4c1d-8774-2515a117b86f"],
+ "."
+}], "Text",
+ CellChangeTimes->{{3.909484088566098*^9, 3.9094841034633856`*^9}, {
+  3.909484155520605*^9, 3.9094842663629465`*^9}, {3.9094842984731083`*^9, 
+  3.9094845791252003`*^9}, {3.9094859297388787`*^9, 3.909486062425968*^9}, {
+  3.909486194675988*^9, 3.9094863381607504`*^9}, {3.9094864142731376`*^9, 
+  3.909486416832405*^9}},
+ Background->RGBColor[
+  0.94, 0.88, 0.94],ExpressionUUID->"4fb5b279-bd93-46ab-a49f-b32581ffe5de"],
+
+Cell[TextData[{
+ "  It would be even simpler if we normalized the basis to have ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{
+     SubscriptBox["u", "i"], ".", 
+     SubscriptBox["u", "i"]}], "=", "1"}], TraditionalForm]],
+  FormatType->TraditionalForm,ExpressionUUID->
+  "2a45d2b8-1530-4135-84e3-ffaebee50808"],
+ "."
+}], "Text",
+ CellChangeTimes->{{3.9094863423794575`*^9, 3.909486432671155*^9}, 
+   3.9094865118328495`*^9, {3.909486557488951*^9, 
+   3.909486561582845*^9}},ExpressionUUID->"670a1af3-d677-4df4-b9ec-\
+02ce0ea63338"],
+
+Cell[TextData[{
+ "Definition: An ",
+ StyleBox["orthonormal basis",
+  FontVariations->{"Underline"->True}],
+ " for a subspace ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"W", "\[Subset]", 
+    SuperscriptBox["\[DoubleStruckCapitalR]", "n"]}], TraditionalForm]],
+  FormatType->TraditionalForm,ExpressionUUID->
+  "6bc88c59-f2d7-4861-b326-aea1396df67e"],
+ " is an orthogonal basis that is normalized. "
+}], "Text",
+ CellChangeTimes->{{3.909484088566098*^9, 3.9094841034633856`*^9}, {
+  3.909484155520605*^9, 3.9094842663629465`*^9}, {3.9094842984731083`*^9, 
+  3.909484424879016*^9}, {3.909484613582157*^9, 3.9094846700817895`*^9}, {
+  3.9094860985045476`*^9, 3.9094861813843174`*^9}, {3.909495088830662*^9, 
+  3.909495127488954*^9}},
+ Background->RGBColor[
+  0.88, 1, 0.88],ExpressionUUID->"b76bf555-b997-4362-808a-29355a83a89c"],
+
+Cell[TextData[{
+ "If ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"{", 
+    RowBox[{
+     SubscriptBox["u", "1"], ",", 
+     SubscriptBox["u", "2"], ",", "\[Ellipsis]", ",", 
+     SubscriptBox["u", "p"]}], "}"}], TraditionalForm]],
+  FormatType->TraditionalForm,ExpressionUUID->
+  "b7d405a2-fa85-4232-be38-d892c2803c94"],
+ " is an orthogonal basis for ",
+ Cell[BoxData[
+  FormBox["W", TraditionalForm]],
+  FormatType->TraditionalForm,ExpressionUUID->
+  "2f8f1199-6d1f-46be-a591-aa790d5d8928"],
+ " then ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{" ", 
+    FormBox[
+     RowBox[{"{", 
+      RowBox[{
+       FractionBox[
+        SubscriptBox["u", "1"], 
+        RowBox[{"||", 
+         SubscriptBox["u", "1"], "||"}]], ",", 
+       FractionBox[
+        SubscriptBox["u", "2"], 
+        RowBox[{"||", 
+         SubscriptBox["u", "2"], "||"}]], ",", "\[Ellipsis]", ",", 
+       FractionBox[
+        SubscriptBox["u", "p"], 
+        RowBox[{"||", 
+         SubscriptBox["u", "p"], "||"}]]}], "}"}],
+     TraditionalForm], " "}], TraditionalForm]],
+  FormatType->TraditionalForm,ExpressionUUID->
+  "24aa1a90-42b5-4c2d-a0a2-a6bf9cb9855f"],
+ "is an orthogonal basis for ",
+ Cell[BoxData[
+  FormBox["W", TraditionalForm]],
+  FormatType->TraditionalForm,ExpressionUUID->
+  "50ba4d15-b1e0-483f-93cf-7771307248cc"],
+ ". "
+}], "Text",
+ CellChangeTimes->{{3.909495146472763*^9, 
+  3.9094952735670695`*^9}},ExpressionUUID->"1b47bbd3-843b-4c79-aa10-\
+a91f936902fc"],
+
+Cell[TextData[{
+ "Theorem 6: An ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"m", "\[Times]", "n"}], TraditionalForm]],
+  FormatType->TraditionalForm,ExpressionUUID->
+  "4de0102b-f31e-4c96-99aa-4926def71c0e"],
+ " matrix U has orthonormal columns iff ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{
+     RowBox[{"U", "\[Transpose]"}], " ", "U"}], "=", 
+    SubscriptBox["I", "n"]}], TraditionalForm]],
+  FormatType->TraditionalForm,ExpressionUUID->
+  "0fea6db5-f616-43dd-8002-0f86f3c9814a"],
+ ". "
+}], "Text",
+ CellChangeTimes->{{3.909484088566098*^9, 3.9094841034633856`*^9}, {
+  3.909484155520605*^9, 3.9094842663629465`*^9}, {3.9094842984731083`*^9, 
+  3.9094845791252003`*^9}, {3.9094859297388787`*^9, 3.909486062425968*^9}, {
+  3.909486194675988*^9, 3.9094863381607504`*^9}, {3.9094864142731376`*^9, 
+  3.909486416832405*^9}, {3.9094952921751976`*^9, 3.909495376989011*^9}},
+ Background->RGBColor[
+  0.94, 0.88, 0.94],ExpressionUUID->"d507728c-4b1f-4aa5-bcbf-ee307d11cdf2"],
+
+Cell[TextData[{
+ "Theorem 7: If ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"U", "\[Element]", 
+    SuperscriptBox["\[DoubleStruckCapitalR]", 
+     RowBox[{"n", "\[Times]", "n"}]]}], TraditionalForm]],
+  FormatType->TraditionalForm,ExpressionUUID->
+  "cc808fbf-5ee7-483c-b682-32a3783d6c4f"],
+ " has orthonormal columns and ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"x", ",", 
+    RowBox[{"y", "\[Element]", 
+     SuperscriptBox["\[DoubleStruckCapitalR]", "n"]}]}], TraditionalForm]],
+  FormatType->TraditionalForm,ExpressionUUID->
+  "27d4aeda-0791-4926-b21f-6f1a95457cd5"],
+ " then \n",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{
+     RowBox[{"||", 
+      RowBox[{"U", " ", "x"}], "||"}], "=", 
+     RowBox[{"||", "x", "||"}]}], ",", " ", Cell[
+    "(U x).(U y) = x.y",ExpressionUUID->
+     "779fe0e4-8e7f-436e-9530-e5480a5835b2"]}], TraditionalForm]],
+  FormatType->TraditionalForm,ExpressionUUID->
+  "84d7ae32-d803-426e-a363-d78df1d8950a"],
+ ", and ",
+ Cell[BoxData[
+  FormBox[
+  Cell["(U x).(U y) = 0",ExpressionUUID->
+    "c817b224-3552-430e-adb0-b7279f71a511"], TraditionalForm]],ExpressionUUID->
+  "b8f902d4-27fd-4023-857d-51546126c68f"],
+ " iff ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{"x", ".", "y"}], "=", "0"}], TraditionalForm]],
+  FormatType->TraditionalForm,ExpressionUUID->
+  "c20e3420-bf92-48ef-8321-87c1cf8ef064"],
+ "."
+}], "Text",
+ CellChangeTimes->{{3.909484088566098*^9, 3.9094841034633856`*^9}, {
+  3.909484155520605*^9, 3.9094842663629465`*^9}, {3.9094842984731083`*^9, 
+  3.9094845791252003`*^9}, {3.9094859297388787`*^9, 3.909486062425968*^9}, {
+  3.909486194675988*^9, 3.9094863381607504`*^9}, {3.9094864142731376`*^9, 
+  3.909486416832405*^9}, {3.9094952921751976`*^9, 3.909495558113826*^9}, {
+  3.909495652972477*^9, 3.9094956531011424`*^9}},
+ Background->RGBColor[
+  0.94, 0.88, 0.94],ExpressionUUID->"19b5ab53-3fec-426c-914a-5f745e33e7ca"],
+
+Cell[TextData[{
+ "Definition: An ",
+ StyleBox["orthogonal",
+  FontVariations->{"Underline"->True}],
+ " matrix is a square orthonormal matrix.  "
+}], "Text",
+ CellChangeTimes->{{3.909484088566098*^9, 3.9094841034633856`*^9}, {
+  3.909484155520605*^9, 3.9094842663629465`*^9}, {3.9094842984731083`*^9, 
+  3.909484424879016*^9}, {3.909484613582157*^9, 3.9094846700817895`*^9}, {
+  3.9094860985045476`*^9, 3.9094861813843174`*^9}, {3.909495088830662*^9, 
+  3.909495127488954*^9}, {3.9094955956441975`*^9, 3.9094957196804843`*^9}},
+ Background->RGBColor[
+  0.88, 1, 0.88],ExpressionUUID->"badbb8ee-c0c8-40e8-8072-376c18833a3b"],
+
+Cell[TextData[{
+ "Theorem:  If ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"U", "\[Element]", 
+    SuperscriptBox["\[DoubleStruckCapitalR]", 
+     RowBox[{"n", "\[Times]", "n"}]]}], TraditionalForm]],
+  FormatType->TraditionalForm,ExpressionUUID->
+  "dc3bd03a-7b95-48a9-8b80-1b0f0e6af87e"],
+ " is orthogonal then ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    SuperscriptBox["U", 
+     RowBox[{"-", "1"}]], "=", 
+    RowBox[{"U", "\[Transpose]"}]}], TraditionalForm]],
+  FormatType->TraditionalForm,ExpressionUUID->
+  "e6d7164f-ee64-481f-a8ec-f299429f6ed4"],
+ ". "
+}], "Text",
+ CellChangeTimes->{{3.909484088566098*^9, 3.9094841034633856`*^9}, {
+  3.909484155520605*^9, 3.9094842663629465`*^9}, {3.9094842984731083`*^9, 
+  3.909484424879016*^9}, {3.909484613582157*^9, 3.9094846700817895`*^9}, {
+  3.9094860985045476`*^9, 3.9094861813843174`*^9}, {3.909495088830662*^9, 
+  3.909495127488954*^9}, {3.9094955956441975`*^9, 3.9094957457549033`*^9}},
+ Background->RGBColor[
+  0.94, 0.88, 0.94],ExpressionUUID->"bd26c7bd-23bf-4604-9aa9-20c9d2ebedb4"]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["6.3 Orthogonal Projections", "Subsection",
+ CellChangeTimes->{{3.9022121076966515`*^9, 3.9022121582154217`*^9}, {
+  3.902753149564061*^9, 3.902753160454166*^9}, {3.903257170993367*^9, 
+  3.9032571816654167`*^9}, {3.9033481088363304`*^9, 3.9033481177150135`*^9}, {
+  3.903769157829028*^9, 3.903769170909472*^9}, {3.909484073129572*^9, 
+  3.909484084627141*^9}, {3.909485796050621*^9, 3.909485816190303*^9}, {
+  3.9094958855202928`*^9, 
+  3.9094958900663166`*^9}},ExpressionUUID->"71f03bbb-1a8a-4155-a853-\
+5137410fc9aa"],
+
+Cell[TextData[{
+ "In calculus you learned how to split a vector into a piece parallel and \
+perpendicular to another vector. \n\t",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"y", "=", 
+    RowBox[{
+     FractionBox[
+      RowBox[{"(", 
+       RowBox[{"y", ".", "n"}], ")"}], 
+      RowBox[{"n", ".", "n"}]], " ", "n"}]}], TraditionalForm]],
+  FormatType->TraditionalForm,ExpressionUUID->
+  "65879fb5-3cc7-4525-bffd-d5d2c250a720"]
+}], "Text",
+ CellChangeTimes->{{3.909484088566098*^9, 3.9094841034633856`*^9}, {
+  3.909486072051037*^9, 3.9094860831173477`*^9}, {3.909495939082561*^9, 
+  3.9094959907383933`*^9}, {3.9094960424265776`*^9, 
+  3.909496080051502*^9}},ExpressionUUID->"6fe153b5-573b-49ca-8cdf-\
+2c5a6dfe1695"],
+
+Cell[TextData[{
+ "Definition: A set of vectors For ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{"{", 
+     RowBox[{
+      SubscriptBox["u", "1"], ",", 
+      SubscriptBox["u", "2"], ",", "\[Ellipsis]", ",", 
+      SubscriptBox["u", "p"]}], "}"}], "in", "  ", 
+    SuperscriptBox["\[DoubleStruckCapitalR]", "n"]}], TraditionalForm]],
+  ExpressionUUID->"df264850-28c7-4f9c-8786-32bf25605af9"],
+ " is ",
+ StyleBox["orthogonal",
+  FontVariations->{"Underline"->True}],
+ " if ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{
+     SubscriptBox["u", "i"], ".", 
+     SubscriptBox["u", "j"]}], "=", "0"}], TraditionalForm]],ExpressionUUID->
+  "47b7d6fc-2eb0-4006-b739-84b1a57bf7fe"],
+ " for ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"i", "\[NotEqual]", "j"}], TraditionalForm]],ExpressionUUID->
+  "3bbe56f1-76b2-4564-9f92-f56873459d42"],
+ "."
+}], "Text",
+ CellChangeTimes->{{3.909484088566098*^9, 3.9094841034633856`*^9}, {
+  3.909484155520605*^9, 3.9094842663629465`*^9}, {3.9094842984731083`*^9, 
+  3.9094843056450357`*^9}, {3.9094858328641024`*^9, 3.90948590614466*^9}},
+ Background->RGBColor[
+  0.88, 1, 0.88],ExpressionUUID->"beb0e681-b776-4a98-b575-a08ed30cf775"],
+
+Cell[TextData[{
+ "Theorem 8: For an orthogonal basis ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"{", 
+    RowBox[{
+     SubscriptBox["u", "1"], ",", 
+     SubscriptBox["u", "2"], ",", "\[Ellipsis]", ",", 
+     SubscriptBox["u", "p"]}], "}"}], TraditionalForm]],ExpressionUUID->
+  "37fcd043-5786-48e9-b4ab-fce06680a37b"],
+ " spanning ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"W", "\[Subset]", 
+    SuperscriptBox["\[DoubleStruckCapitalR]", "n"]}], TraditionalForm]],
+  FormatType->TraditionalForm,ExpressionUUID->
+  "0a4c1c69-6ebd-492e-a5ae-07b1ba5418b8"],
+ "and ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"y", "\[Element]", 
+    SuperscriptBox["\[DoubleStruckCapitalR]", "n"]}], TraditionalForm]],
+  FormatType->TraditionalForm,ExpressionUUID->
+  "3984f559-1eb9-4ace-bc79-0e959475ccdd"],
+ " the unique decomposition\n\t",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"y", "=", 
+    RowBox[{
+     OverscriptBox["y", "^"], "+", "z"}]}], TraditionalForm]],
+  FormatType->TraditionalForm,ExpressionUUID->
+  "c6b24b04-8cd3-4154-a3d6-4badb6ed9c6f"],
+ "\nwith ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    OverscriptBox["y", "^"], "\[Element]", "W"}], TraditionalForm]],
+  FormatType->TraditionalForm,ExpressionUUID->
+  "723b791b-c8e3-4469-a189-4c5937668e1e"],
+ " and ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"z", "\[Element]", 
+    SuperscriptBox["W", "\[Perpendicular]"]}], TraditionalForm]],
+  FormatType->TraditionalForm,ExpressionUUID->
+  "490dff26-ed02-448f-b3c9-1b0d114d1966"],
+ " is given by \n\t",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    OverscriptBox["y", "^"], "=", 
+    RowBox[{
+     RowBox[{
+      FractionBox[
+       RowBox[{"y", ".", 
+        SubscriptBox["u", "1"]}], 
+       RowBox[{
+        SubscriptBox["u", "1"], ".", 
+        SubscriptBox["u", "1"]}]], 
+      SubscriptBox["u", "1"]}], "+", 
+     RowBox[{
+      FractionBox[
+       RowBox[{"y", ".", 
+        SubscriptBox["u", "2"]}], 
+       RowBox[{
+        SubscriptBox["u", "2"], ".", 
+        SubscriptBox["u", "2"]}]], 
+      SubscriptBox["u", "2"]}], "+", "\[Ellipsis]", "+", 
+     RowBox[{
+      FractionBox[
+       RowBox[{"y", ".", 
+        SubscriptBox["u", "p"]}], 
+       RowBox[{
+        SubscriptBox["u", "p"], ".", 
+        SubscriptBox["u", "p"]}]], 
+      SubscriptBox["u", "p"]}]}]}], TraditionalForm]],
+  FormatType->TraditionalForm,ExpressionUUID->
+  "df70d94e-8cc4-4036-8a16-97ac1a1b64e9"],
+ "\nand ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"z", "=", 
+    RowBox[{"y", "-", 
+     OverscriptBox["y", "^"]}]}], TraditionalForm]],
+  FormatType->TraditionalForm,ExpressionUUID->
+  "f6a749b6-3989-42b3-88aa-19a8b286d4c8"],
+ ". "
+}], "Text",
+ CellChangeTimes->{{3.909484088566098*^9, 3.9094841034633856`*^9}, {
+  3.909484155520605*^9, 3.9094842663629465`*^9}, {3.9094842984731083`*^9, 
+  3.9094845791252003`*^9}, {3.9094859297388787`*^9, 3.909486062425968*^9}, {
+  3.9095812521799555`*^9, 3.909581543016794*^9}},
+ Background->RGBColor[
+  0.94, 0.88, 0.94],ExpressionUUID->"8bfc7122-e442-4bed-8878-7dbda2303681"],
+
+Cell[TextData[{
+ "Definition: ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    OverscriptBox["y", "^"], "=", 
+    RowBox[{
+     SubsuperscriptBox["\[Sum]", 
+      RowBox[{"i", "=", "1"}], "p"], 
+     RowBox[{
+      FractionBox[
+       RowBox[{"y", ".", 
+        SubscriptBox["u", "i"]}], 
+       RowBox[{
+        SubscriptBox["u", "i"], ".", 
+        SubscriptBox["u", "i"]}]], 
+      SubscriptBox["u", "i"]}]}]}], TraditionalForm]],
+  FormatType->TraditionalForm,ExpressionUUID->
+  "b430bd10-c36a-4bdb-b9b0-23b3c9e59a72"],
+ " is the orthogonal projection of ",
+ Cell[BoxData[
+  FormBox["y", TraditionalForm]],
+  FormatType->TraditionalForm,ExpressionUUID->
+  "1bcced07-34c6-4b51-abc2-0cd940f7d34f"],
+ " onto the span of the orthogonal basis ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"{", 
+    RowBox[{
+     SubscriptBox["u", "1"], ",", "\[Ellipsis]", ",", 
+     SubscriptBox["u", "p"]}], "}"}], TraditionalForm]],
+  FormatType->TraditionalForm,ExpressionUUID->
+  "ea189f1b-33b7-443c-a7d4-34cb4128c242"],
+ " "
+}], "Text",
+ CellChangeTimes->{{3.909484088566098*^9, 3.9094841034633856`*^9}, {
+  3.909484155520605*^9, 3.9094842663629465`*^9}, {3.9094842984731083`*^9, 
+  3.909484424879016*^9}, {3.909484613582157*^9, 3.9094846700817895`*^9}, {
+  3.9094860985045476`*^9, 3.9094861813843174`*^9}, {3.9095815574698925`*^9, 
+  3.909581701768809*^9}},
+ Background->RGBColor[
+  0.88, 1, 0.88],ExpressionUUID->"a20ae40f-b543-4fcb-8656-ce1536756e69"],
+
+Cell[TextData[{
+ "Theorem 9: Best Approximation\nFor any subspace ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"W", "\[Subset]", 
+    SuperscriptBox["\[DoubleStruckCapitalR]", "n"]}], TraditionalForm]],
+  FormatType->TraditionalForm,ExpressionUUID->
+  "18fecc3f-ddb1-4141-9beb-7ef79099eed9"],
+ " and ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"y", "\[Element]", 
+    SuperscriptBox["\[DoubleStruckCapitalR]", "n"]}], TraditionalForm]],
+  ExpressionUUID->"3969f9c4-b0e9-4265-8286-f21ae67e333c"],
+ " spanning ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"W", "\[Subset]", 
+    SuperscriptBox["\[DoubleStruckCapitalR]", "n"]}], TraditionalForm]],
+  FormatType->TraditionalForm,ExpressionUUID->
+  "44922a26-8795-48fb-b02d-145a4949d1e7"],
+ "and ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"y", "\[Element]", 
+    SuperscriptBox["\[DoubleStruckCapitalR]", "n"]}], TraditionalForm]],
+  FormatType->TraditionalForm,ExpressionUUID->
+  "0677a7d2-c706-46d6-8814-9b6701bc431d"],
+ " the unique decomposition\n\t",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"||", 
+    RowBox[{"y", "-", 
+     OverscriptBox["y", "^"]}], "||", 
+    RowBox[{"<", " ", 
+     RowBox[{"||", 
+      RowBox[{
+       RowBox[{"y", "-", "v"}], "||"}]}]}]}], TraditionalForm]],
+  FormatType->TraditionalForm,ExpressionUUID->
+  "329a5d22-e95a-49fa-86c9-fc60694cc431"],
+ " \nfor all ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"v", "\[NotEqual]", 
+    OverscriptBox["y", "^"]}], TraditionalForm]],
+  FormatType->TraditionalForm,ExpressionUUID->
+  "66d6ff15-0195-4304-a939-6a71921c9e69"],
+ "."
+}], "Text",
+ CellChangeTimes->{{3.909484088566098*^9, 3.9094841034633856`*^9}, {
+  3.909484155520605*^9, 3.9094842663629465`*^9}, {3.9094842984731083`*^9, 
+  3.9094845791252003`*^9}, {3.9094859297388787`*^9, 3.909486062425968*^9}, {
+  3.9095812521799555`*^9, 3.909581543016794*^9}, {3.909581743581817*^9, 
+  3.909581938638727*^9}},
+ Background->RGBColor[
+  0.94, 0.88, 0.94],ExpressionUUID->"780782cc-82bc-4459-acc9-df5b4b830cae"],
+
+Cell[TextData[{
+ "Theorem 10: \nIf ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"{", 
+    RowBox[{
+     SubscriptBox["u", "1"], ",", 
+     SubscriptBox["u", "2"], ",", "\[Ellipsis]", ",", 
+     SubscriptBox["u", "p"]}], "}"}], TraditionalForm]],ExpressionUUID->
+  "90ef01d3-2de2-47a1-8431-561a37f4e4a1"],
+ " is an orthonormal basis for ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"W", "\[Subset]", 
+    SuperscriptBox["\[DoubleStruckCapitalR]", "n"]}], TraditionalForm]],
+  FormatType->TraditionalForm,ExpressionUUID->
+  "705f4451-fe0f-4aa9-9b04-24a1810072d3"],
+ " then\n\t",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{
+     SubscriptBox["proj", "W"], "y"}], "=", 
+    RowBox[{
+     RowBox[{
+      SubsuperscriptBox["\[Sum]", 
+       RowBox[{"i", "=", "1"}], "p"], 
+      RowBox[{
+       RowBox[{"(", 
+        RowBox[{"y", ".", 
+         SubscriptBox["u", "i"]}], ")"}], 
+       SubscriptBox["u", "i"]}]}], "=", 
+     RowBox[{"U", " ", 
+      RowBox[{"U", "\[Transpose]"}], " ", "y"}]}]}], TraditionalForm]],
+  FormatType->TraditionalForm,ExpressionUUID->
+  "7ec14cc0-a113-4769-bd5f-4c5b7452e57c"],
+ "\nfor all ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"y", "\[Element]", 
+    SuperscriptBox["\[DoubleStruckCapitalR]", "n"]}], TraditionalForm]],
+  FormatType->TraditionalForm,ExpressionUUID->
+  "fedbbf99-df46-43ea-941e-176da250a0ad"]
+}], "Text",
+ CellChangeTimes->{{3.909484088566098*^9, 3.9094841034633856`*^9}, {
+  3.909484155520605*^9, 3.9094842663629465`*^9}, {3.9094842984731083`*^9, 
+  3.9094845791252003`*^9}, {3.9094859297388787`*^9, 3.909486062425968*^9}, {
+  3.9095812521799555`*^9, 3.909581543016794*^9}, {3.909581743581817*^9, 
+  3.909582091383527*^9}},
+ Background->RGBColor[
+  0.94, 0.88, 0.94],ExpressionUUID->"53805347-a0f0-46e8-aebc-375a07b649cd"]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["6.4 Gram-Schmidt Process", "Subsection",
+ CellChangeTimes->{{3.9022121076966515`*^9, 3.9022121582154217`*^9}, {
+  3.902753149564061*^9, 3.902753160454166*^9}, {3.903257170993367*^9, 
+  3.9032571816654167`*^9}, {3.9033481088363304`*^9, 3.9033481177150135`*^9}, {
+  3.903769157829028*^9, 3.903769170909472*^9}, {3.909484073129572*^9, 
+  3.909484084627141*^9}, {3.909485796050621*^9, 3.909485816190303*^9}, {
+  3.9094958855202928`*^9, 
+  3.909495915426386*^9}},ExpressionUUID->"63e55c9c-cb79-434d-82a8-\
+d1559406da2f"],
+
+Cell[TextData[{
+ "The motto is orthonormal sets are very useful. The question is how to \
+construct an orthonormal basis for a subspace ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"W", "=", 
+    RowBox[{"span", 
+     RowBox[{"{", 
+      RowBox[{
+       SubscriptBox["a", "1"], ",", 
+       SubscriptBox["a", "2"], ",", "\[Ellipsis]", ",", 
+       SubscriptBox["a", "p"]}], "}"}]}]}], TraditionalForm]],
+  FormatType->TraditionalForm,ExpressionUUID->
+  "01bd44d7-ce50-4eae-9780-0fc140c2567d"],
+ ".  The answer is start at the beginning (a very good place to start!) and \
+proceed by induction.   "
+}], "Text",
+ CellChangeTimes->{{3.909484088566098*^9, 3.9094841034633856`*^9}, {
+  3.909486072051037*^9, 3.9094860831173477`*^9}, {3.9095821662371044`*^9, 
+  3.9095822877158356`*^9}, {3.909582327180131*^9, 
+  3.9095823573337307`*^9}},ExpressionUUID->"cdd1aee8-7011-4961-a3a0-\
+18e78ab73212"],
+
+Cell[TextData[{
+ "Theorem 11: Gram-Schmidt Process\nGiven a basis ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"{", 
+    RowBox[{
+     SubscriptBox["x", "1"], ",", 
+     SubscriptBox["x", "2"], ",", "\[Ellipsis]", ",", 
+     SubscriptBox["x", "p"]}], "}"}], TraditionalForm]],ExpressionUUID->
+  "b4feb800-b924-469a-90be-e3fe76407466"],
+ " the algorithm"
+}], "Text",
+ CellChangeTimes->{{3.909484088566098*^9, 3.9094841034633856`*^9}, {
+  3.909484155520605*^9, 3.9094842663629465`*^9}, {3.9094842984731083`*^9, 
+  3.9094845791252003`*^9}, {3.9094859297388787`*^9, 3.909486062425968*^9}, {
+  3.9095812521799555`*^9, 3.909581543016794*^9}, {3.909581743581817*^9, 
+  3.909582091383527*^9}, {3.909582377967722*^9, 3.90958242109348*^9}, {
+  3.909582475459145*^9, 3.90958248372447*^9}},
+ Background->RGBColor[
+  0.94, 0.88, 0.94],ExpressionUUID->"cfbdeeed-f17f-46df-9e39-5a597770070e"],
+
+Cell[TextData[{
+ "Theorem 12: QR Factorization \nFor ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"A", "\[Element]", 
+    SuperscriptBox["\[DoubleStruckCapitalR]", 
+     RowBox[{"m", "\[Times]", "n"}]]}], TraditionalForm]],
+  FormatType->TraditionalForm,ExpressionUUID->
+  "e761b0e8-841c-4c9d-a056-2b133ad45e77"],
+ " we can factor ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"A", "=", 
+    RowBox[{"Q", " ", "R"}]}], TraditionalForm]],
+  FormatType->TraditionalForm,ExpressionUUID->
+  "51bedf89-0ece-4d0c-b07b-3b1258256706"],
+ "  where ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"Q", "\[Element]", 
+    SuperscriptBox["\[DoubleStruckCapitalR]", 
+     RowBox[{"m", "\[Times]", "n"}]]}], TraditionalForm]],
+  FormatType->TraditionalForm,ExpressionUUID->
+  "5da868db-7e06-4fa4-b389-44fedd42e8d9"],
+ " and ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"R", "\[Element]", 
+    SuperscriptBox["\[DoubleStruckCapitalR]", 
+     RowBox[{"n", "\[Times]", "n"}]]}], TraditionalForm]],
+  FormatType->TraditionalForm,ExpressionUUID->
+  "bf821f88-7074-461f-bd98-64105de0f17f"],
+ " is upper triangular. "
+}], "Text",
+ CellChangeTimes->{{3.909484088566098*^9, 3.9094841034633856`*^9}, {
+  3.909484155520605*^9, 3.9094842663629465`*^9}, {3.9094842984731083`*^9, 
+  3.9094845791252003`*^9}, {3.9094859297388787`*^9, 3.909486062425968*^9}, {
+  3.9095812521799555`*^9, 3.909581543016794*^9}, {3.909581743581817*^9, 
+  3.909582091383527*^9}, {3.909582377967722*^9, 3.90958242109348*^9}, {
+  3.909582473551285*^9, 3.9095825999510155`*^9}},
+ Background->RGBColor[
+  0.94, 0.88, 0.94],ExpressionUUID->"6b1ea86c-3b1f-4893-b319-1fb1bcb30e3e"]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["6.5 Least Squares", "Subsection",
+ CellChangeTimes->{{3.9022121076966515`*^9, 3.9022121582154217`*^9}, {
+  3.902753149564061*^9, 3.902753160454166*^9}, {3.903257170993367*^9, 
+  3.9032571816654167`*^9}, {3.9033481088363304`*^9, 3.9033481177150135`*^9}, {
+  3.903769157829028*^9, 3.903769170909472*^9}, {3.909484073129572*^9, 
+  3.909484084627141*^9}, {3.909485796050621*^9, 3.909485816190303*^9}, {
+  3.9094958855202928`*^9, 3.909495915426386*^9}, {3.909582686864922*^9, 
+  3.9095826991771603`*^9}},ExpressionUUID->"b95b7294-f927-4d54-a203-\
+51ae9fd43f8b"],
+
+Cell[TextData[{
+ "At the start of the course we considered linear systems described by short \
+fat matrices ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"A", "\[Element]", 
+    SuperscriptBox["\[DoubleStruckCapitalR]", 
+     RowBox[{"m", "\[Times]", "n"}]]}], TraditionalForm]],
+  FormatType->TraditionalForm,ExpressionUUID->
+  "865c089b-5ab1-4b0e-a97a-72bcac32b93c"],
+ " with ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"m", "<", "n"}], TraditionalForm]],
+  FormatType->TraditionalForm,ExpressionUUID->
+  "791ee0b6-5f82-4f30-87df-68c154c04903"]
+}], "Text",
+ CellChangeTimes->{{3.909484088566098*^9, 3.9094841034633856`*^9}, {
+  3.909486072051037*^9, 3.9094860831173477`*^9}, {3.9095821662371044`*^9, 
+  3.9095822877158356`*^9}, {3.909582327180131*^9, 3.9095823573337307`*^9}, {
+  3.9095827195954027`*^9, 
+  3.9095828333454485`*^9}},ExpressionUUID->"f9d77e82-c1b2-4d73-9435-\
+64ba4d897701"],
+
+Cell[TextData[{
+ "Definition: A ",
+ StyleBox["least squares solution",
+  FontVariations->{"Underline"->True}],
+ "  ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    OverscriptBox["x", "^"], "\[Element]", 
+    SuperscriptBox["\[DoubleStruckCapitalR]", "n"]}], TraditionalForm]],
+  ExpressionUUID->"a6295e3c-6568-4cdf-baaa-5dc7142a8c17"],
+ " of ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{"A", " ", "x"}], "=", "b"}], TraditionalForm]],
+  FormatType->TraditionalForm,ExpressionUUID->
+  "83fd2fc5-5223-45cf-b9a2-7cbdf972bd72"],
+ " for ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"A", "\[Element]", 
+    SuperscriptBox["\[DoubleStruckCapitalR]", 
+     RowBox[{"m", "\[Times]", "n"}]]}], TraditionalForm]],
+  FormatType->TraditionalForm,ExpressionUUID->
+  "8d81f089-47ee-4952-a563-fb288d1c2e81"],
+ " and ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"b", "\[Element]", 
+    SuperscriptBox["\[DoubleStruckCapitalR]", "m"]}], TraditionalForm]],
+  FormatType->TraditionalForm,ExpressionUUID->
+  "79e099ce-a84b-4c0b-b06c-14ae6b07e8c3"],
+ " satisfies\n\t",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"||", 
+    RowBox[{"b", "-", 
+     RowBox[{"A", " ", 
+      OverscriptBox["x", "^"]}]}], "||", 
+    RowBox[{"\[LessEqual]", 
+     RowBox[{"||", 
+      RowBox[{"b", "-", 
+       RowBox[{"A", " ", "x"}]}], "||"}]}]}], TraditionalForm]],
+  FormatType->TraditionalForm,ExpressionUUID->
+  "6854bc3c-86dc-4538-acea-904e5ad2073e"],
+ " \nfor all ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"x", "\[Element]", 
+    SuperscriptBox["\[DoubleStruckCapitalR]", "n"]}], TraditionalForm]],
+  ExpressionUUID->"e1120abb-6b96-4f41-9eb8-3070b0dae79f"],
+ "."
+}], "Text",
+ CellChangeTimes->{{3.909484088566098*^9, 3.9094841034633856`*^9}, {
+  3.909484155520605*^9, 3.9094842663629465`*^9}, {3.9094842984731083`*^9, 
+  3.9094845791252003`*^9}, {3.9094859297388787`*^9, 3.909486062425968*^9}, {
+  3.9095812521799555`*^9, 3.909581543016794*^9}, {3.909581743581817*^9, 
+  3.909582091383527*^9}, {3.909582377967722*^9, 3.90958242109348*^9}, {
+  3.909582475459145*^9, 3.90958248372447*^9}, {3.9095828516219034`*^9, 
+  3.9095830498950415`*^9}},
+ Background->RGBColor[
+  0.88, 1, 0.88],ExpressionUUID->"2e702749-2ecd-403a-a77f-95d35fae1efc"],
+
+Cell[TextData[{
+ "Theorem 13: Normal Equations \nLeast squares solutions of ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{"A", " ", "x"}], " ", "=", "b"}], TraditionalForm]],
+  FormatType->TraditionalForm,ExpressionUUID->
+  "7966c6ec-4779-485e-acaf-17b9ea9ab8ec"],
+ " solve ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{
+     RowBox[{"A", "\[Transpose]"}], "A", " ", "x"}], "=", 
+    RowBox[{
+     RowBox[{"A", "\[Transpose]"}], "b"}]}], TraditionalForm]],
+  FormatType->TraditionalForm,ExpressionUUID->
+  "96e92271-c08c-4094-9159-c9e706b7bc55"],
+ ".  "
+}], "Text",
+ CellChangeTimes->{{3.909484088566098*^9, 3.9094841034633856`*^9}, {
+   3.909484155520605*^9, 3.9094842663629465`*^9}, {3.9094842984731083`*^9, 
+   3.9094845791252003`*^9}, {3.9094859297388787`*^9, 3.909486062425968*^9}, {
+   3.9095812521799555`*^9, 3.909581543016794*^9}, {3.909581743581817*^9, 
+   3.909582091383527*^9}, {3.909582377967722*^9, 3.90958242109348*^9}, {
+   3.909582473551285*^9, 3.9095825999510155`*^9}, {3.909583078278164*^9, 
+   3.9095831530152984`*^9}, 3.909583244184104*^9},
+ Background->RGBColor[
+  0.94, 0.88, 0.94],ExpressionUUID->"d9775fc3-373d-4cca-9e8e-105d40dd4cc8"],
+
+Cell[TextData[{
+ "Theorem 14: Three way characterization of ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{"A", " ", "x"}], "=", "b"}], TraditionalForm]],
+  FormatType->TraditionalForm,ExpressionUUID->
+  "e5569970-91be-47d7-97b7-3c439b89ed7c"],
+ ". "
+}], "Text",
+ CellChangeTimes->{{3.909484088566098*^9, 3.9094841034633856`*^9}, {
+  3.909484155520605*^9, 3.9094842663629465`*^9}, {3.9094842984731083`*^9, 
+  3.9094845791252003`*^9}, {3.9094859297388787`*^9, 3.909486062425968*^9}, {
+  3.9095812521799555`*^9, 3.909581543016794*^9}, {3.909581743581817*^9, 
+  3.909582091383527*^9}, {3.909582377967722*^9, 3.90958242109348*^9}, {
+  3.909582473551285*^9, 3.9095825999510155`*^9}, {3.909583078278164*^9, 
+  3.9095831530152984`*^9}, {3.90958318788759*^9, 3.9095832264473333`*^9}},
+ Background->RGBColor[
+  0.94, 0.88, 0.94],ExpressionUUID->"b4bf67ea-ec50-44a8-b138-c585ed83da35"],
+
+Cell[TextData[{
+ "Theorem 15: Full rank ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"A", "=", 
+    RowBox[{"Q", " ", "R"}]}], TraditionalForm]],
+  FormatType->TraditionalForm,ExpressionUUID->
+  "29340452-c561-4c94-ae73-0992cb591d1f"],
+ "\n\t",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    OverscriptBox["x", "^"], "=", 
+    RowBox[{
+     SuperscriptBox["R", 
+      RowBox[{"-", "1"}]], 
+     RowBox[{"Q", "\[Transpose]"}], "b"}]}], TraditionalForm]],
+  FormatType->TraditionalForm,ExpressionUUID->
+  "cc2b23d7-63a4-47f5-a3fd-8fb135f961cd"],
+ " "
+}], "Text",
+ CellChangeTimes->{{3.909484088566098*^9, 3.9094841034633856`*^9}, {
+  3.909484155520605*^9, 3.9094842663629465`*^9}, {3.9094842984731083`*^9, 
+  3.9094845791252003`*^9}, {3.9094859297388787`*^9, 3.909486062425968*^9}, {
+  3.9095812521799555`*^9, 3.909581543016794*^9}, {3.909581743581817*^9, 
+  3.909582091383527*^9}, {3.909582377967722*^9, 3.90958242109348*^9}, {
+  3.909582473551285*^9, 3.9095825999510155`*^9}, {3.909583078278164*^9, 
+  3.9095831530152984`*^9}, {3.90958318788759*^9, 3.9095832264473333`*^9}, {
+  3.909583285120167*^9, 3.909583326480929*^9}},
+ Background->RGBColor[
+  0.94, 0.88, 0.94],ExpressionUUID->"0ec52b89-5192-423b-aede-5a704c5592ea"]
+}, Open  ]]
+}, Open  ]]
+}, Open  ]]
+},
+WindowToolbars->{"RulerBar", "EditBar"},
+WindowSize->{1141, 580},
+WindowMargins->{{1340.5, Automatic}, {222, Automatic}},
+TaggingRules->Association["TryRealOnly" -> False],
+Magnification:>1.4,
+FrontEndVersion->"12.3 for Microsoft Windows (64-bit) (May 11, 2021)",
+StyleDefinitions->"Default.nb",
+ExpressionUUID->"5b767204-acce-4b88-8f1a-8074b50a5381"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[CellGroupData[{
+Cell[580, 22, 204, 4, 136, "Title",ExpressionUUID->"2411f8aa-dda1-4de9-9dc1-fddd9660e667"],
+Cell[CellGroupData[{
+Cell[809, 30, 317, 5, 93, "Section",ExpressionUUID->"c605c20a-b238-4a73-a480-b4d65497b721"],
+Cell[CellGroupData[{
+Cell[1151, 39, 470, 7, 75, "Subsection",ExpressionUUID->"eca1e36f-5959-455c-9a2a-fa9d292335e6"],
+Cell[1624, 48, 184, 3, 48, "Text",ExpressionUUID->"8235d16b-ad30-4196-92a0-950593fa9439"],
+Cell[1811, 53, 1170, 36, 70, "Text",ExpressionUUID->"590bf86e-92ef-4c0c-9d4f-3c0465912263"],
+Cell[2984, 91, 1233, 39, 78, "Text",ExpressionUUID->"e1963972-989d-44a7-8285-ca7387969547"],
+Cell[4220, 132, 1856, 62, 70, "Text",ExpressionUUID->"fb4a75ba-e2cc-444f-8068-1dfd247f3b56"],
+Cell[6079, 196, 1101, 31, 70, "Text",ExpressionUUID->"2f4d0206-f7fd-402d-b7ed-2ffb960f3230"],
+Cell[7183, 229, 1286, 38, 70, "Text",ExpressionUUID->"8514e053-d171-4c34-ab54-07e771bd285b"],
+Cell[8472, 269, 1038, 29, 101, "Text",ExpressionUUID->"c395a324-5568-437c-a5ee-caaa7141c113"],
+Cell[9513, 300, 179, 3, 48, "Text",ExpressionUUID->"0fd05c52-5ac1-4187-9147-a72b83be8843"],
+Cell[9695, 305, 1362, 38, 70, "Text",ExpressionUUID->"9822ae2a-dc09-4759-a3ea-24fd94736fe6"],
+Cell[11060, 345, 1519, 41, 101, "Text",ExpressionUUID->"86d7eeed-4366-4ba8-88d1-af52505d1221"],
+Cell[12582, 388, 2533, 69, 132, "Text",ExpressionUUID->"1385baa0-4916-4e38-af2c-f05d166c6148"],
+Cell[15118, 459, 1002, 26, 129, "Text",ExpressionUUID->"02d71a37-543d-48f0-a3a7-6f5746a40014"]
+}, Closed]],
+Cell[CellGroupData[{
+Cell[16157, 490, 465, 7, 51, "Subsection",ExpressionUUID->"66a9b92e-9267-4f79-b341-4ac53c3a54f1"],
+Cell[16625, 499, 241, 4, 48, "Text",ExpressionUUID->"b4955f1c-7f4c-4455-8b32-1625624c3a75"],
+Cell[16869, 505, 1265, 37, 73, "Text",ExpressionUUID->"462fb059-5411-4346-b0c0-a91a0d2f06fa"],
+Cell[18137, 544, 1261, 34, 103, "Text",ExpressionUUID->"d16155f2-8b64-44d8-8902-8f72b8bc52b3"],
+Cell[19401, 580, 909, 23, 70, "Text",ExpressionUUID->"e50ca594-96c0-4421-a685-8b6d92798029"],
+Cell[20313, 605, 674, 21, 49, "Text",ExpressionUUID->"816ecaf1-646a-4444-97fa-4f6aff6d9bca"],
+Cell[20990, 628, 2263, 69, 175, "Text",ExpressionUUID->"4fb5b279-bd93-46ab-a49f-b32581ffe5de"],
+Cell[23256, 699, 540, 15, 48, "Text",ExpressionUUID->"670a1af3-d677-4df4-b9ec-02ce0ea63338"],
+Cell[23799, 716, 822, 19, 70, "Text",ExpressionUUID->"b76bf555-b997-4362-808a-29355a83a89c"],
+Cell[24624, 737, 1440, 47, 64, "Text",ExpressionUUID->"1b47bbd3-843b-4c79-aa10-a91f936902fc"],
+Cell[26067, 786, 978, 24, 70, "Text",ExpressionUUID->"d507728c-4b1f-4aa5-bcbf-ee307d11cdf2"],
+Cell[27048, 812, 1881, 51, 103, "Text",ExpressionUUID->"19b5ab53-3fec-426c-914a-5f745e33e7ca"],
+Cell[28932, 865, 622, 12, 70, "Text",ExpressionUUID->"badbb8ee-c0c8-40e8-8072-376c18833a3b"],
+Cell[29557, 879, 1039, 26, 70, "Text",ExpressionUUID->"bd26c7bd-23bf-4604-9aa9-20c9d2ebedb4"]
+}, Closed]],
+Cell[CellGroupData[{
+Cell[30633, 910, 525, 8, 51, "Subsection",ExpressionUUID->"71f03bbb-1a8a-4155-a853-5137410fc9aa"],
+Cell[31161, 920, 714, 18, 85, "Text",ExpressionUUID->"6fe153b5-573b-49ca-8cdf-2c5a6dfe1695"],
+Cell[31878, 940, 1172, 34, 73, "Text",ExpressionUUID->"beb0e681-b776-4a98-b575-a08ed30cf775"],
+Cell[33053, 976, 2974, 93, 209, "Text",ExpressionUUID->"8bfc7122-e442-4bed-8878-7dbda2303681"],
+Cell[36030, 1071, 1433, 41, 78, "Text",ExpressionUUID->"a20ae40f-b543-4fcb-8656-ce1536756e69"],
+Cell[37466, 1114, 1952, 55, 164, "Text",ExpressionUUID->"780782cc-82bc-4459-acc9-df5b4b830cae"],
+Cell[39421, 1171, 1761, 50, 165, "Text",ExpressionUUID->"53805347-a0f0-46e8-aebc-375a07b649cd"]
+}, Closed]],
+Cell[CellGroupData[{
+Cell[41219, 1226, 521, 8, 51, "Subsection",ExpressionUUID->"63e55c9c-cb79-434d-82a8-d1559406da2f"],
+Cell[41743, 1236, 884, 21, 112, "Text",ExpressionUUID->"cdd1aee8-7011-4961-a3a0-18e78ab73212"],
+Cell[42630, 1259, 872, 19, 103, "Text",ExpressionUUID->"cfbdeeed-f17f-46df-9e39-5a597770070e"],
+Cell[43505, 1280, 1598, 41, 101, "Text",ExpressionUUID->"6b1ea86c-3b1f-4893-b319-1fb1bcb30e3e"]
+}, Closed]],
+Cell[CellGroupData[{
+Cell[45140, 1326, 562, 8, 51, "Subsection",ExpressionUUID->"b95b7294-f927-4d54-a203-51ae9fd43f8b"],
+Cell[45705, 1336, 881, 22, 48, "Text",ExpressionUUID->"f9d77e82-c1b2-4d73-9435-64ba4d897701"],
+Cell[46589, 1360, 2186, 62, 132, "Text",ExpressionUUID->"2e702749-2ecd-403a-a77f-95d35fae1efc"],
+Cell[48778, 1424, 1173, 28, 101, "Text",ExpressionUUID->"d9775fc3-373d-4cca-9e8e-105d40dd4cc8"],
+Cell[49954, 1454, 881, 18, 70, "Text",ExpressionUUID->"b4bf67ea-ec50-44a8-b138-c585ed83da35"],
+Cell[50838, 1474, 1212, 30, 101, "Text",ExpressionUUID->"0ec52b89-5192-423b-aede-5a704c5592ea"]
+}, Open  ]]
+}, Open  ]]
+}, Open  ]]
+}
+]
+*)
+
