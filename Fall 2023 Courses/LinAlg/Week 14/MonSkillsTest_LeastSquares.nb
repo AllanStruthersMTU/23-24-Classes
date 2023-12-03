@@ -1,0 +1,251 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 10.4' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       158,          7]
+NotebookDataLength[      9217,        243]
+NotebookOptionsPosition[      8003,        212]
+NotebookOutlinePosition[      8688,        236]
+CellTagsIndexPosition[      8645,        233]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+
+Cell[CellGroupData[{
+Cell["Name:_________________  Fill in the gaps", "Title",
+ CellChangeTimes->{{3.9022119421591744`*^9, 3.9022119446720896`*^9}, {
+  3.902212079422366*^9, 3.9022120841135693`*^9}, {3.9063825002222023`*^9, 
+  3.906382502603197*^9}, {3.906382853262868*^9, 3.9063828556542897`*^9}, {
+  3.9068202891496596`*^9, 3.9068202925568953`*^9}},
+ FontSize->24,ExpressionUUID->"2411f8aa-dda1-4de9-9dc1-fddd9660e667"],
+
+Cell[TextData[{
+ " The normal equation formula for the least squares solution of ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{"A", " ", "x"}], " ", "=", "b"}], TraditionalForm]],
+  FormatType->TraditionalForm,ExpressionUUID->
+  "41c4d86c-90aa-4f02-939a-8c202a2a8d9f"],
+ " is ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    OverscriptBox["x", "^"], "=", 
+    StyleBox[
+     FrameBox["                            "],
+     FontSize->48]}], TraditionalForm]],ExpressionUUID->
+  "ec6f5bef-c4d8-4cdb-be58-4f6cfaa04ae8"],
+ "  "
+}], "ItemNumbered",
+ CellChangeTimes->{{3.9077694019633417`*^9, 3.9077694222587976`*^9}, {
+  3.907769589880449*^9, 3.907769714748324*^9}, {3.907769784624773*^9, 
+  3.9077698298042946`*^9}, {3.908200749742362*^9, 3.908200866330084*^9}, {
+  3.9082009663773956`*^9, 3.9082009663773956`*^9}, {3.9082010057551165`*^9, 
+  3.9082010492012773`*^9}, {3.9082011429316177`*^9, 3.9082011540345154`*^9}, {
+  3.9106069169230113`*^9, 3.9106069209481897`*^9}, {3.9106104245053177`*^9, 
+  3.910610430448984*^9}, {3.910610502243253*^9, 3.9106105425778055`*^9}, {
+  3.9106106673446693`*^9, 3.9106106875331793`*^9}, {3.91061167379451*^9, 
+  3.910611675004119*^9}},
+ FontSize->24,ExpressionUUID->"8d659fa4-116e-40db-b5a4-0b0aa4e67800"],
+
+Cell[TextData[{
+ "  The QR decomposition formula for the least squares solution of ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{"A", " ", "x"}], " ", "=", 
+    RowBox[{
+     RowBox[{"Q", " ", "R", " ", "x"}], "=", "b"}]}], TraditionalForm]],
+  ExpressionUUID->"7836fafd-5a8f-42d5-8612-11f665c8d549"],
+ " is ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    OverscriptBox["x", "^"], "=", 
+    StyleBox[
+     FrameBox["                            "],
+     FontSize->48]}], TraditionalForm]],ExpressionUUID->
+  "174a7f48-0906-428c-b79d-abb236d920c7"],
+ "  "
+}], "ItemNumbered",
+ CellChangeTimes->{{3.9077694019633417`*^9, 3.9077694222587976`*^9}, {
+   3.907769589880449*^9, 3.907769714748324*^9}, {3.907769784624773*^9, 
+   3.9077698298042946`*^9}, {3.908200749742362*^9, 3.908200866330084*^9}, {
+   3.9082009663773956`*^9, 3.9082009663773956`*^9}, {3.9082010057551165`*^9, 
+   3.9082010492012773`*^9}, {3.9082011429316177`*^9, 
+   3.9082011540345154`*^9}, {3.9106069169230113`*^9, 
+   3.9106069209481897`*^9}, {3.9106104245053177`*^9, 3.910610430448984*^9}, {
+   3.910610502243253*^9, 3.9106105537024794`*^9}, {3.9106106976045628`*^9, 
+   3.9106107270932674`*^9}, 3.9106116801696615`*^9},
+ FontSize->24,ExpressionUUID->"26aa4082-b03f-4e6c-9872-0c2deb260906"],
+
+Cell[CellGroupData[{
+
+Cell[TextData[{
+ "For ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{"A", " ", "x"}], "=", "b"}], TraditionalForm]],
+  FormatType->TraditionalForm,ExpressionUUID->
+  "889fe31f-ea25-4abf-b14d-a9833bed5dae"],
+ " where ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"A", "=", 
+    RowBox[{"(", GridBox[{
+       {"1", "0"},
+       {"1", "1"},
+       {"0", "1"}
+      }], ")"}]}], TraditionalForm]],
+  FormatType->TraditionalForm,ExpressionUUID->
+  "d5b3d484-dc0c-4691-90d2-b4aeff98f277"],
+ " and ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"b", "=", 
+    RowBox[{"(", GridBox[{
+       {"3"},
+       {"3"},
+       {"9"}
+      }], ")"}]}], TraditionalForm]],
+  FormatType->TraditionalForm,ExpressionUUID->
+  "1335ece4-3450-43f5-b7e1-a3bbdf1d673c"]
+}], "ItemNumbered",
+ CellChangeTimes->{{3.9077694019633417`*^9, 3.9077694222587976`*^9}, {
+  3.907769589880449*^9, 3.907769714748324*^9}, {3.907769784624773*^9, 
+  3.9077698298042946`*^9}, {3.908200749742362*^9, 3.908200866330084*^9}, {
+  3.9082009663773956`*^9, 3.9082009663773956`*^9}, {3.9082010057551165`*^9, 
+  3.9082010492012773`*^9}, {3.9082011429316177`*^9, 3.9082011540345154`*^9}, {
+  3.9106069169230113`*^9, 3.9106069379840107`*^9}, {3.910610735125284*^9, 
+  3.910610838182563*^9}, {3.910610934479001*^9, 3.9106109633273444`*^9}, {
+  3.910611028588355*^9, 3.910611028588355*^9}, {3.910611062207076*^9, 
+  3.9106111035132008`*^9}, {3.9106112038880224`*^9, 3.910611266997649*^9}, {
+  3.9106113023122873`*^9, 3.910611312485653*^9}},
+ FontSize->24,ExpressionUUID->"579247a1-b386-430c-9f5c-831c4e46f6eb"],
+
+Cell[TextData[{
+ "The least squares solution of ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{"A", " ", "x"}], "=", "b"}], TraditionalForm]],
+  FormatType->TraditionalForm,ExpressionUUID->
+  "0de6d4d6-5c58-4cee-b742-7f77492d83fa"],
+ " solves the square system   ",
+ Cell[BoxData[
+  FormBox[
+   FrameBox[
+    RowBox[{" ", 
+     RowBox[{
+      RowBox[{
+       RowBox[{"(", GridBox[{
+          {"     ", " "},
+          {"           ", " "},
+          {"         ", " "}
+         }], "  ", ")"}], "x"}], "=", "   ", 
+      RowBox[{"(", GridBox[{
+         {" "},
+         {"    "},
+         {" "}
+        }], "  ", ")"}], " "}]}]], TraditionalForm]],ExpressionUUID->
+  "36aebb05-da5d-47d7-acf0-7d752c582c64"],
+ "  ."
+}], "SubitemNumbered",
+ CellChangeTimes->{{3.9077694019633417`*^9, 3.9077694222587976`*^9}, {
+  3.907769589880449*^9, 3.907769714748324*^9}, {3.907769784624773*^9, 
+  3.9077698298042946`*^9}, {3.908200749742362*^9, 3.908200866330084*^9}, {
+  3.9082009663773956`*^9, 3.9082009663773956`*^9}, {3.9082010057551165`*^9, 
+  3.9082010492012773`*^9}, {3.9082011429316177`*^9, 3.9082011540345154`*^9}, {
+  3.9106069169230113`*^9, 3.9106069379840107`*^9}, {3.910610735125284*^9, 
+  3.910610838182563*^9}, {3.910610934479001*^9, 3.9106109633273444`*^9}, {
+  3.910611028588355*^9, 3.910611028588355*^9}, {3.910611062207076*^9, 
+  3.9106111035132008`*^9}, {3.9106112038880224`*^9, 3.910611266997649*^9}, {
+  3.9106113023122873`*^9, 3.9106113595944004`*^9}},
+ FontSize->24,ExpressionUUID->"45a88e46-be3d-41f0-ac3a-d3085cfda3fc"],
+
+Cell[TextData[{
+ "The least squares solution of ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{"A", " ", "x"}], "=", "b"}], TraditionalForm]],
+  FormatType->TraditionalForm,ExpressionUUID->
+  "da0676de-b109-4e58-8a18-718957fdd8c5"],
+ " is ",
+ Cell[BoxData[
+  FormBox[
+   FrameBox[
+    RowBox[{" ", 
+     RowBox[{
+      OverscriptBox["x", "^"], "=", "   ", 
+      RowBox[{"(", GridBox[{
+         {" "},
+         {"    "},
+         {" "}
+        }], "    ", ")"}], " "}]}]], TraditionalForm]],ExpressionUUID->
+  "f1604748-4290-4403-b591-4ccc61573180"],
+ " "
+}], "SubitemNumbered",
+ CellChangeTimes->{{3.9077694019633417`*^9, 3.9077694222587976`*^9}, {
+  3.907769589880449*^9, 3.907769714748324*^9}, {3.907769784624773*^9, 
+  3.9077698298042946`*^9}, {3.908200749742362*^9, 3.908200866330084*^9}, {
+  3.9082009663773956`*^9, 3.9082009663773956`*^9}, {3.9082010057551165`*^9, 
+  3.9082010492012773`*^9}, {3.9082011429316177`*^9, 3.9082011540345154`*^9}, {
+  3.9106069169230113`*^9, 3.9106069379840107`*^9}, {3.910610735125284*^9, 
+  3.910610838182563*^9}, {3.910610934479001*^9, 3.9106109633273444`*^9}, {
+  3.910611028588355*^9, 3.910611028588355*^9}, {3.910611062207076*^9, 
+  3.9106111035132008`*^9}, {3.9106112038880224`*^9, 3.910611266997649*^9}, {
+  3.9106113023122873`*^9, 3.9106114175983152`*^9}},
+ FontSize->24,ExpressionUUID->"d2075449-0c34-4520-8c5a-e1121061b78b"]
+}, Open  ]]
+}, Open  ]]
+},
+ScreenStyleEnvironment->"Printout",
+WindowToolbars->{"RulerBar", "EditBar"},
+WindowSize->{1138.5, 483.},
+WindowMargins->{{Automatic, -1360}, {Automatic, -188}},
+PrintingCopies->1,
+PrintingPageRange->{32000, 32000},
+PrintingOptions->{"Magnification"->1.,
+"PaperOrientation"->"Portrait",
+"PaperSize"->{612, 792}},
+TaggingRules->Association["TryRealOnly" -> False],
+FrontEndVersion->"12.3 for Microsoft Windows (64-bit) (May 11, 2021)",
+StyleDefinitions->"Default.nb",
+ExpressionUUID->"afb5a260-c963-483f-9139-2f8e2b3e7768"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[CellGroupData[{
+Cell[580, 22, 400, 5, 50, "Title",ExpressionUUID->"2411f8aa-dda1-4de9-9dc1-fddd9660e667"],
+Cell[983, 29, 1240, 28, 86, "ItemNumbered",ExpressionUUID->"8d659fa4-116e-40db-b5a4-0b0aa4e67800"],
+Cell[2226, 59, 1259, 29, 86, "ItemNumbered",ExpressionUUID->"26aa4082-b03f-4e6c-9872-0c2deb260906"],
+Cell[CellGroupData[{
+Cell[3510, 92, 1547, 41, 69, "ItemNumbered",ExpressionUUID->"579247a1-b386-430c-9f5c-831c4e46f6eb"],
+Cell[5060, 135, 1535, 38, 101, "SubitemNumbered",ExpressionUUID->"45a88e46-be3d-41f0-ac3a-d3085cfda3fc"],
+Cell[6598, 175, 1377, 33, 79, "SubitemNumbered",ExpressionUUID->"d2075449-0c34-4520-8c5a-e1121061b78b"]
+}, Open  ]]
+}, Open  ]]
+}
+]
+*)
+
