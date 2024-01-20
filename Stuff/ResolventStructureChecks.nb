@@ -1,0 +1,740 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 13.3' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       158,          7]
+NotebookDataLength[     25391,        732]
+NotebookOptionsPosition[     23423,        698]
+NotebookOutlinePosition[     23832,        714]
+CellTagsIndexPosition[     23789,        711]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+Cell[TextData[{
+ "The resolvent ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{"R", "(", "z", ")"}], "=", 
+    RowBox[{
+     SuperscriptBox[
+      RowBox[{"(", 
+       RowBox[{"A", "-", 
+        RowBox[{"z", " ", "I"}]}], ")"}], 
+      RowBox[{"-", "1"}]], "=", 
+     RowBox[{
+      RowBox[{
+       RowBox[{"Adjugate", "(", 
+        RowBox[{"A", "-", 
+         RowBox[{"z", " ", "I"}]}], ")"}], "/", 
+       RowBox[{"det", "(", 
+        RowBox[{"A", "-", 
+         RowBox[{"z", " ", "I"}]}], ")"}]}], "=", 
+      RowBox[{
+       RowBox[{
+        SubscriptBox["P", 
+         RowBox[{"m", "-", "1"}]], "(", "z", ")"}], "/", 
+       RowBox[{
+        SubscriptBox["q", "m"], "(", "z", ")"}]}]}]}]}], TraditionalForm]],
+  FormatType->TraditionalForm,ExpressionUUID->
+  "f240bf35-621e-4d23-abce-168f0e17ff88"],
+ " is a polynomial matrix of degree ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"m", "-", "1"}], TraditionalForm]],
+  FormatType->TraditionalForm,ExpressionUUID->
+  "90d0e1e0-046c-486d-bf41-f1e5202720b4"],
+ " over a scalar polynomial of degree ",
+ Cell[BoxData[
+  FormBox["m", TraditionalForm]],
+  FormatType->TraditionalForm,ExpressionUUID->
+  "f89c62e0-d353-48d4-af7a-8595fc2f36f2"],
+ ".  The diagonal entries of ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    SubscriptBox["P", 
+     RowBox[{"m", "-", "1"}]], "(", "z", ")"}], TraditionalForm]],
+  FormatType->TraditionalForm,ExpressionUUID->
+  "e7bbb75d-0d49-4304-974d-c1263f8e9677"],
+ " have lead term ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    SuperscriptBox[
+     RowBox[{"(", 
+      RowBox[{"-", "1"}], ")"}], 
+     RowBox[{"m", "-", "1"}]], 
+    SuperscriptBox["z", 
+     RowBox[{"m", "-", "1"}]]}], TraditionalForm]],
+  FormatType->TraditionalForm,ExpressionUUID->
+  "2262103e-5ca4-42de-87d1-453170766470"],
+ " and the off diagonal terms generically have highest power ",
+ Cell[BoxData[
+  FormBox[
+   SuperscriptBox["z", 
+    RowBox[{"m", "-", "2"}]], TraditionalForm]],
+  FormatType->TraditionalForm,ExpressionUUID->
+  "653cc6b2-aeb0-4903-ab41-857aa1cf103c"],
+ ".   When I sample I get \n\t",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{
+     RowBox[{
+      SubscriptBox["P", 
+       RowBox[{"m", "-", "1"}]], "(", "z", ")"}], " ", "S"}], "=", 
+    RowBox[{
+     RowBox[{
+      SuperscriptBox[
+       RowBox[{"(", 
+        RowBox[{"-", "1"}], ")"}], 
+       RowBox[{"m", "-", "1"}]], 
+      SuperscriptBox["z", 
+       RowBox[{"m", "-", "1"}]], "S"}], "+", 
+     RowBox[{
+      RowBox[{
+       SubscriptBox["P", 
+        RowBox[{"m", "-", "2"}]], "(", "z", ")"}], " ", "S"}]}]}], 
+   TraditionalForm]],
+  FormatType->TraditionalForm,ExpressionUUID->
+  "86beb451-aa0f-4259-999f-e6e3b5e0544a"],
+ "\nwhere ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    SubscriptBox["P", 
+     RowBox[{"m", "-", "2"}]], "(", "z", ")"}], TraditionalForm]],
+  FormatType->TraditionalForm,ExpressionUUID->
+  "bb989a4b-1cdd-41b1-bd8e-95f3d82471df"],
+ " is a polynomial matrix of uniform generic degree ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"m", "-", "2"}], TraditionalForm]],
+  FormatType->TraditionalForm,ExpressionUUID->
+  "53aabb57-b038-49e6-aed3-4c2b547d1eda"],
+ ".  I think this is all the obvious information!  "
+}], "Text",
+ CellChangeTimes->{{3.9146674779763107`*^9, 3.914667729308318*^9}, {
+  3.914668014052459*^9, 3.914668235682856*^9}, {3.914669096259737*^9, 
+  3.9146691916294975`*^9}, {3.9146693220766478`*^9, 
+  3.9146693463166456`*^9}},ExpressionUUID->"a8de95e0-21f0-4f37-8d6f-\
+8946d2109a1b"],
+
+Cell[TextData[{
+ "In practice, ",
+ Cell[BoxData[
+  FormBox["m", TraditionalForm]],
+  FormatType->TraditionalForm,ExpressionUUID->
+  "3d634338-987d-4a5d-a185-4dfb4e59506e"],
+ " is large.  In practice, I want to approximate ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    SuperscriptBox[
+     RowBox[{"(", 
+      RowBox[{"A", "-", 
+       RowBox[{"z", " ", "I"}]}], ")"}], 
+     RowBox[{"-", "1"}]], "S"}], TraditionalForm]],
+  FormatType->TraditionalForm,ExpressionUUID->
+  "8c0a6771-be59-4b16-8eb3-5e21b7ddc3ad"],
+ " along a line from ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"z", "=", "a"}], TraditionalForm]],
+  FormatType->TraditionalForm,ExpressionUUID->
+  "52a84ca1-80ac-4b1e-9dec-68450063ee28"],
+ " to ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"z", "=", "b"}], TraditionalForm]],
+  FormatType->TraditionalForm,ExpressionUUID->
+  "7c1c157f-ac70-4558-9ee1-ad0dc31e2d74"],
+ " using only information from \n\t",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{"R", "(", "a", ")"}], "S"}], TraditionalForm]],
+  FormatType->TraditionalForm,ExpressionUUID->
+  "6f430d37-376d-4a74-b8f8-268352a1ecbb"],
+ ", ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{"R", "'"}], 
+    RowBox[{"(", "a", ")"}], "S"}], TraditionalForm]],
+  FormatType->TraditionalForm,ExpressionUUID->
+  "22fc5bb4-712e-4030-9c35-006c745d863c"],
+ ", ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{"R", "''"}], 
+    RowBox[{"(", "a", ")"}], "S"}], TraditionalForm]],
+  FormatType->TraditionalForm,ExpressionUUID->
+  "a4a054a8-76a0-40b1-8f89-851fd21cc5db"],
+ ", \[Ellipsis] \nand \n\t",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{"R", "(", "b", ")"}], "S"}], TraditionalForm]],
+  FormatType->TraditionalForm,ExpressionUUID->
+  "92834d4c-c282-4074-bce4-bb23287bf662"],
+ ", ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{"R", "'"}], 
+    RowBox[{"(", "b", ")"}], "S"}], TraditionalForm]],
+  FormatType->TraditionalForm,ExpressionUUID->
+  "e6f0a6e9-dda4-4d1c-9ba1-fc8d0d06cb3a"],
+ ", ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{"R", "''"}], 
+    RowBox[{"(", "b", ")"}], "S"}], TraditionalForm]],
+  FormatType->TraditionalForm,ExpressionUUID->
+  "3a68edc3-fed8-4017-b8be-d1678f2cbe05"],
+ ", \[Ellipsis]\nSince \n\t",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{
+     RowBox[{"R", "'"}], 
+     RowBox[{"(", "z", ")"}]}], "=", 
+    RowBox[{
+     SuperscriptBox[
+      RowBox[{"(", 
+       RowBox[{"A", "-", 
+        RowBox[{"z", " ", "I"}]}], ")"}], 
+      RowBox[{"-", "2"}]], "=", 
+     RowBox[{
+      SuperscriptBox[
+       RowBox[{"(", 
+        RowBox[{"A", "-", 
+         RowBox[{"z", " ", "I"}]}], ")"}], 
+       RowBox[{"-", "1"}]], 
+      RowBox[{"R", "(", "z", ")"}]}]}]}], TraditionalForm]],
+  FormatType->TraditionalForm,ExpressionUUID->
+  "29201679-3a70-4b5b-844b-f7e6e62f1c24"],
+ "\n\t",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{
+     RowBox[{
+      RowBox[{"R", "''"}], 
+      RowBox[{"(", "z", ")"}]}], "=", 
+     RowBox[{
+      RowBox[{"2", 
+       SuperscriptBox[
+        RowBox[{"(", 
+         RowBox[{"A", "-", 
+          RowBox[{"z", " ", "I"}]}], ")"}], 
+        RowBox[{"-", "3"}]]}], "=", 
+      RowBox[{"2", 
+       RowBox[{"(", 
+        RowBox[{"A", "-", 
+         RowBox[{"z", " ", "I"}]}], ")"}], 
+       RowBox[{"R", "'"}], 
+       RowBox[{"(", "z", ")"}]}]}]}], ")"}], TraditionalForm]],
+  FormatType->TraditionalForm,ExpressionUUID->
+  "75279380-ad04-4a1e-bf4e-a59acf2d498e"],
+ "\n\t\[Ellipsis]\n\t",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    SuperscriptBox["R", 
+     RowBox[{"(", "d", ")"}]], "=", 
+    RowBox[{"d", " ", 
+     SuperscriptBox[
+      RowBox[{"(", 
+       RowBox[{"A", "-", 
+        RowBox[{"z", " ", "I"}]}], ")"}], 
+      RowBox[{"-", 
+       RowBox[{"(", 
+        RowBox[{"d", "+", "1"}], ")"}]}]]}]}], TraditionalForm]],
+  FormatType->TraditionalForm,ExpressionUUID->
+  "4c24c7e6-c51e-4765-8281-bc9529247d9d"],
+ "\neach higher derivative requires only two additional triangular solves if \
+the original matrix has been factored ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{"A", "-", 
+     RowBox[{"z", " ", "I"}]}], "=", 
+    RowBox[{"L", " ", "U"}]}], TraditionalForm]],
+  FormatType->TraditionalForm,ExpressionUUID->
+  "0a8b488e-0bae-4f5b-9673-dfee603eb0f6"],
+ ". \n\t",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{
+     RowBox[{"R", "(", "z", ")"}], " ", "S"}], "=", 
+    RowBox[{
+     SuperscriptBox["U", 
+      RowBox[{"-", "1"}]], "(", 
+     RowBox[{
+      SuperscriptBox["L", 
+       RowBox[{"-", "1"}]], "S"}], ")"}]}], TraditionalForm]],
+  FormatType->TraditionalForm,ExpressionUUID->
+  "f8cdde75-8666-411a-a8f7-77fae8f0d85f"],
+ "\n\t",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{
+     RowBox[{"R", "'"}], 
+     RowBox[{"(", "z", ")"}], " ", "S"}], "=", 
+    RowBox[{
+     RowBox[{
+      SuperscriptBox["U", 
+       RowBox[{"-", "1"}]], "(", 
+      RowBox[{
+       SuperscriptBox["L", 
+        RowBox[{"-", "1"}]], 
+       RowBox[{"R", "(", "A", ")"}], "S"}], ")"}], "=", 
+     RowBox[{
+      SuperscriptBox["U", 
+       RowBox[{"-", "1"}]], "(", 
+      RowBox[{
+       SuperscriptBox["L", 
+        RowBox[{"-", "1"}]], "(", 
+       RowBox[{
+        SuperscriptBox["U", 
+         RowBox[{"-", "1"}]], "(", 
+        RowBox[{
+         SuperscriptBox["L", 
+          RowBox[{"-", "1"}]], "S"}], ")"}], ")"}], ")"}]}]}], 
+   TraditionalForm]],
+  FormatType->TraditionalForm,ExpressionUUID->
+  "c5082e01-d45f-4e24-9da1-ad7803182511"],
+ "\nAlternatively, provided the back solve is written in plain the Julia \
+forward mode AD can compute higher derivatives in a single pass. "
+}], "Text",
+ CellChangeTimes->{{3.9146674779763107`*^9, 3.914667729308318*^9}, {
+  3.914668014052459*^9, 3.914668235682856*^9}, {3.914669096259737*^9, 
+  3.914669218606944*^9}, {3.914669266487715*^9, 3.914669273508715*^9}, {
+  3.9146693132276945`*^9, 3.9146697444609523`*^9}, {3.914669779530153*^9, 
+  3.9146699865860615`*^9}, {3.914670066557023*^9, 3.9146700727779408`*^9}, {
+  3.914670669370653*^9, 
+  3.914670669812601*^9}},ExpressionUUID->"a8a37557-2304-41af-92e7-\
+3d0c175baf52"],
+
+Cell[TextData[{
+ "I want to approximate ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{"R", "(", "z", ")"}], "S"}], TraditionalForm]],
+  FormatType->TraditionalForm,ExpressionUUID->
+  "6cd732dd-e5d2-4d05-b54e-9b095096d3e9"],
+ " as accurately as possible so that I can approximate ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{
+     SubsuperscriptBox["\[Integral]", 
+      RowBox[{"z", "=", "a"}], 
+      RowBox[{"z", "=", "b"}]], 
+     RowBox[{
+      RowBox[{"R", "(", "z", ")"}], "dz", " ", "S"}]}], "=", 
+    RowBox[{
+     SubsuperscriptBox["\[Integral]", 
+      RowBox[{"z", "=", "a"}], 
+      RowBox[{"z", "=", "b"}]], 
+     RowBox[{
+      RowBox[{"R", "(", "z", ")"}], "S", " ", "dz"}]}]}], TraditionalForm]],
+  FormatType->TraditionalForm,ExpressionUUID->
+  "2a1b330c-b672-47a7-a478-8009628a4764"],
+ " as accurately as possible.   This is all in order to assemble an \
+approximation to  ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{
+     RowBox[{"(", 
+      RowBox[{
+       SubscriptBox["\[Integral]", "\[CapitalDelta]"], 
+       RowBox[{
+        RowBox[{"R", "(", "z", ")"}], "dz"}]}], ")"}], "S"}], " ", "=", 
+    RowBox[{
+     RowBox[{"(", 
+      RowBox[{
+       RowBox[{
+        SubsuperscriptBox["\[Integral]", 
+         RowBox[{"z", "=", "a"}], 
+         RowBox[{"z", "=", "b"}]], 
+        RowBox[{
+         RowBox[{"R", "(", "z", ")"}], "dz"}]}], "+", 
+       RowBox[{
+        SubsuperscriptBox["\[Integral]", 
+         RowBox[{"z", "=", "b"}], 
+         RowBox[{"z", "=", "c"}]], 
+        RowBox[{
+         RowBox[{"R", "(", "z", ")"}], "dz", " ", "S"}]}], "+", 
+       RowBox[{
+        SubsuperscriptBox["\[Integral]", 
+         RowBox[{"z", "=", "c"}], 
+         RowBox[{"z", "=", "a"}]], 
+        RowBox[{
+         RowBox[{"R", "(", "z", ")"}], "dz"}]}]}], ")"}], " ", "S"}]}], 
+   TraditionalForm]],
+  FormatType->TraditionalForm,ExpressionUUID->
+  "a824d583-b9fe-4052-b243-81d538d0b1f0"],
+ " which contains only eigen directions within the triangular contour from ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"z", "=", "a"}], TraditionalForm]],
+  FormatType->TraditionalForm,ExpressionUUID->
+  "c710e885-282c-4f17-ba66-f9b0e1e52efd"],
+ " to ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"z", "=", "b"}], TraditionalForm]],
+  FormatType->TraditionalForm,ExpressionUUID->
+  "3808ce8c-cacf-4e7c-a065-f441b9a3f10e"],
+ " to ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"z", "=", "c"}], TraditionalForm]],
+  FormatType->TraditionalForm,ExpressionUUID->
+  "42ae9bb0-203c-4701-a378-0654da0fa86c"],
+ " and back to ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"z", "=", "a"}], TraditionalForm]],
+  FormatType->TraditionalForm,ExpressionUUID->
+  "36574706-3f66-44e5-b9b5-30e6f1bbc06a"],
+ ".  The approximation should be rich in in those eigen directions.  "
+}], "Text",
+ CellChangeTimes->{{3.9146697614419727`*^9, 3.9146697660075064`*^9}, {
+  3.914670027517495*^9, 3.914670100908605*^9}, {3.914670702987883*^9, 
+  3.91467105080307*^9}},ExpressionUUID->"8c9e6706-029a-4d93-82cf-\
+bea4939364fc"],
+
+Cell["\<\
+The reason for doing triangles is to be able to refine a triangular mesh and \
+reuse existing factorizations.  The hope is that we can compute eigenvalues \
+within any triangulated domain.  \
+\>", "Text",
+ CellChangeTimes->{{3.9146710646945515`*^9, 3.9146711429021263`*^9}, {
+  3.9146711871692142`*^9, 
+  3.914671207566346*^9}},ExpressionUUID->"f51cc8c6-917c-4adb-9cc4-\
+dcda24312d7a"],
+
+Cell[TextData[{
+ "I need two point and three point approximations.  The three point \
+approximation is naturally ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"a", ",", "b", ","}], TraditionalForm]],
+  FormatType->TraditionalForm,ExpressionUUID->
+  "545dc860-ed3d-428d-a477-9eb2c28e1697"],
+ " and the midpoint ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{"(", 
+     RowBox[{"a", "+", "b"}], ")"}], "/", "2"}], TraditionalForm]],
+  FormatType->TraditionalForm,ExpressionUUID->
+  "ded91100-07b0-417a-b52f-2b42d84ad4ac"],
+ ". "
+}], "Text",
+ CellChangeTimes->{{3.9146713840389357`*^9, 3.91467139427162*^9}, {
+  3.9146728777004175`*^9, 
+  3.9146729438109984`*^9}},ExpressionUUID->"0af0e5e1-27a6-4690-9ccc-\
+855413625085"],
+
+Cell["\<\
+The numerator is easy.  The denominator is more confusing to me. \
+\>", "Text",
+ CellChangeTimes->{{3.914672953436815*^9, 
+  3.914673002066783*^9}},ExpressionUUID->"7b43528a-7fe2-4842-8c7b-\
+c2e4df88f90f"],
+
+Cell["\<\
+Given a denominator the numerator is standard and easy.  You just clear the \
+fraction and approximate using a standard Hermite basis\
+\>", "Item",
+ CellChangeTimes->{{3.9146730252344236`*^9, 3.914673050501109*^9}, {
+  3.9146730943305025`*^9, 
+  3.9146731698364477`*^9}},ExpressionUUID->"1b53f181-2ebd-4bb1-9658-\
+3587ead0437c"],
+
+Cell["\<\
+Given any single component a one sided denominator is straightforward and I \
+think the two and three point approximations are simple extensions.\
+\>", "Item",
+ CellChangeTimes->{{3.9146730252344236`*^9, 3.914673050501109*^9}, {
+  3.9146730943305025`*^9, 3.9146732507025723`*^9}, {3.914673282373375*^9, 
+  3.9146732823754015`*^9}},ExpressionUUID->"c4c467fb-12f2-441f-acf1-\
+2a44feaf00ba"],
+
+Cell[TextData[{
+ "The denominator needs to be scaled in some manner to be well defined.  The \
+standard scaling is to set the constant term to 1.  The consistent scaling \
+would be to set the constant term to be ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"det", "(", "A", ")"}], TraditionalForm]],
+  FormatType->TraditionalForm,ExpressionUUID->
+  "410a5a55-1af8-4139-b61f-f8f2042ce360"],
+ ". "
+}], "Item",
+ CellChangeTimes->{{3.9146730252344236`*^9, 3.914673050501109*^9}, {
+  3.9146730943305025`*^9, 3.9146732507025723`*^9}, {3.9146732833946714`*^9, 
+  3.914673346707767*^9}, {3.9146735331949797`*^9, 3.91467356225143*^9}, {
+  3.9146738428332057`*^9, 
+  3.914673872944746*^9}},ExpressionUUID->"e04d1651-870f-4702-99b0-\
+96f77849ada8"],
+
+Cell[CellGroupData[{
+
+Cell["\<\
+The question is how to choose a single scalar data set to compute the \
+denominator. \
+\>", "Item",
+ CellChangeTimes->{{3.9146730252344236`*^9, 3.914673050501109*^9}, {
+  3.9146730943305025`*^9, 3.9146732690768228`*^9}, {3.9146738274500904`*^9, 
+  3.9146738379854565`*^9}, {3.914673879853382*^9, 3.914673933382874*^9}, {
+  3.914673988172432*^9, 
+  3.9146740097468524`*^9}},ExpressionUUID->"536b3a89-4224-450f-8f8c-\
+0fdee06ba637"],
+
+Cell["\<\
+I have talked myself out of a single randomly weighted average.  I think this \
+probably averages out the signal.\
+\>", "Subitem",
+ CellChangeTimes->{{3.9146730252344236`*^9, 3.914673050501109*^9}, {
+  3.9146730943305025`*^9, 3.9146732690768228`*^9}, {3.9146738274500904`*^9, 
+  3.9146738379854565`*^9}, {3.914673879853382*^9, 3.914673933382874*^9}, {
+  3.914673988172432*^9, 3.91467406132813*^9}, {3.914674127684822*^9, 
+  3.9146741370564585`*^9}},ExpressionUUID->"9343b761-d109-4a45-8734-\
+149bc6287b5b"],
+
+Cell[CellGroupData[{
+
+Cell[TextData[{
+ "The rank 1 approximations  ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    SubscriptBox[
+     RowBox[{"(", 
+      RowBox[{
+       RowBox[{"R", "(", "a", ")"}], "S"}], ")"}], 
+     RowBox[{"(", "1", ")"}]], "=", 
+    RowBox[{
+     RowBox[{
+      SubscriptBox["\[Sigma]", "1"], "(", "a", ")"}], " ", 
+     RowBox[{
+      RowBox[{
+       SubscriptBox["u", "1"], "(", "a", ")"}], "\[CircleTimes]", 
+      RowBox[{
+       SubscriptBox["v", "1"], "(", "a", ")"}]}]}]}], TraditionalForm]],
+  FormatType->TraditionalForm,ExpressionUUID->
+  "fad69881-80b4-4174-900b-af700825a3de"],
+ " and ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    SubscriptBox[
+     RowBox[{"(", 
+      RowBox[{
+       RowBox[{"R", "(", "b", ")"}], "S"}], ")"}], 
+     RowBox[{"(", "1", ")"}]], "=", 
+    RowBox[{
+     RowBox[{
+      SubscriptBox["\[Sigma]", "1"], "(", "b", ")"}], " ", 
+     RowBox[{
+      RowBox[{
+       SubscriptBox["u", "1"], "(", "b", ")"}], "\[CircleTimes]", 
+      RowBox[{
+       SubscriptBox["v", "1"], "(", "b", ")"}]}]}]}], TraditionalForm]],
+  FormatType->TraditionalForm,ExpressionUUID->
+  "7594a694-abf0-47bb-a045-e2fe9d3383a6"],
+ " are the largest signals in the two point rectangular data     "
+}], "Subitem",
+ CellChangeTimes->{{3.9146730252344236`*^9, 3.914673050501109*^9}, {
+  3.9146730943305025`*^9, 3.9146732690768228`*^9}, {3.9146738274500904`*^9, 
+  3.9146738379854565`*^9}, {3.914673879853382*^9, 3.914673933382874*^9}, {
+  3.914673988172432*^9, 3.91467406132813*^9}, {3.914674127684822*^9, 
+  3.914674361039229*^9}, {3.9146751852958465`*^9, 
+  3.9146751953223815`*^9}},ExpressionUUID->"1f4e0c98-4424-4518-9959-\
+f2b93214f6c2"],
+
+Cell["\<\
+My problem is that there are two of them. I really need one thing not two.\
+\>", "Subsubitem",
+ CellChangeTimes->{{3.9146730252344236`*^9, 3.914673050501109*^9}, {
+  3.9146730943305025`*^9, 3.9146732690768228`*^9}, {3.9146738274500904`*^9, 
+  3.9146738379854565`*^9}, {3.914673879853382*^9, 3.914673933382874*^9}, {
+  3.914673988172432*^9, 3.91467406132813*^9}, {3.914674127684822*^9, 
+  3.914674361039229*^9}, {3.9146751852958465`*^9, 3.914675265998771*^9}, {
+  3.9146753254034705`*^9, 3.914675381100727*^9}, {3.9146759046711454`*^9, 
+  3.9146759046711454`*^9}},ExpressionUUID->"2e09d83d-2cc6-4dea-898c-\
+a3920d68189f"],
+
+Cell[TextData[{
+ "I could average the two vector pairs ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    OverscriptBox["u", "~"], "=", 
+    RowBox[{"0.5", 
+     RowBox[{"(", 
+      RowBox[{
+       RowBox[{
+        SubscriptBox["u", "1"], "(", "a", ")"}], "+", 
+       RowBox[{
+        SubscriptBox["u", "1"], "(", "b", ")"}]}], ")"}]}]}], 
+   TraditionalForm]],
+  FormatType->TraditionalForm,ExpressionUUID->
+  "1df08e05-36cb-45d7-a85c-3d269210df46"],
+ " and ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    OverscriptBox["v", "~"], "=", 
+    RowBox[{"0.5", 
+     RowBox[{"(", 
+      RowBox[{
+       RowBox[{
+        SubscriptBox["v", "1"], "(", "a", ")"}], "+", 
+       RowBox[{
+        SubscriptBox["v", "1"], "(", "b", ")"}]}], ")"}]}]}], 
+   TraditionalForm]],
+  FormatType->TraditionalForm,ExpressionUUID->
+  "f08c1c91-6535-4835-a41d-cbe07c93a34d"]
+}], "Subsubitem",
+ CellChangeTimes->{{3.9146730252344236`*^9, 3.914673050501109*^9}, {
+  3.9146730943305025`*^9, 3.9146732690768228`*^9}, {3.9146738274500904`*^9, 
+  3.9146738379854565`*^9}, {3.914673879853382*^9, 3.914673933382874*^9}, {
+  3.914673988172432*^9, 3.91467406132813*^9}, {3.914674127684822*^9, 
+  3.914674361039229*^9}, {3.9146751852958465`*^9, 3.914675265998771*^9}, {
+  3.9146753254034705`*^9, 3.914675381100727*^9}, {3.9146759057430954`*^9, 
+  3.914675980881569*^9}},ExpressionUUID->"1373e447-2d92-4c86-b85c-\
+e310c5122db3"],
+
+Cell["\<\
+I guess I do know how to differentiate the SVD but that seems like real \
+overkill. \
+\>", "Subsubitem",
+ CellChangeTimes->{{3.9146730252344236`*^9, 3.914673050501109*^9}, {
+  3.9146730943305025`*^9, 3.9146732690768228`*^9}, {3.9146738274500904`*^9, 
+  3.9146738379854565`*^9}, {3.914673879853382*^9, 3.914673933382874*^9}, {
+  3.914673988172432*^9, 3.91467406132813*^9}, {3.914674127684822*^9, 
+  3.914674361039229*^9}, {3.9146751852958465`*^9, 3.914675265998771*^9}, {
+  3.9146756083961067`*^9, 3.9146756094056444`*^9}, {3.91467564084317*^9, 
+  3.91467564084317*^9}},ExpressionUUID->"62675953-e84a-42fe-8e88-\
+d0b5af871c22"],
+
+Cell[TextData[{
+ "I could combine the two samples ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    SubscriptBox[
+     RowBox[{
+      RowBox[{"(", 
+       RowBox[{"[", " ", 
+        RowBox[{
+         RowBox[{"R", "(", "a", ")"}], GridBox[{
+           {"S", "|", 
+            RowBox[{
+             RowBox[{
+              RowBox[{"R", "(", "b", ")"}], "S"}], " ", "]"}]}
+          }]}]}]}], ")"}], 
+     RowBox[{"(", "1", ")"}]], "=", 
+    RowBox[{
+     SubscriptBox[
+      OverscriptBox["\[Sigma]", "^"], "1"], 
+     RowBox[{
+      SubscriptBox[
+       OverscriptBox["u", "^"], "1"], "\[CircleTimes]", 
+      SubscriptBox[
+       OverscriptBox["v", "^"], "1"]}]}]}], TraditionalForm]],
+  FormatType->TraditionalForm,ExpressionUUID->
+  "656f2526-3d86-49c1-a1da-72630dd44e84"],
+ " and take the dominant singular vector pair."
+}], "Subsubitem",
+ CellChangeTimes->{{3.9146730252344236`*^9, 3.914673050501109*^9}, {
+  3.9146730943305025`*^9, 3.9146732690768228`*^9}, {3.9146738274500904`*^9, 
+  3.9146738379854565`*^9}, {3.914673879853382*^9, 3.914673933382874*^9}, {
+  3.914673988172432*^9, 3.91467406132813*^9}, {3.914674127684822*^9, 
+  3.914674361039229*^9}, {3.9146751852958465`*^9, 3.914675265998771*^9}, {
+  3.9146756083961067`*^9, 3.9146756094056444`*^9}, {3.914675643286065*^9, 
+  3.914675755040615*^9}, {3.9146758058508344`*^9, 
+  3.9146758466451902`*^9}},ExpressionUUID->"24b09e73-d82a-426c-b7ed-\
+61ce02fea69c"],
+
+Cell["\<\
+I could do any and all of these with derivative pairs or even all the \
+derivatives.  \
+\>", "Subsubitem",
+ CellChangeTimes->{{3.9146730252344236`*^9, 3.914673050501109*^9}, {
+  3.9146730943305025`*^9, 3.9146732690768228`*^9}, {3.9146738274500904`*^9, 
+  3.9146738379854565`*^9}, {3.914673879853382*^9, 3.914673933382874*^9}, {
+  3.914673988172432*^9, 3.91467406132813*^9}, {3.914674127684822*^9, 
+  3.914674361039229*^9}, {3.9146751852958465`*^9, 3.914675265998771*^9}, {
+  3.9146756083961067`*^9, 3.9146756094056444`*^9}, {3.914675643286065*^9, 
+  3.91467575968231*^9}, {3.91467589644528*^9, 3.9146758983421664`*^9}, {
+  3.9146759914960227`*^9, 3.914676034671485*^9}, {3.9146778327597537`*^9, 
+  3.914677838428418*^9}},ExpressionUUID->"8a56f4c6-b348-4a62-91ca-\
+9bb933ac4343"]
+}, Open  ]]
+}, Open  ]]
+},
+WindowSize->{1406, 524.5},
+WindowMargins->{{1630.5, Automatic}, {Automatic, -100.5}},
+FrontEndVersion->"13.3 for Microsoft Windows (64-bit) (July 24, 2023)",
+StyleDefinitions->"Default.nb",
+ExpressionUUID->"c7c60c24-af37-4a8d-9ecf-682cc083b70e"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[558, 20, 3457, 109, 104, "Text",ExpressionUUID->"a8de95e0-21f0-4f37-8d6f-8946d2109a1b"],
+Cell[4018, 131, 6037, 200, 313, "Text",ExpressionUUID->"a8a37557-2304-41af-92e7-3d0c175baf52"],
+Cell[10058, 333, 3001, 90, 85, "Text",ExpressionUUID->"8c9e6706-029a-4d93-82cf-bea4939364fc"],
+Cell[13062, 425, 395, 8, 35, "Text",ExpressionUUID->"f51cc8c6-917c-4adb-9cc4-dcda24312d7a"],
+Cell[13460, 435, 718, 21, 35, "Text",ExpressionUUID->"0af0e5e1-27a6-4690-9ccc-855413625085"],
+Cell[14181, 458, 215, 5, 35, "Text",ExpressionUUID->"7b43528a-7fe2-4842-8c7b-c2e4df88f90f"],
+Cell[14399, 465, 338, 7, 32, "Item",ExpressionUUID->"1b53f181-2ebd-4bb1-9658-3587ead0437c"],
+Cell[14740, 474, 398, 7, 32, "Item",ExpressionUUID->"c4c467fb-12f2-441f-acf1-2a44feaf00ba"],
+Cell[15141, 483, 732, 16, 32, "Item",ExpressionUUID->"e04d1651-870f-4702-99b0-96f77849ada8"],
+Cell[CellGroupData[{
+Cell[15898, 503, 440, 9, 32, "Item",ExpressionUUID->"536b3a89-4224-450f-8f8c-0fdee06ba637"],
+Cell[16341, 514, 516, 9, 26, "Subitem",ExpressionUUID->"9343b761-d109-4a45-8734-149bc6287b5b"],
+Cell[CellGroupData[{
+Cell[16882, 527, 1646, 47, 28, "Subitem",ExpressionUUID->"1f4e0c98-4424-4518-9959-f2b93214f6c2"],
+Cell[18531, 576, 630, 10, 25, "Subsubitem",ExpressionUUID->"2e09d83d-2cc6-4dea-898c-a3920d68189f"],
+Cell[19164, 588, 1386, 39, 25, "Subsubitem",ExpressionUUID->"1373e447-2d92-4c86-b85c-e310c5122db3"],
+Cell[20553, 629, 636, 11, 25, "Subsubitem",ExpressionUUID->"62675953-e84a-42fe-8e88-d0b5af871c22"],
+Cell[21192, 642, 1412, 37, 26, "Subsubitem",ExpressionUUID->"24b09e73-d82a-426c-b7ed-61ce02fea69c"],
+Cell[22607, 681, 788, 13, 25, "Subsubitem",ExpressionUUID->"8a56f4c6-b348-4a62-91ca-9bb933ac4343"]
+}, Open  ]]
+}, Open  ]]
+}
+]
+*)
+
