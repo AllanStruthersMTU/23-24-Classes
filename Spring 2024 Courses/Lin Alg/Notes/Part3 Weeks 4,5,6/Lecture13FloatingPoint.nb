@@ -1,0 +1,2356 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 12.3' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       158,          7]
+NotebookDataLength[     93127,       2348]
+NotebookOptionsPosition[     80130,       2137]
+NotebookOutlinePosition[     80762,       2158]
+CellTagsIndexPosition[     80719,       2155]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+
+Cell[CellGroupData[{
+Cell["13 Floating Point Arithmetic", "Title",
+ CellChangeTimes->{{3.8465884180627756`*^9, 3.846588429089326*^9}, {
+  3.84666883912605*^9, 3.846668864267633*^9}, {3.846670417593573*^9, 
+  3.846670436952243*^9}, {3.846672726384389*^9, 3.8466727270705147`*^9}, {
+  3.8466757090828*^9, 3.846675717466256*^9}, {3.846758673014533*^9, 
+  3.8467586795609393`*^9}, {3.846761881784243*^9, 3.8467618862742233`*^9}, {
+  3.8469363463111053`*^9, 3.846936358196007*^9}, {3.847018316901873*^9, 
+  3.8470183251261463`*^9}, {3.8470200375420237`*^9, 3.8470200478588257`*^9}, {
+  3.847053667805138*^9, 3.847053681986454*^9}, {3.8470972361875973`*^9, 
+  3.847097248729143*^9}, {3.847097861861884*^9, 3.8470978622770367`*^9}, {
+  3.853248425302745*^9, 
+  3.8532484263230276`*^9}},ExpressionUUID->"bb443c9e-1a1c-437e-b10c-\
+400e63a30bb8"],
+
+Cell["The question is how do computers do arithmetic? ", "Text",
+ CellChangeTimes->{{3.8470540488466187`*^9, 3.847054299041844*^9}, 
+   3.847054620646575*^9, {3.84705469788529*^9, 3.8470547053171043`*^9}, {
+   3.84705474014857*^9, 3.847054741548669*^9}, {3.84705479048367*^9, 
+   3.8470548010520067`*^9}, {3.847097256754077*^9, 
+   3.8470972849056597`*^9}},ExpressionUUID->"19c34891-b4a5-4bb2-9167-\
+f8ac0b4049d9"],
+
+Cell[CellGroupData[{
+
+Cell["The answer used to be lots of different ways.  ", "Item",
+ CellChangeTimes->{{3.847097302871236*^9, 
+  3.84709736142904*^9}},ExpressionUUID->"d2479e02-cf85-4789-9d82-\
+04670b9aa0a7"],
+
+Cell["This was bad for a lot of reasons.", "Subitem",
+ CellChangeTimes->{{3.847097302871236*^9, 
+  3.847097352266123*^9}},ExpressionUUID->"43e06c19-c9e8-4172-8b45-\
+3e31c32a7eb9"],
+
+Cell["\<\
+The answer now is carefully and consistently with a detailed set of \
+specifications called  IEE 754\
+\>", "Item",
+ CellChangeTimes->{{3.8470540488466187`*^9, 3.847054305206238*^9}, {
+  3.847054858547247*^9, 3.847054863010614*^9}, {3.847097370538044*^9, 
+  3.847097429226574*^9}, {3.84709749168338*^9, 3.8470974992241793`*^9}, {
+  3.847097566203494*^9, 3.847097599907041*^9}, {3.847097774243952*^9, 
+  3.8470977933658943`*^9}},ExpressionUUID->"300f81c9-a625-47b9-b833-\
+6e4cf19c19f3"],
+
+Cell[CellGroupData[{
+
+Cell["\<\
+Created by the IEEE in 1985 and updated in 2008  \
+https://en.wikipedia.org/wiki/IEEE_754\
+\>", "Subitem",
+ CellChangeTimes->{{3.8470540488466187`*^9, 3.847054305206238*^9}, {
+   3.847054858547247*^9, 3.847054863010614*^9}, {3.847097370538044*^9, 
+   3.847097429226574*^9}, {3.84709749168338*^9, 3.847097505475059*^9}, {
+   3.8470975408989897`*^9, 3.847097561762828*^9}, 
+   3.8532470786790733`*^9},ExpressionUUID->"04714adc-d81c-4daf-be1b-\
+d364328f119d"],
+
+Cell["Three standard computational precisions:", "Subitem",
+ CellChangeTimes->{{3.8470540488466187`*^9, 3.847054317893524*^9}, {
+  3.847054867330936*^9, 3.847054869057789*^9}, {3.84709760601118*^9, 
+  3.847097621994067*^9}, {3.8470976704997177`*^9, 3.847097695393628*^9}, {
+  3.847097834972207*^9, 
+  3.8470978387558737`*^9}},ExpressionUUID->"2079700e-3255-45ee-a35d-\
+7f354697d691"],
+
+Cell[CellGroupData[{
+
+Cell["FP64 aka Double Precision", "Subsubitem",
+ CellChangeTimes->{{3.8470540488466187`*^9, 3.847054317893524*^9}, {
+  3.847054867330936*^9, 3.847054869057789*^9}, {3.84709760601118*^9, 
+  3.847097621994067*^9}, {3.8470976704997177`*^9, 
+  3.847097724626565*^9}},ExpressionUUID->"9a712012-4226-4204-a809-\
+fe780c22356c"],
+
+Cell["FP32 aka Single Precision", "Subsubitem",
+ CellChangeTimes->{{3.8470540488466187`*^9, 3.847054317893524*^9}, {
+  3.847054867330936*^9, 3.847054869057789*^9}, {3.84709760601118*^9, 
+  3.847097621994067*^9}, {3.8470976704997177`*^9, 
+  3.8470977439065123`*^9}},ExpressionUUID->"62c00152-9521-40b0-9e2e-\
+978abe5c0e67"],
+
+Cell["FP16 aka Half Precision", "Subsubitem",
+ CellChangeTimes->{{3.8470540488466187`*^9, 3.847054317893524*^9}, {
+  3.847054867330936*^9, 3.847054869057789*^9}, {3.84709760601118*^9, 
+  3.847097621994067*^9}, {3.8470976704997177`*^9, 
+  3.847097755555677*^9}},ExpressionUUID->"d36f8784-6063-4b45-a053-\
+93210bc9e95f"]
+}, Open  ]],
+
+Cell["\<\
+FP stands for floating point and indicates that numbers are considered in \
+scientific notation\
+\>", "Subitem",
+ CellChangeTimes->{{3.8470540488466187`*^9, 3.847054305206238*^9}, {
+  3.847054858547247*^9, 3.847054863010614*^9}, {3.847097370538044*^9, 
+  3.847097429226574*^9}, {3.84709749168338*^9, 3.847097505475059*^9}, {
+  3.8470975408989897`*^9, 3.847097561762828*^9}, {3.8471051844785852`*^9, 
+  3.8471052600867357`*^9}},ExpressionUUID->"0cebe6a1-9b20-4825-9260-\
+dbf3f44d1e22"],
+
+Cell[CellGroupData[{
+
+Cell[TextData[Cell[BoxData[
+ FormBox[
+  RowBox[{"significand", "\[Times]", 
+   SuperscriptBox["base", "exponent"]}], 
+  TraditionalForm]],ExpressionUUID->"d08e8bfc-bf12-4d2f-821f-ea5419ede83d"]], \
+"Subsubitem",
+ CellChangeTimes->{{3.8470540488466187`*^9, 3.847054305206238*^9}, {
+  3.847054858547247*^9, 3.847054863010614*^9}, {3.847097370538044*^9, 
+  3.847097429226574*^9}, {3.84709749168338*^9, 3.847097505475059*^9}, {
+  3.8470975408989897`*^9, 3.847097561762828*^9}, {3.8471051844785852`*^9, 
+  3.8471053521705*^9}},ExpressionUUID->"7caff664-df30-4f14-b9cf-5a53b163f695"],
+
+Cell[TextData[{
+ "In base 10  ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    SuperscriptBox["\[Pi]", "E"], "\[TildeTilde]", 
+    RowBox[{"2.24592", " ", "\[Times]", 
+     RowBox[{
+      SuperscriptBox["10", "1"], "."}]}]}], TraditionalForm]],ExpressionUUID->
+  "33c9212f-48c8-4d84-97bb-fe418475d222"],
+ " The exponent 1 has floated the decimal point to just after the first \
+position! "
+}], "Subsubitem",
+ CellChangeTimes->{{3.8470540488466187`*^9, 3.847054305206238*^9}, {
+  3.847054858547247*^9, 3.847054863010614*^9}, {3.847097370538044*^9, 
+  3.847097429226574*^9}, {3.84709749168338*^9, 3.847097505475059*^9}, {
+  3.8470975408989897`*^9, 3.847097561762828*^9}, {3.8471051844785852`*^9, 
+  3.847105321529449*^9}, {3.847105359417212*^9, 3.8471054192043867`*^9}, {
+  3.847105489596971*^9, 3.847105563902306*^9}, {3.853247103173196*^9, 
+  3.8532471034639983`*^9}},ExpressionUUID->"1f530542-63b0-4cfd-b366-\
+907c65b2bc3e"]
+}, Open  ]]
+}, Open  ]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Decimal, Hexadecimal, and Binary Representations", "Section",
+ CellChangeTimes->{{3.847097898203796*^9, 3.847097949004158*^9}, {
+  3.84709811825355*^9, 3.847098131845387*^9}, {3.847100057948483*^9, 
+  3.847100070542018*^9}},ExpressionUUID->"96b74ac9-986d-4b34-8e54-\
+69b391dc4db0"],
+
+Cell[CellGroupData[{
+
+Cell["Decimal", "Subsection",
+ CellChangeTimes->{{3.847100051790153*^9, 3.847100054149733*^9}, 
+   3.8471007934535437`*^9},ExpressionUUID->"ca1af951-8fb7-474b-ae87-\
+e3d1af2591e7"],
+
+Cell[TextData[{
+ "Presumably because we have 10 fingers we learn to count in base 10.  \
+Decimal numbers use the symbols \n\t",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+   "0", ",", "1", ",", "2", ",", "3", ",", "4", ",", "5", ",", "6", ",", "7", 
+    ",", "8", ",", "9"}], TraditionalForm]],
+  FormatType->TraditionalForm,ExpressionUUID->
+  "d2c87304-d6e9-45f0-9166-dfb709d34c5d"],
+ "\nto encode integers. Early in our arithmetic classes we learned that\n\t\
+2345 means ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{"5", "*", 
+     SuperscriptBox["10", "0"]}], "+", 
+    RowBox[{"4", "*", 
+     SuperscriptBox["10", "1"]}], "+", 
+    RowBox[{"3", "*", 
+     SuperscriptBox["10", "2"]}], "+", 
+    RowBox[{"2", "*", 
+     SuperscriptBox["10", "4"]}]}], TraditionalForm]],
+  FormatType->TraditionalForm,ExpressionUUID->
+  "f4f4b3a8-e57d-41ea-a56c-7e98e7ed7167"],
+ ".\nSlightly later we learn that \n\t23.45 means ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{"5", "*", 
+     SuperscriptBox["10", 
+      RowBox[{"-", "2"}]]}], "+", 
+    RowBox[{"4", "*", 
+     SuperscriptBox["10", 
+      RowBox[{"-", "1"}]]}], "+", 
+    RowBox[{"3", "*", 
+     SuperscriptBox["10", "0"]}], "+", 
+    RowBox[{"2", "*", 
+     SuperscriptBox["10", "1"]}]}], TraditionalForm]],
+  FormatType->TraditionalForm,ExpressionUUID->
+  "68c724ee-a56d-4a89-ab58-9394670bf75f"],
+ "\nWe do not indicate the base because base 10 is the default. "
+}], "Text",
+ CellChangeTimes->{{3.847097983412863*^9, 3.847098031781146*^9}, {
+  3.847098063922996*^9, 
+  3.847098444078435*^9}},ExpressionUUID->"06a9245e-6d53-429f-846c-\
+04265fe2c048"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Hexadecimal", "Subsection",
+ CellChangeTimes->{{3.847100051790153*^9, 3.847100054149733*^9}, {
+   3.847100085461597*^9, 3.847100088206484*^9}, 
+   3.847100790043746*^9},ExpressionUUID->"98079de3-acce-47af-9b5b-\
+b587188bf294"],
+
+Cell[TextData[{
+ "The Bane https://en.wikipedia.org/wiki/Invasion_of_the_Bane have 16 lesser \
+tentacles and use base 16. Dr Who  has translated their digits into the \
+symbols\n\t",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+   "0", ",", "1", ",", "2", ",", "3", ",", "4", ",", "5", ",", "6", ",", "7", 
+    ",", "8", ",", "9", ",", "a", ",", "b", ",", "c", ",", "d", ",", "e", ",",
+     "f"}], TraditionalForm]],
+  FormatType->TraditionalForm,ExpressionUUID->
+  "d44a56a8-11aa-4885-96bc-33c8293b8fed"],
+ "\nwhere ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"a", "=", "10"}], TraditionalForm]],
+  FormatType->TraditionalForm,ExpressionUUID->
+  "d4cee005-22cb-43fa-bd56-53143942bdaa"],
+ ", ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"b", "=", "11"}], TraditionalForm]],
+  FormatType->TraditionalForm,ExpressionUUID->
+  "c64434be-1556-468a-89a2-24e58c2a2515"],
+ ", ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"c", "=", "12"}], TraditionalForm]],
+  FormatType->TraditionalForm,ExpressionUUID->
+  "466b60e4-b5a8-4ce0-80ca-6b30cd39590a"],
+ ", ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"d", "=", "13"}], TraditionalForm]],
+  FormatType->TraditionalForm,ExpressionUUID->
+  "199e3b93-df08-4245-9d90-34a724ceb502"],
+ ", ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"e", "=", "14"}], TraditionalForm]],
+  FormatType->TraditionalForm,ExpressionUUID->
+  "98dab548-19a0-486a-8cfb-efe5470a32af"],
+ ", ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"f", "=", "15"}], TraditionalForm]],
+  FormatType->TraditionalForm,ExpressionUUID->
+  "7c972a7e-7e37-47d7-ae61-338193c014f8"],
+ ".  Of course we do not need a symbol for 16 because \n\t",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    SubscriptBox["10", "16"], "=", 
+    RowBox[{
+     RowBox[{"0", "+", 
+      RowBox[{"1", "*", "16"}]}], "=", "16"}]}], TraditionalForm]],
+  FormatType->TraditionalForm,ExpressionUUID->
+  "abb07330-c3d5-4b5a-a4cd-de6aa8cc6159"],
+ "\nNon decimal bases are represented by subscripts.  base 16 is called Hex! \
+Naturally the Bane use Hexadecimal fractions and write them as \
+\[OpenCurlyDoubleQuote]Heximals\[CloseCurlyDoubleQuote]. For instance \
+\[OpenCurlyDoubleQuote]bc.1df\[CloseCurlyDoubleQuote] is ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{"11", "*", "16"}], "+", "12", "+", 
+    RowBox[{"1", "*", 
+     SuperscriptBox["16", 
+      RowBox[{"-", "1"}]]}], "+", 
+    RowBox[{"13", "*", 
+     SuperscriptBox["16", 
+      RowBox[{"-", "2"}]]}], "+", 
+    RowBox[{"15", "*", 
+     SuperscriptBox["16", 
+      RowBox[{"-", "3"}]]}]}], TraditionalForm]],
+  FormatType->TraditionalForm,ExpressionUUID->
+  "d6b12037-e750-4e82-b7af-87a4bd7a9eaa"],
+ ".  \nComputers understand hexadecimal integers."
+}], "Text",
+ CellChangeTimes->{{3.8470986744919786`*^9, 3.8470986768549633`*^9}, {
+  3.847098871580743*^9, 3.84709897586209*^9}, {3.847099119525053*^9, 
+  3.847099371264194*^9}, {3.847099421432675*^9, 3.847099436304349*^9}, {
+  3.847099543576108*^9, 3.847099595328199*^9}, {3.847099730303337*^9, 
+  3.847099733783759*^9}, {3.847099798167025*^9, 3.8471000420603743`*^9}, {
+  3.847100094647913*^9, 
+  3.8471001332470016`*^9}},ExpressionUUID->"450d72c8-12f8-450a-abea-\
+0b58564dd788"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+ RowBox[{"HexStrings", "=", 
+  RowBox[{"Map", "[", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"IntegerString", "[", 
+      RowBox[{"#", ",", "16"}], "]"}], "&"}], ",", 
+    RowBox[{"{", 
+     RowBox[{"16", ",", "2345", ",", "967", ",", "31"}], "}"}]}], 
+   "]"}]}], "\[IndentingNewLine]", 
+ RowBox[{"Map", "[", 
+  RowBox[{
+   RowBox[{
+    RowBox[{"FromDigits", "[", 
+     RowBox[{"#", ",", "16"}], "]"}], "&"}], ",", "HexStrings"}], 
+  "]"}]}], "Input",
+ CellChangeTimes->{{3.84709907780582*^9, 3.847099079968527*^9}, {
+  3.847099395030792*^9, 3.847099400416554*^9}, {3.847099442096456*^9, 
+  3.84709951098391*^9}, {3.847099608166802*^9, 3.847099646167903*^9}, {
+  3.847099685656266*^9, 3.8470997096482697`*^9}},
+ CellLabel->"In[1]:=",ExpressionUUID->"9eeaa0ee-c423-49ce-9ab6-f2367c7a093e"],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{"\<\"10\"\>", ",", "\<\"929\"\>", ",", "\<\"3c7\"\>", 
+   ",", "\<\"1f\"\>"}], "}"}]], "Output",
+ CellChangeTimes->{
+  3.847099634410734*^9, {3.8470997026711683`*^9, 3.847099711065896*^9}, 
+   3.884880373586969*^9},
+ CellLabel->"Out[1]=",ExpressionUUID->"33b89418-deae-4f45-88f4-dee97001e399"],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{"16", ",", "2345", ",", "967", ",", "31"}], "}"}]], "Output",
+ CellChangeTimes->{
+  3.847099634410734*^9, {3.8470997026711683`*^9, 3.847099711065896*^9}, 
+   3.884880373603388*^9},
+ CellLabel->"Out[2]=",ExpressionUUID->"d6a10a6a-70aa-431a-9a94-d8ff39c51c21"]
+}, Open  ]],
+
+Cell["\<\
+They also can compute and understand and convert between \
+\[OpenCurlyDoubleQuote]heximals\[CloseCurlyDoubleQuote].\
+\>", "Text",
+ CellChangeTimes->{{3.84710015154005*^9, 3.8471002280136957`*^9}, 
+   3.847100403533515*^9, {3.8471004469312353`*^9, 3.8471004557405357`*^9}, {
+   3.847100697660283*^9, 
+   3.8471007033010187`*^9}},ExpressionUUID->"d737f6ad-d1c3-4a87-9790-\
+6fe750712628"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"OldFrac", "=", 
+   RowBox[{"19", "/", "17"}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"{", 
+    RowBox[{"base", ",", "digits"}], "}"}], "=", 
+   RowBox[{"{", 
+    RowBox[{"16", ",", "23"}], "}"}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{"HexStuff", "=", 
+  RowBox[{"RealDigits", "[", 
+   RowBox[{"OldFrac", ",", "base", ",", "digits"}], 
+   "]"}]}], "\[IndentingNewLine]", 
+ RowBox[{"NewFrac", "=", 
+  RowBox[{"FromDigits", "[", 
+   RowBox[{"HexStuff", ",", "base"}], "]"}]}], "\[IndentingNewLine]", 
+ RowBox[{"N", "[", 
+  RowBox[{
+   RowBox[{"{", 
+    RowBox[{"OldFrac", ",", "NewFrac"}], "}"}], ",", "32"}], "]"}]}], "Input",
+ CellChangeTimes->{{3.847100327465403*^9, 3.8471004270937853`*^9}, {
+  3.847100515428883*^9, 3.8471006837658663`*^9}, {3.847100716125618*^9, 
+  3.847100738347095*^9}},
+ CellLabel->"In[71]:=",ExpressionUUID->"6be54f30-591e-47ee-b91a-49dce559ed29"],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{
+   RowBox[{"{", 
+    RowBox[{
+    "1", ",", "1", ",", "14", ",", "1", ",", "14", ",", "1", ",", "14", ",", 
+     "1", ",", "14", ",", "1", ",", "14", ",", "1", ",", "14", ",", "1", ",", 
+     "14", ",", "1", ",", "14", ",", "1", ",", "14", ",", "1", ",", "14", ",",
+      "1", ",", "14"}], "}"}], ",", "1"}], "}"}]], "Output",
+ CellChangeTimes->{
+  3.847100344894931*^9, {3.847100376363124*^9, 3.847100397515399*^9}, 
+   3.847100427922863*^9, {3.847100521776293*^9, 3.847100573072207*^9}, {
+   3.847100609129505*^9, 3.8471006841745996`*^9}, {3.847100720037189*^9, 
+   3.847100738779367*^9}},
+ CellLabel->"Out[73]=",ExpressionUUID->"413888a5-c357-4e9e-896c-a811fe0c0e1d"],
+
+Cell[BoxData[
+ FractionBox["172947505488398714875612943", 
+  "154742504910672534362390528"]], "Output",
+ CellChangeTimes->{
+  3.847100344894931*^9, {3.847100376363124*^9, 3.847100397515399*^9}, 
+   3.847100427922863*^9, {3.847100521776293*^9, 3.847100573072207*^9}, {
+   3.847100609129505*^9, 3.8471006841745996`*^9}, {3.847100720037189*^9, 
+   3.8471007387816143`*^9}},
+ CellLabel->"Out[74]=",ExpressionUUID->"d1926cc3-23bd-4fdf-9b1b-8d26fc5022f4"],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{
+  "1.1176470588235294117647058823529411764705882352941176470588`32.", ",", 
+   "1.1176470588235294117647058819728030273193806641215952701884`32."}], 
+  "}"}]], "Output",
+ CellChangeTimes->{
+  3.847100344894931*^9, {3.847100376363124*^9, 3.847100397515399*^9}, 
+   3.847100427922863*^9, {3.847100521776293*^9, 3.847100573072207*^9}, {
+   3.847100609129505*^9, 3.8471006841745996`*^9}, {3.847100720037189*^9, 
+   3.847100738784154*^9}},
+ CellLabel->"Out[75]=",ExpressionUUID->"3ab89e71-6cce-490b-a107-270185acf6ff"]
+}, Open  ]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Binary", "Subsection",
+ CellChangeTimes->{{3.847100051790153*^9, 3.847100054149733*^9}, {
+  3.847100085461597*^9, 3.847100088206484*^9}, {3.84710078575066*^9, 
+  3.847100799551434*^9}},ExpressionUUID->"7e753978-55e2-4482-b361-\
+233b44ed83ca"],
+
+Cell[TextData[{
+ "The Bynars https://en.wikipedia.org/wiki/11001001 count in base 2. They \
+only have two symbols\n\t",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"0", ",", "1"}], TraditionalForm]],ExpressionUUID->
+  "4cb07b46-addb-43b1-882d-fecb966026cc"],
+ "\nThe Star Trek episode title is \n\t",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    SubscriptBox["11001001", "2"], "=", 
+    RowBox[{
+     RowBox[{
+      RowBox[{"1", "*", 
+       SuperscriptBox["2", "7"]}], "+", 
+      RowBox[{"1", "*", 
+       SuperscriptBox["2", "6"]}], "+", 
+      RowBox[{"0", "*", 
+       SuperscriptBox["2", "5"]}], "+", 
+      RowBox[{"0", "*", 
+       SuperscriptBox["2", "4"]}], "+", 
+      RowBox[{"1", "*", 
+       SuperscriptBox["2", "3"]}], "+", 
+      RowBox[{"0", "*", 
+       SuperscriptBox["2", "2"]}], "+", 
+      RowBox[{"0", "*", 
+       SuperscriptBox["2", "1"]}], "+", 
+      RowBox[{"1", "*", 
+       SuperscriptBox["2", "0"]}]}], "=", "201"}]}], TraditionalForm]],
+  InitializationCell->True,ExpressionUUID->
+  "5c5c43f7-994a-42ae-ae01-1ede7075d7d0"],
+ " \n\[OpenCurlyDoubleQuote]Binamals\[CloseCurlyDoubleQuote] work exactly the \
+same way as \[OpenCurlyDoubleQuote]hexamils\[CloseCurlyDoubleQuote] "
+}], "Text",
+ CellChangeTimes->{{3.8470986744919786`*^9, 3.8470986768549633`*^9}, {
+  3.847098871580743*^9, 3.84709897586209*^9}, {3.847099119525053*^9, 
+  3.847099371264194*^9}, {3.847099421432675*^9, 3.847099436304349*^9}, {
+  3.847099543576108*^9, 3.847099595328199*^9}, {3.847099730303337*^9, 
+  3.847099733783759*^9}, {3.847099798167025*^9, 3.8471000420603743`*^9}, {
+  3.847100094647913*^9, 3.8471001332470016`*^9}, {3.847100867866198*^9, 
+  3.847101123361499*^9}, {3.847101273678125*^9, 3.8471013385525627`*^9}, {
+  3.847101523817103*^9, 
+  3.847101563065007*^9}},ExpressionUUID->"24f8f57a-e845-487e-a9f2-\
+23fe905b0fb7"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+ RowBox[{"FromDigits", "[", 
+  RowBox[{"\"\<11001001\>\"", ",", "2"}], "]"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"OldFrac", "=", 
+   RowBox[{"19", "/", "17"}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"{", 
+    RowBox[{"base", ",", "digits"}], "}"}], "=", 
+   RowBox[{"{", 
+    RowBox[{"2", ",", "23"}], "}"}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{"HexStuff", "=", 
+  RowBox[{"RealDigits", "[", 
+   RowBox[{"OldFrac", ",", "base", ",", "digits"}], 
+   "]"}]}], "\[IndentingNewLine]", 
+ RowBox[{"NewFrac", "=", 
+  RowBox[{"FromDigits", "[", 
+   RowBox[{"HexStuff", ",", "base"}], "]"}]}], "\[IndentingNewLine]", 
+ RowBox[{"N", "[", 
+  RowBox[{
+   RowBox[{"{", 
+    RowBox[{"OldFrac", ",", "NewFrac"}], "}"}], ",", "32"}], "]"}]}], "Input",
+ CellChangeTimes->{{3.8471007103594418`*^9, 3.84710071036139*^9}, {
+  3.847101160481183*^9, 3.847101192745*^9}, {3.847101577313431*^9, 
+  3.847101625319467*^9}, {3.847101656282185*^9, 3.847101739431493*^9}},
+ CellLabel->"In[97]:=",ExpressionUUID->"21a4983c-1ede-40ec-9383-6e42f83869eb"],
+
+Cell[BoxData["201"], "Output",
+ CellChangeTimes->{
+  3.847101182082076*^9, {3.847101593651342*^9, 3.847101626115368*^9}, 
+   3.8471016596054487`*^9, {3.847101707475492*^9, 3.847101739888049*^9}},
+ CellLabel->"Out[97]=",ExpressionUUID->"e19f0b86-1f78-403a-b566-f2f47a553054"],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{
+   RowBox[{"{", 
+    RowBox[{
+    "1", ",", "0", ",", "0", ",", "0", ",", "1", ",", "1", ",", "1", ",", "1",
+      ",", "0", ",", "0", ",", "0", ",", "0", ",", "1", ",", "1", ",", "1", 
+     ",", "1", ",", "0", ",", "0", ",", "0", ",", "0", ",", "1", ",", "1", 
+     ",", "1"}], "}"}], ",", "1"}], "}"}]], "Output",
+ CellChangeTimes->{
+  3.847101182082076*^9, {3.847101593651342*^9, 3.847101626115368*^9}, 
+   3.8471016596054487`*^9, {3.847101707475492*^9, 3.847101739890361*^9}},
+ CellLabel->
+  "Out[100]=",ExpressionUUID->"6dafd409-9656-46d5-b57d-1ce299e7b918"],
+
+Cell[BoxData[
+ FractionBox["4687751", "4194304"]], "Output",
+ CellChangeTimes->{
+  3.847101182082076*^9, {3.847101593651342*^9, 3.847101626115368*^9}, 
+   3.8471016596054487`*^9, {3.847101707475492*^9, 3.8471017398930607`*^9}},
+ CellLabel->
+  "Out[101]=",ExpressionUUID->"5bf0e953-fbe3-463c-b1f1-23a9122b2d2c"],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{
+  "1.1176470588235294117647058823529411764705882352941176470588`32.", ",", 
+   "1.1176469326019287109375`32."}], "}"}]], "Output",
+ CellChangeTimes->{
+  3.847101182082076*^9, {3.847101593651342*^9, 3.847101626115368*^9}, 
+   3.8471016596054487`*^9, {3.847101707475492*^9, 3.8471017398957033`*^9}},
+ CellLabel->
+  "Out[102]=",ExpressionUUID->"ce73fad0-9713-4695-afa0-6d3c285be07e"]
+}, Open  ]]
+}, Open  ]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Computer Representation", "Section",
+ CellChangeTimes->{{3.847097898203796*^9, 3.847097949004158*^9}, {
+  3.84709811825355*^9, 3.847098131845387*^9}, {3.847100057948483*^9, 
+  3.847100070542018*^9}, {3.8471018011042843`*^9, 
+  3.847101805095915*^9}},ExpressionUUID->"89580b5d-13b3-45be-828b-\
+4d89ec582bfd"],
+
+Cell[CellGroupData[{
+
+Cell["Computer Organization", "Subsection",
+ CellChangeTimes->{{3.847100051790153*^9, 3.847100054149733*^9}, 
+   3.8471007934535437`*^9, {3.847101811807887*^9, 
+   3.847101818240234*^9}},ExpressionUUID->"ff1653a3-7b18-4c0a-9b25-\
+21877115862f"],
+
+Cell["\<\
+In the past, people have imagined and made ternary computers \
+https://en.wikipedia.org/wiki/Ternary_computer. One common way to talk about \
+the memory states for such a thing would be -1,0,1. \
+\>", "Text",
+ CellChangeTimes->{{3.847102022875555*^9, 3.847102031166675*^9}, {
+  3.8471020623504763`*^9, 
+  3.847102170638315*^9}},ExpressionUUID->"e8a23721-b391-482e-8648-\
+0e0fae894d57"],
+
+Cell[TextData[{
+ "However, modern computer memory is just a bunch of switches either on or \
+off. Modern computers are naturally binary and folks talk about the states as \
+zeros and ones. Each switch is called a bit and they are organized into \
+groups of 8 called a byte.  So a byte is 8 bits\n\t ",
+ Cell[BoxData[
+  FormBox[GridBox[{
+     {
+      SubscriptBox["b", "1"], 
+      SubscriptBox["b", "2"], 
+      SubscriptBox["b", "3"], 
+      SubscriptBox["b", "4"], 
+      SubscriptBox["b", "5"], 
+      SubscriptBox["b", "6"], 
+      SubscriptBox["b", "7"], 
+      SubscriptBox["b", "8"]}
+    },
+    GridBoxDividers->{"Columns" -> {{True}}, "Rows" -> {{True}}}], 
+   TraditionalForm]],ExpressionUUID->"f178bd2e-66d0-4312-a5e2-239fb21f544a"],
+ "\nAll 8 bits zero is zero as an integer.  All 8 bits one is 255 as an \
+integer.  This explains the choice of 0-255 grayscale for the crudest \
+historical grayscale images: Each pixel was a single byte.  Of course, a \
+black and white image can be stored with a single bit for each pixel!"
+}], "Text",
+ CellChangeTimes->{{3.847097983412863*^9, 3.847098031781146*^9}, {
+  3.847098063922996*^9, 3.847098444078435*^9}, {3.847101822457192*^9, 
+  3.847101868359482*^9}, {3.847101904615323*^9, 3.847101923447075*^9}, {
+  3.847102011830757*^9, 3.847102058454155*^9}, {3.847103564746814*^9, 
+  3.847103627003479*^9}, {3.8471041559693003`*^9, 
+  3.847104612843549*^9}},ExpressionUUID->"8801470f-4114-473b-a07b-\
+6eb2a9f214aa"],
+
+Cell["\<\
+Bytes are organized into computer words.  Historical computers used a variety \
+of word lengths   
+https://en.wikipedia.org/wiki/Word_(computer_architecture)#Word_size_choice
+Relatively modern computers all used to have a word length of 32 bits or \
+equivalently 4 bytes.  Almost all modern computing devices have word lengths \
+of 64 bits or 8 bytes.  Graphical Programming Units and equivalent numerical \
+co-processors can usefully treat a 64 bit word as four sets of 16 bits!     \
+Not surprisingly:\
+\>", "Text",
+ CellChangeTimes->{{3.847097983412863*^9, 3.847098031781146*^9}, {
+   3.847098063922996*^9, 3.847098444078435*^9}, {3.847101822457192*^9, 
+   3.847101868359482*^9}, {3.847101904615323*^9, 3.847101923447075*^9}, {
+   3.847102011830757*^9, 3.847102058454155*^9}, {3.847103564746814*^9, 
+   3.847103627003479*^9}, {3.8471041559693003`*^9, 3.847104612843549*^9}, {
+   3.847104689516159*^9, 3.847104896924941*^9}, {3.847104943194438*^9, 
+   3.847104990454444*^9}, {3.847105036438858*^9, 3.847105110982482*^9}, {
+   3.847106032507894*^9, 3.847106039972145*^9}, 
+   3.847106070796557*^9},ExpressionUUID->"46472984-d43d-40c3-a0c1-\
+ab964a911a33"],
+
+Cell[CellGroupData[{
+
+Cell["\<\
+FP16 is a floating point number occupying 16 bits. Called Half precision\
+\>", "Item",
+ CellChangeTimes->{{3.8471051282849817`*^9, 3.847105144054678*^9}, {
+  3.847105996325086*^9, 3.847106024369452*^9}, {3.8471062573898087`*^9, 
+  3.847106272803219*^9}},ExpressionUUID->"de85a29c-0d22-4465-b7a5-\
+fdea286315fc"],
+
+Cell["\<\
+FP32 is a floating point number occupying 32 bits. Called Single precision\
+\>", "Item",
+ CellChangeTimes->{{3.8471051282849817`*^9, 3.847105144054678*^9}, {
+  3.847105996325086*^9, 3.847106024369452*^9}, {3.8471060570118732`*^9, 
+  3.847106059316752*^9}, {3.847106259444981*^9, 
+  3.847106283882594*^9}},ExpressionUUID->"3018d7dc-d263-4ed5-b719-\
+9d311abf6729"],
+
+Cell["\<\
+FP64 is a floating point number occupying 64 bits. Called Double precision\
+\>", "Item",
+ CellChangeTimes->{{3.8471051282849817`*^9, 3.847105144054678*^9}, {
+  3.847105996325086*^9, 3.847106024369452*^9}, {3.847106061764369*^9, 
+  3.847106065059141*^9}, {3.8471062612289743`*^9, 
+  3.84710629341791*^9}},ExpressionUUID->"e8e20e62-c417-4507-bd0a-\
+dd57c09404b5"]
+}, Open  ]],
+
+Cell["\<\
+Also not surprisingly, the larger representations are more accurate and cover \
+a greater range. With a limited number of bits there is a trade of between \
+range and accuracy.  Most computations are done in FP64 these days.  In data \
+science a surprising and growing fraction of computations are being done in \
+FP16. \
+\>", "Text",
+ CellChangeTimes->{{3.847097983412863*^9, 3.847098031781146*^9}, {
+  3.847098063922996*^9, 3.847098444078435*^9}, {3.847101822457192*^9, 
+  3.847101868359482*^9}, {3.847101904615323*^9, 3.847101923447075*^9}, {
+  3.847102011830757*^9, 3.847102058454155*^9}, {3.847103564746814*^9, 
+  3.847103627003479*^9}, {3.8471041559693003`*^9, 3.847104612843549*^9}, {
+  3.847104689516159*^9, 3.847104896924941*^9}, {3.847104943194438*^9, 
+  3.847104990454444*^9}, {3.847105036438858*^9, 3.847105110982482*^9}, {
+  3.847106032507894*^9, 3.847106039972145*^9}, {3.847106070796557*^9, 
+  3.847106119412876*^9}, {3.847106154301477*^9, 
+  3.8471062543034782`*^9}},ExpressionUUID->"bf9b7806-47e7-42d2-be2e-\
+8bc52c40c1c6"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Floating Point Specifications", "Subsection",
+ CellChangeTimes->{{3.847100051790153*^9, 3.847100054149733*^9}, 
+   3.8471007934535437`*^9, {3.847101811807887*^9, 3.847101818240234*^9}, {
+   3.8471165680226173`*^9, 
+   3.847116577837335*^9}},ExpressionUUID->"ec8563f0-e6fd-4f87-855c-\
+f5c60eec71be"],
+
+Cell[TextData[{
+ "The floating point representations all look like\n\t",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{"(", 
+     RowBox[{"\[PlusMinus]", "1"}], ")"}], "\[Times]", 
+    SuperscriptBox["2", "p"], "\[Times]", 
+    SubscriptBox["\"\<1.xxx\[Ellipsis]xx\>\"", "2"]}], TraditionalForm]],
+  ExpressionUUID->"dc437452-241e-4b3f-abaf-951834c571ef"],
+ "\nThey differ in the number of bits set aside for the exponent ",
+ Cell[BoxData[
+  FormBox["p", TraditionalForm]],ExpressionUUID->
+  "ce3c6480-e817-4d98-b498-a71393008e27"],
+ " and the significand ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["\"\<1.xxx\[Ellipsis]xx\>\"", "2"], TraditionalForm]],
+  ExpressionUUID->"31173588-8404-4e61-bd1d-c1755a7be09f"],
+ "."
+}], "Text",
+ CellChangeTimes->{{3.8471169036909027`*^9, 3.84711703855647*^9}, {
+  3.8471205149795847`*^9, 
+  3.84712052376259*^9}},ExpressionUUID->"976975ef-a0de-46ed-9579-\
+4623a25938bb"],
+
+Cell["\<\
+Roughly speaking: Single precision (FP32) is what scientists and engineers \
+thought they wanted (six or seven significant decimal digits); Double \
+Precision was invented to help get six or seven decimal digits in answers; \
+then Half precision (FP16) was formalized when game designers and data \
+scientists realized that they needed lots of arithmetic much more than they \
+needed six or seven accurate digits.  \
+\>", "Text",
+ CellChangeTimes->{{3.847117048503208*^9, 3.847117318030588*^9}, {
+  3.847119368594283*^9, 3.8471193698138866`*^9}, {3.847120537531125*^9, 
+  3.8471205381958113`*^9}},ExpressionUUID->"450beb31-a8e5-41aa-8799-\
+51bf41c2ee9e"],
+
+Cell["\<\
+As a practical matter unless you are very computing things on specialized (or \
+weird) hardware you are using the default machine arithmetic on your \
+computer.  Unless you are on a GPU or something like a fridge you are \
+computing in FP64 and people report answers to what is essentially FP32. Our \
+target is to understand the following output.  \
+\>", "Text",
+ CellChangeTimes->{{3.847120559038961*^9, 3.847120767832595*^9}, {
+  3.8471208186960287`*^9, 3.847120847409058*^9}, {3.8471210728056383`*^9, 
+  3.847121092740253*^9}},ExpressionUUID->"26cd46a9-a627-47a7-a8e5-\
+6d8022f2576d"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+ RowBox[{"{", 
+  RowBox[{"$MachineEpsilon", ",", 
+   RowBox[{"N", "[", 
+    SuperscriptBox["2", 
+     RowBox[{"-", "52"}]], "]"}]}], "}"}], "\[IndentingNewLine]", 
+ RowBox[{"N", "[", "\[Pi]", "]"}]}], "Input",
+ CellChangeTimes->{{3.8471207704429398`*^9, 3.84712080835336*^9}, {
+  3.847120941015904*^9, 3.847121039221261*^9}},
+ CellLabel->"In[5]:=",ExpressionUUID->"fcfc97ea-92de-4236-aac3-b29ba64fb1a8"],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{"2.220446049250313`*^-16", ",", "2.220446049250313`*^-16"}], 
+  "}"}]], "Output",
+ CellChangeTimes->{
+  3.847120809145316*^9, {3.8471209467121477`*^9, 3.847121039735798*^9}, 
+   3.8534301184459777`*^9, 3.8848808704189315`*^9, 3.884880990932476*^9},
+ CellLabel->"Out[5]=",ExpressionUUID->"ae4ffb8e-a568-4abf-97d7-7f874175e422"],
+
+Cell[BoxData["3.141592653589793`"], "Output",
+ CellChangeTimes->{
+  3.847120809145316*^9, {3.8471209467121477`*^9, 3.847121039735798*^9}, 
+   3.8534301184459777`*^9, 3.8848808704189315`*^9, 3.884880990949047*^9},
+ CellLabel->"Out[6]=",ExpressionUUID->"437dec41-a125-4743-989b-f78893d9b604"]
+}, Open  ]],
+
+Cell[BoxData[
+ RowBox[{"\[IndentingNewLine]", "3.141592653589793"}]], "Input",
+ CellChangeTimes->{{3.8848809791619806`*^9, 
+  3.88488099792105*^9}},ExpressionUUID->"06b8eb09-8d95-415e-ac00-\
+80449b3e1efc"],
+
+Cell[BoxData[
+ RowBox[{"\[IndentingNewLine]", "3.141592653589793`"}]], "Input",
+ CellChangeTimes->{{3.853430128472028*^9, 
+  3.853430128474024*^9}},ExpressionUUID->"38fae779-879c-4928-aa32-\
+460c31bc5e3a"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData["3.141592653589793`"], "Input",
+ CellChangeTimes->{3.853423297067607*^9},
+ CellLabel->
+  "In[306]:=",ExpressionUUID->"36e3e7e4-3f0f-4c12-9f05-98c01b3fd981"],
+
+Cell[BoxData["3.141592653589793`"], "Output",
+ CellChangeTimes->{3.8534232972100954`*^9},
+ CellLabel->
+  "Out[306]=",ExpressionUUID->"2599207f-34b3-4b63-adb5-a2fbd2eee9e2"]
+}, Open  ]],
+
+Cell["Details of the three common formats follow. ", "Text",
+ CellChangeTimes->{{3.847117320138883*^9, 3.847117331061933*^9}, {
+  3.8471208678227158`*^9, 
+  3.8471208855986032`*^9}},ExpressionUUID->"3fa4ce92-83cd-4044-b31e-\
+915b4b42747d"],
+
+Cell[CellGroupData[{
+
+Cell["FP16", "Subsubsection",
+ CellChangeTimes->{{3.84710614380542*^9, 
+  3.847106145437181*^9}},ExpressionUUID->"b140f0af-96c3-4d00-a947-\
+517dadee4192"],
+
+Cell["The specification says there is:", "Text",
+ CellChangeTimes->{{3.847106301965248*^9, 3.8471063048161907`*^9}, {
+  3.847110403380074*^9, 
+  3.8471104249434633`*^9}},ExpressionUUID->"5517caf8-2695-4d21-b4ca-\
+45909e01aca2"],
+
+Cell[CellGroupData[{
+
+Cell["1 sign bit interpreted as \[PlusMinus]", "Item",
+ CellChangeTimes->{{3.8471104333038597`*^9, 
+  3.847110461640869*^9}},ExpressionUUID->"95873ced-8a5b-4a9b-8c96-\
+a0b4bcd4e3b9"],
+
+Cell[TextData[{
+ "5 exponent bits interpreted as the power p in ",
+ Cell[BoxData[
+  FormBox[
+   SuperscriptBox["2", "p"], TraditionalForm]],ExpressionUUID->
+  "c690871c-2a9b-46ab-879f-ca645ae68cb8"]
+}], "Item",
+ CellChangeTimes->{{3.8471104333038597`*^9, 3.847110528174024*^9}, {
+  3.847110597326745*^9, 
+  3.847110597327137*^9}},ExpressionUUID->"7c6302a9-5948-4ee7-9350-\
+93f33a480718"],
+
+Cell[CellGroupData[{
+
+Cell[TextData[{
+ Cell[BoxData[
+  FormBox["\"\<11111\>\"", TraditionalForm]],ExpressionUUID->
+  "b7e96711-42ea-4360-a118-2c767abd0b5f"],
+ " is reserved for as big as possible i.e. \[PlusMinus]\[Infinity]"
+}], "Subitem",
+ CellChangeTimes->{{3.8471104333038597`*^9, 3.847110528174024*^9}, {
+  3.8471105987602167`*^9, 3.8471106104424267`*^9}, {3.847110715851933*^9, 
+  3.8471109162001*^9}},ExpressionUUID->"7bb40a7a-23b2-4029-8229-3de00c466f90"],
+
+Cell[TextData[{
+ Cell[BoxData[
+  FormBox["\"\<00000\>\"", TraditionalForm]],ExpressionUUID->
+  "db79dd2b-209c-4bae-b589-8b8d6554e3da"],
+ " is reserved for as small as possible i.e. \[PlusMinus]0 and tiny \
+denormalized numbers.  "
+}], "Subitem",
+ CellChangeTimes->{{3.8471104333038597`*^9, 3.847110528174024*^9}, {
+  3.8471105987602167`*^9, 3.8471106104424267`*^9}, {3.847110715851933*^9, 
+  3.847110964409786*^9}},ExpressionUUID->"ebdd8757-85e8-4d4c-b0ff-\
+9e015eec9731"],
+
+Cell[TextData[{
+ "There are ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"30", "=", 
+    RowBox[{
+     SuperscriptBox["2", "5"], "-", "2"}]}], TraditionalForm]],ExpressionUUID->
+  "a2c02643-e7e6-458b-a7dc-d4f41f41929d"],
+ " remaining bit patterns they are interpreted as \n\t",
+ Cell[BoxData[
+  FormBox[
+   SuperscriptBox["2", 
+    RowBox[{"(", 
+     RowBox[{
+      RowBox[{"-", "15"}], " ", "+", "  ", 
+      SubscriptBox[GridBox[{
+         {
+          SubscriptBox["e", "1"], 
+          SubscriptBox["e", "2"], 
+          SubscriptBox["e", "3"], 
+          SubscriptBox["e", "4"], 
+          SubscriptBox["e", "5"]}
+        },
+        GridBoxDividers->{"Columns" -> {{True}}, "Rows" -> {{True}}}], "2"]}],
+      ")"}]], TraditionalForm]],ExpressionUUID->
+  "23e11b49-7e7f-4157-ada7-7bc83c90614b"],
+ "\nThe offset 15 is chosen to split the difference between big and small.  \
+The exponent range is ",
+ "\n\t",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{
+     RowBox[{"-", "15"}], " ", "+", "  ", 
+     SubscriptBox[GridBox[{
+        {"0", "0", "0", "0", "1"}
+       },
+       GridBoxDividers->{"Columns" -> {{True}}, "Rows" -> {{True}}}], "2"]}], 
+    "=", 
+    RowBox[{
+     FrameBox[
+      RowBox[{
+       RowBox[{"-", "14"}], "\[LessEqual]", "p", "\[LessEqual]", " ", "15"}]],
+      "=", " ", 
+     RowBox[{
+      RowBox[{"-", "15"}], " ", "+", "  ", 
+      SubscriptBox[GridBox[{
+         {"0", "1", "1", "1", "1"}
+        },
+        GridBoxDividers->{"Columns" -> {{True}}, "Rows" -> {{True}}}], 
+       "2"]}]}]}], TraditionalForm]],ExpressionUUID->
+  "5771369b-a2a7-4af2-8c63-74d5ad19a6ff"]
+}], "Subitem",
+ CellChangeTimes->{{3.8471104333038597`*^9, 3.847110528174024*^9}, {
+  3.8471105987602167`*^9, 3.8471106104424267`*^9}, {3.847110715851933*^9, 
+  3.847110799793475*^9}, {3.847110973361701*^9, 3.8471111015456953`*^9}, {
+  3.8471111971908092`*^9, 3.847111371070426*^9}, {3.847111743291171*^9, 
+  3.8471117627985477`*^9}, {3.847112183346249*^9, 3.8471122600701027`*^9}, {
+  3.847112387905012*^9, 3.847112414967847*^9}, {3.853423563015092*^9, 
+  3.853423563015092*^9}},ExpressionUUID->"18d6c0ae-b80c-4c1c-b169-\
+da4ee801a7a5"]
+}, Open  ]],
+
+Cell[TextData[{
+ "The 10 significand bits ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    SubscriptBox["b", "1"], ",", 
+    SubscriptBox["b", "2"], ",", "\[Ellipsis]", ",", 
+    SubscriptBox["b", "10"]}], TraditionalForm]],ExpressionUUID->
+  "392fcf3e-35d4-498a-9d34-c2d09bc2858f"],
+ " are interpreted as\n\t ",
+ Cell[BoxData[
+  SubscriptBox[GridBox[{
+     {"1", ".", 
+      SubscriptBox["b", "1"], 
+      SubscriptBox["b", "2"], 
+      SubscriptBox["b", "3"], 
+      SubscriptBox["b", "4"], 
+      SubscriptBox["b", "5"], 
+      SubscriptBox["b", "6"], 
+      SubscriptBox["b", "7"], 
+      SubscriptBox["b", "8"], 
+      SubscriptBox["b", "9"], 
+      SubscriptBox["b", "10"]}
+    },
+    GridBoxDividers->{"Columns" -> {{True}}, "Rows" -> {{True}}}], "2"]],
+  ExpressionUUID->"b3204a9d-9abc-434b-8bf0-b990ce19c67c"],
+ " \nunless the exponent is ",
+ Cell[BoxData[
+  FormBox["\"\<00000\>\"", TraditionalForm]],ExpressionUUID->
+  "e91960c6-4c1d-485c-a1ac-e811e6ce48ed"],
+ " or ",
+ Cell[BoxData[
+  FormBox["\"\<11111\>\"", TraditionalForm]],ExpressionUUID->
+  "dce213c7-b4db-48fd-9a69-0c9ebee32515"]
+}], "Item",
+ CellChangeTimes->{{3.8471104333038597`*^9, 3.8471105765158567`*^9}, {
+  3.847111378407073*^9, 3.847111507119957*^9}, {3.847111552551746*^9, 
+  3.84711155255182*^9}, {3.847111606014989*^9, 3.847111636431231*^9}, {
+  3.847111736276227*^9, 3.847111736276395*^9}, {3.847111780486156*^9, 
+  3.847111784778276*^9}, {3.847112727196033*^9, 
+  3.847112737532296*^9}},ExpressionUUID->"956acb52-f932-4786-8727-\
+5c334a66f0b2"],
+
+Cell[CellGroupData[{
+
+Cell["\<\
+This is a normalized floating point number and has 10 specified binary bits\
+\>", "Subitem",
+ CellChangeTimes->{{3.8471104333038597`*^9, 3.8471105765158567`*^9}, {
+  3.847111378407073*^9, 3.847111578725299*^9}, {3.8471124732482557`*^9, 
+  3.847112473252565*^9}},ExpressionUUID->"c4c458b6-b7d2-4fbe-a447-\
+46b65c24adfe"],
+
+Cell[TextData[{
+ "The smallest positive normalized floating point number is ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{
+     SuperscriptBox["2", 
+      RowBox[{"-", "14"}]], "\[Times]", "1"}], "\[TildeTilde]", 
+    TagBox[
+     InterpretationBox[
+      StyleBox[
+       RowBox[{"\<\"6.10352\"\>", "\[Times]", 
+        SuperscriptBox["10", "\<\"-5\"\>"]}],
+       ShowStringCharacters->False],
+      0.0000610352,
+      AutoDelete->True],
+     ScientificForm]}], TraditionalForm]],ExpressionUUID->
+  "a1f191c8-f547-44b6-927e-7ce3ca1aa258"],
+ " all the binary bits are significant."
+}], "Subitem",
+ CellChangeTimes->{{3.8471104333038597`*^9, 3.8471105765158567`*^9}, {
+  3.847111378407073*^9, 3.847111578725299*^9}, {3.847112474325416*^9, 
+  3.847112551384869*^9}, {3.847112601416778*^9, 3.8471126176962347`*^9}, {
+  3.847112658346923*^9, 3.847112672333932*^9}, {3.847112705454969*^9, 
+  3.84711272443762*^9}, {3.847112760699938*^9, 3.8471127985396757`*^9}, {
+  3.847112902153665*^9, 3.847112902153762*^9}, {3.847114225085589*^9, 
+  3.8471142264616003`*^9}},ExpressionUUID->"0df6eab8-e0ea-43c8-8e9f-\
+f776386d5858"],
+
+Cell[TextData[{
+ "The largest positive floating point number is ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{
+     SuperscriptBox["2", "15"], "\[Times]", 
+     RowBox[{"(", 
+      RowBox[{"2", "-", 
+       SuperscriptBox["2", 
+        RowBox[{"-", "10"}]]}], ")"}]}], "\[TildeTilde]", 
+    TagBox[
+     InterpretationBox[
+      StyleBox[
+       RowBox[{"\<\"6.5504\"\>", "\[Times]", 
+        SuperscriptBox["10", "\<\"4\"\>"]}],
+       ShowStringCharacters->False],
+      65504.,
+      AutoDelete->True],
+     ScientificForm]}], TraditionalForm]],ExpressionUUID->
+  "7871d65c-940a-4f8d-8217-6a92680b4f78"]
+}], "Subitem",
+ CellChangeTimes->{{3.8471104333038597`*^9, 3.8471105765158567`*^9}, {
+  3.847111378407073*^9, 3.847111578725299*^9}, {3.847112474325416*^9, 
+  3.847112551384869*^9}, {3.847112601416778*^9, 3.8471126176962347`*^9}, {
+  3.847112658346923*^9, 3.8471127017671547`*^9}, {3.847112803188876*^9, 
+  3.847112875225514*^9}},ExpressionUUID->"65c02531-072a-4b38-b9e7-\
+4f0c82c02629"]
+}, Open  ]],
+
+Cell[TextData[{
+ "If the the exponent is ",
+ Cell[BoxData[
+  FormBox["\"\<00000\>\"", TraditionalForm]],ExpressionUUID->
+  "3b04b802-2f00-4a64-a028-c54f6eb9962f"],
+ " the significand is interpreted as \t\n\t",
+ Cell[BoxData[
+  SubscriptBox[GridBox[{
+     {"0", ".", 
+      SubscriptBox["b", "1"], 
+      SubscriptBox["b", "2"], 
+      SubscriptBox["b", "3"], 
+      SubscriptBox["b", "4"], 
+      SubscriptBox["b", "5"], 
+      SubscriptBox["b", "6"], 
+      SubscriptBox["b", "7"], 
+      SubscriptBox["b", "8"], 
+      SubscriptBox["b", "9"], 
+      SubscriptBox["b", "10"]}
+    },
+    GridBoxDividers->{"Columns" -> {{True}}, "Rows" -> {{True}}}], "2"]],
+  ExpressionUUID->"2eb4ca31-e8a0-4986-bee9-2b0b6e982917"],
+ " "
+}], "Item",
+ CellChangeTimes->{{3.8471104333038597`*^9, 3.8471105765158567`*^9}, {
+   3.847111378407073*^9, 3.847111583329627*^9}, {3.847111651734149*^9, 
+   3.847111689170394*^9}, 3.847111729791257*^9, {3.847111791999097*^9, 
+   3.847111810012145*^9}},ExpressionUUID->"a6f7a086-0bce-4e7c-8588-\
+a27ec8bd57f3"],
+
+Cell[CellGroupData[{
+
+Cell["This is a denormalized or subnormal floating point number.  ", "Subitem",
+ CellChangeTimes->{{3.8471104333038597`*^9, 3.8471105765158567`*^9}, {
+   3.847111378407073*^9, 3.847111583329627*^9}, {3.847111651734149*^9, 
+   3.847111689170394*^9}, 3.847111729791257*^9, {3.847111791999097*^9, 
+   3.847111861486019*^9}, {3.847112031999387*^9, 
+   3.84711203559969*^9}},ExpressionUUID->"03a2ebec-0eef-4f57-91a9-\
+186d819f9596"],
+
+Cell[TextData[{
+ "The smallest positive denormalized number is ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{
+     SuperscriptBox["2", 
+      RowBox[{"-", "14"}]], "\[Times]", 
+     SubscriptBox["\"\<0.0000000001\>\"", "2"]}], "=", 
+    RowBox[{
+     RowBox[{
+      SuperscriptBox["2", 
+       RowBox[{"-", "14"}]], "\[Times]", 
+      SuperscriptBox["2", 
+       RowBox[{"-", "10"}]]}], "\[TildeTilde]", 
+     RowBox[{"5.96", "\[Times]", 
+      SuperscriptBox["10", 
+       RowBox[{"-", "8"}]]}]}]}], TraditionalForm]],ExpressionUUID->
+  "b55c7a29-9601-4c7d-b055-b18bc962a27f"],
+ ". It only has one significant binary bit. "
+}], "Subitem",
+ CellChangeTimes->{{3.8471104333038597`*^9, 3.8471105765158567`*^9}, {
+   3.847111378407073*^9, 3.847111583329627*^9}, {3.847111651734149*^9, 
+   3.847111689170394*^9}, 3.847111729791257*^9, {3.847111791999097*^9, 
+   3.8471120093120213`*^9}, {3.847112116350753*^9, 3.847112121093256*^9}, {
+   3.847112175611319*^9, 3.847112175956243*^9}, {3.847112447855853*^9, 
+   3.847112469250718*^9}},ExpressionUUID->"f568a82b-00ad-49a1-9634-\
+05bb9a62f6f6"]
+}, Open  ]],
+
+Cell[TextData[{
+ "If the exponent is ",
+ Cell[BoxData[
+  FormBox["\"\<11111\>\"", TraditionalForm]],ExpressionUUID->
+  "e26fad3b-cffd-4493-93b5-f3b64021cff2"]
+}], "Item",
+ CellChangeTimes->{{3.84711262107486*^9, 3.847112624839754*^9}, {
+  3.84711291385376*^9, 3.84711295464784*^9}, {3.8471129968808928`*^9, 
+  3.8471129970819693`*^9}},ExpressionUUID->"70c5d0cf-7844-4b26-afdd-\
+3c5d0f4029a4"],
+
+Cell[CellGroupData[{
+
+Cell[TextData[{
+ "If ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    SubscriptBox["b", "1"], "=", 
+    RowBox[{
+     SubscriptBox["b", "2"], "=", 
+     RowBox[{"\[Ellipsis]", "=", 
+      RowBox[{
+       SubscriptBox["b", "10"], "=", "0"}]}]}]}], TraditionalForm]],
+  ExpressionUUID->"505a2ea9-5af5-4633-b74c-256545701105"],
+ " we have ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"\[PlusMinus]", "\[Infinity]"}], TraditionalForm]],ExpressionUUID->
+  "9511b771-42ef-4d45-898c-759e2a8cd976"],
+ "."
+}], "Subitem",
+ CellChangeTimes->{{3.84711262107486*^9, 3.847112624839754*^9}, {
+  3.84711291385376*^9, 
+  3.847113014736985*^9}},ExpressionUUID->"7509613b-2c5e-4354-98f1-\
+8a1637a2163f"],
+
+Cell["\<\
+If they are not all zero it is a flavor of \[OpenCurlyDoubleQuote]NaN\
+\[CloseCurlyDoubleQuote]  (error form standing for Not A Number).  For a \
+summary see https://en.wikipedia.org/wiki/NaN. For details look at the \
+technical specification!     \
+\>", "Subitem",
+ CellChangeTimes->{{3.84711262107486*^9, 3.847112624839754*^9}, {
+  3.84711291385376*^9, 3.8471130305288763`*^9}, {3.8471130775998173`*^9, 
+  3.847113207897735*^9}, {3.847114105300961*^9, 
+  3.8471141053022327`*^9}},ExpressionUUID->"931dc29d-c284-42c0-9f5b-\
+5ac866652b9c"]
+}, Open  ]],
+
+Cell[TextData[{
+ "To convert a real number to a normalized FP16 it has to be rounded to the \
+appropriate number of binary bits\n\t ",
+ Cell[BoxData[
+  SubscriptBox[GridBox[{
+     {"1", ".", 
+      SubscriptBox["b", "1"], 
+      SubscriptBox["b", "2"], 
+      SubscriptBox["b", "3"], 
+      SubscriptBox["b", "4"], 
+      SubscriptBox["b", "5"], 
+      SubscriptBox["b", "6"], 
+      SubscriptBox["b", "7"], 
+      SubscriptBox["b", "8"], 
+      SubscriptBox["b", "9"], 
+      SubscriptBox["b", "10"], "?", "?", "?", "?"}
+    },
+    GridBoxDividers->{"Columns" -> {{True}}, "Rows" -> {{True}}}], "2"]],
+  ExpressionUUID->"9902d63e-b5a5-42f2-b15f-b8538a3a1c6b"],
+ " \nThe ",
+ Cell[BoxData[
+  FormBox["?", TraditionalForm]],ExpressionUUID->
+  "fa51e094-6b64-47b7-94fd-c955777fe88f"],
+ " are either thrown away or not computed.  The first ",
+ Cell[BoxData[
+  FormBox["?", TraditionalForm]],ExpressionUUID->
+  "5b335120-dc27-4d56-bb92-5eb9051dda29"],
+ " (the one in the slot that would be ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["b", "11"], TraditionalForm]],ExpressionUUID->
+  "7d771d20-a597-4030-a3f1-debebe18a851"],
+ ") is either a zero or a one and represents ",
+ Cell[BoxData[
+  FormBox[
+   FrameBox[
+    RowBox[{" ", 
+     RowBox[{"?", 
+      RowBox[{"*", 
+       SuperscriptBox["2", 
+        RowBox[{"-", "11"}]]}]}]}]], TraditionalForm]],ExpressionUUID->
+  "6168f97d-77cb-4f30-aaec-5755dae1cbc7"],
+ ".  "
+}], "Item",
+ CellChangeTimes->{{3.84711262107486*^9, 3.847112624839754*^9}, {
+  3.84711291385376*^9, 3.8471130305288763`*^9}, {3.8471130775998173`*^9, 
+  3.847113207897735*^9}, {3.847114118891501*^9, 3.847114164133177*^9}, {
+  3.847114238196292*^9, 3.847114685814982*^9}, {3.847114961484981*^9, 
+  3.847114980211501*^9}},ExpressionUUID->"996724dd-9502-4eb2-871d-\
+0e105afb35b7"],
+
+Cell[TextData[{
+ "If we worry about relative error this first missing digit could represent \
+an error of ",
+ Cell[BoxData[
+  FormBox[
+   SuperscriptBox["2", 
+    RowBox[{"-", "11"}]], TraditionalForm]],ExpressionUUID->
+  "d5b12c47-7118-4a7a-9c80-4f0e1f4e2a3b"],
+ " in a value between 1 and 2.  Since ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    SuperscriptBox["2", 
+     RowBox[{"-", "11"}]], "\[TildeTilde]", 
+    TagBox[
+     InterpretationBox[
+      StyleBox[
+       RowBox[{"\<\"4.88281\"\>", "\[Times]", 
+        SuperscriptBox["10", "\<\"-4\"\>"]}],
+       ShowStringCharacters->False],
+      0.00048828125,
+      AutoDelete->True],
+     ScientificForm]}], TraditionalForm]],ExpressionUUID->
+  "6df2d5ee-cf94-4d93-b8cf-7d2f0f4483b0"],
+ " this is about three significant decimal digits.  A careful way to say this \
+is to report the largest positive number ",
+ Cell[BoxData[
+  FormBox["\[Epsilon]", TraditionalForm]],ExpressionUUID->
+  "6700907a-f1da-4971-9fdd-24cdbb7be0c8"],
+ " that satisfies ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox[
+    FrameBox[
+     RowBox[{
+      RowBox[{"1.0", " ", "+", " ", "\[Epsilon]"}], " ", "=", " ", "1.0"}]], 
+    "FP16"], TraditionalForm]],ExpressionUUID->
+  "e4da60d8-678f-49eb-adbd-407564329f2c"],
+ " in FP16 arithmetic. With this definition \n\t",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    SubscriptBox["\[Epsilon]", "16"], "=", 
+    RowBox[{
+     SubscriptBox[GridBox[{
+        {"0", ".", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "1", "1",
+          "1", "1", "\[Ellipsis]"}
+       },
+       GridBoxDividers->{"Columns" -> {{True}}, "Rows" -> {{True}}}], "2"], 
+     "=", 
+     RowBox[{
+      SuperscriptBox["2", 
+       RowBox[{"-", "10"}]], " ", "\[TildeTilde]", 
+      TagBox[
+       InterpretationBox[
+        StyleBox[
+         RowBox[{"\<\"9.76563\"\>", "\[Times]", 
+          SuperscriptBox["10", "\<\"-4\"\>"]}],
+         ShowStringCharacters->False],
+        0.0009765625,
+        AutoDelete->True],
+       ScientificForm]}]}]}], TraditionalForm]],ExpressionUUID->
+  "89c2b9f5-277a-43fb-806b-308371a57bfd"],
+ "   "
+}], "Subitem",
+ CellChangeTimes->{{3.84711262107486*^9, 3.847112624839754*^9}, {
+   3.84711291385376*^9, 3.8471130305288763`*^9}, {3.8471130775998173`*^9, 
+   3.847113207897735*^9}, {3.847114118891501*^9, 3.847114164133177*^9}, {
+   3.847114238196292*^9, 3.8471148413863363`*^9}, {3.84711488180929*^9, 
+   3.847114937095317*^9}, {3.847114992400146*^9, 3.847115237862873*^9}, {
+   3.8471153808333597`*^9, 3.847115384229453*^9}, {3.847115482018696*^9, 
+   3.847115483533718*^9}, {3.847115515204279*^9, 3.847115515204402*^9}, {
+   3.8534153293597145`*^9, 3.853415334825589*^9}, 3.853415365808964*^9, 
+   3.85341543156371*^9},ExpressionUUID->"d3456aff-b0de-4833-b119-\
+526227faea9f"]
+}, Open  ]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["FP32", "Subsubsection",
+ CellChangeTimes->{{3.84710614380542*^9, 3.847106145437181*^9}, {
+  3.8471155359255943`*^9, 
+  3.8471155365098248`*^9}},ExpressionUUID->"96dd4782-ba14-4c8a-a63c-\
+82313939b5eb"],
+
+Cell["The specification says there is:", "Text",
+ CellChangeTimes->{{3.847106301965248*^9, 3.8471063048161907`*^9}, {
+  3.847110403380074*^9, 
+  3.8471104249434633`*^9}},ExpressionUUID->"ee47ac29-3229-4a24-8852-\
+97c9367cb60f"],
+
+Cell[CellGroupData[{
+
+Cell["1 sign bit interpreted as \[PlusMinus]", "Item",
+ CellChangeTimes->{{3.8471104333038597`*^9, 
+  3.847110461640869*^9}},ExpressionUUID->"11afe287-e5f9-4641-9dc2-\
+d3e25bd547c4"],
+
+Cell[TextData[{
+ "8 exponent bits interpreted as the power p in ",
+ Cell[BoxData[
+  FormBox[
+   SuperscriptBox["2", "p"], TraditionalForm]],ExpressionUUID->
+  "1a299a30-b9ca-4c90-ae9a-2ad450456c70"]
+}], "Item",
+ CellChangeTimes->{{3.8471104333038597`*^9, 3.847110528174024*^9}, {
+   3.847110597326745*^9, 3.847110597327137*^9}, 
+   3.847115563334057*^9},ExpressionUUID->"2cfbf907-eaf0-4b0e-a3e1-\
+02e58c7f2570"],
+
+Cell[CellGroupData[{
+
+Cell[TextData[{
+ Cell[BoxData[
+  FormBox["\"\<11\[Ellipsis]11\>\"", TraditionalForm]],ExpressionUUID->
+  "86d31a5e-394b-4f84-ab67-4b6efd758308"],
+ " is reserved for as big as possible i.e. \[PlusMinus]\[Infinity]"
+}], "Subitem",
+ CellChangeTimes->{{3.8471104333038597`*^9, 3.847110528174024*^9}, {
+  3.8471105987602167`*^9, 3.8471106104424267`*^9}, {3.847110715851933*^9, 
+  3.8471109162001*^9}, {3.8471155685531797`*^9, 
+  3.847115569271246*^9}},ExpressionUUID->"dfd6c789-c054-4024-b49f-\
+58463e7fc3f5"],
+
+Cell[TextData[{
+ Cell[BoxData[
+  FormBox["\"\<00\[Ellipsis]00\>\"", TraditionalForm]],ExpressionUUID->
+  "9b7bea81-73eb-4590-800c-f91798884d99"],
+ " is reserved for as small as possible i.e. \[PlusMinus]0 and tiny \
+denormalized numbers.  "
+}], "Subitem",
+ CellChangeTimes->{{3.8471104333038597`*^9, 3.847110528174024*^9}, {
+  3.8471105987602167`*^9, 3.8471106104424267`*^9}, {3.847110715851933*^9, 
+  3.847110964409786*^9}, {3.847115571792111*^9, 
+  3.847115572704466*^9}},ExpressionUUID->"6113711f-14ec-4318-874b-\
+acc702718ca1"],
+
+Cell[TextData[{
+ "The bit patterns are interpreted as \n\t",
+ Cell[BoxData[
+  FormBox[
+   SuperscriptBox["2", 
+    RowBox[{"(", 
+     RowBox[{
+      RowBox[{"-", "127"}], " ", "+", "  ", 
+      SubscriptBox[GridBox[{
+         {
+          SubscriptBox["e", "1"], 
+          SubscriptBox["e", "2"], "\[Ellipsis]", 
+          SubscriptBox["e", "7"], 
+          SubscriptBox["e", "8"]}
+        },
+        GridBoxDividers->{"Columns" -> {{True}}, "Rows" -> {{True}}}], "2"]}],
+      ")"}]], TraditionalForm]],ExpressionUUID->
+  "71b29791-1845-4f78-9124-376c3dae9b18"],
+ "\nThe offset 127 gives the exponent range is \n\t",
+ Cell[BoxData[
+  FormBox[
+   FrameBox[
+    RowBox[{
+     RowBox[{"-", "126"}], "\[LessEqual]", "p", "\[LessEqual]", " ", "127"}]],
+    TraditionalForm]],ExpressionUUID->"e4bc3df8-bedb-43f0-b565-349a2b5e8f1a"]
+}], "Subitem",
+ CellChangeTimes->{{3.8471104333038597`*^9, 3.847110528174024*^9}, {
+  3.8471105987602167`*^9, 3.8471106104424267`*^9}, {3.847110715851933*^9, 
+  3.847110799793475*^9}, {3.847110973361701*^9, 3.8471111015456953`*^9}, {
+  3.8471111971908092`*^9, 3.847111371070426*^9}, {3.847111743291171*^9, 
+  3.8471117627985477`*^9}, {3.847112183346249*^9, 3.8471122600701027`*^9}, {
+  3.847112387905012*^9, 3.847112414967847*^9}, {3.84711561179386*^9, 
+  3.847115664680632*^9}, {3.8471157003360777`*^9, 3.847115704353443*^9}, {
+  3.8534241695957584`*^9, 
+  3.8534241695957584`*^9}},ExpressionUUID->"5787bf2f-06f8-4ef0-a17f-\
+97e8334a0f02"]
+}, Open  ]],
+
+Cell[TextData[{
+ "The 23 significand bits ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    SubscriptBox["b", "1"], ",", 
+    SubscriptBox["b", "2"], ",", "\[Ellipsis]", ",", 
+    SubscriptBox["b", "10"]}], TraditionalForm]],ExpressionUUID->
+  "fadd2ded-cc61-4748-844a-af4a36664efe"],
+ " are interpreted as\n\t ",
+ Cell[BoxData[
+  SubscriptBox[GridBox[{
+     {"1", ".", 
+      SubscriptBox["b", "1"], 
+      SubscriptBox["b", "2"], "\[Ellipsis]", 
+      SubscriptBox["b", "22"], 
+      SubscriptBox["b", "23"]}
+    },
+    GridBoxDividers->{"Columns" -> {{True}}, "Rows" -> {{True}}}], "2"]],
+  ExpressionUUID->"0e13ee4c-f871-4d9d-b922-abfece9a7c79"],
+ " \nunless the exponent is ",
+ Cell[BoxData[
+  FormBox["\"\<00\[Ellipsis]00\>\"", TraditionalForm]],ExpressionUUID->
+  "83059595-e183-484f-9833-57b1e593e672"],
+ " or ",
+ Cell[BoxData[
+  FormBox["\"\<11\[Ellipsis]11\>\"", TraditionalForm]],ExpressionUUID->
+  "fc85b23e-710f-4990-8a81-896d9bcc925b"]
+}], "Item",
+ CellChangeTimes->{{3.8471104333038597`*^9, 3.8471105765158567`*^9}, {
+  3.847111378407073*^9, 3.847111507119957*^9}, {3.847111552551746*^9, 
+  3.84711155255182*^9}, {3.847111606014989*^9, 3.847111636431231*^9}, {
+  3.847111736276227*^9, 3.847111736276395*^9}, {3.847111780486156*^9, 
+  3.847111784778276*^9}, {3.847112727196033*^9, 3.847112737532296*^9}, {
+  3.847115717549892*^9, 3.847115747784541*^9}, {3.847115810970372*^9, 
+  3.847115824914556*^9}},ExpressionUUID->"e3ac5a57-5da0-4091-a5d9-\
+802ba19774b0"],
+
+Cell[CellGroupData[{
+
+Cell["\<\
+This is a normalized floating point number and has 23 specified binary bits\
+\>", "Subitem",
+ CellChangeTimes->{{3.8471104333038597`*^9, 3.8471105765158567`*^9}, {
+  3.847111378407073*^9, 3.847111578725299*^9}, {3.8471124732482557`*^9, 
+  3.847112473252565*^9}, {3.84711575321376*^9, 
+  3.847115753324417*^9}},ExpressionUUID->"ff109d2a-9c77-4ef4-b389-\
+61b5c19e449f"],
+
+Cell[TextData[{
+ "The smallest positive normalized floating point number is ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{
+     SuperscriptBox["2", 
+      RowBox[{"-", "126"}]], "\[Times]", "1"}], "\[TildeTilde]", 
+    TagBox[
+     InterpretationBox[
+      StyleBox[
+       RowBox[{"\<\"1.17549\"\>", "\[Times]", 
+        SuperscriptBox["10", "\<\"-38\"\>"]}],
+       ShowStringCharacters->False],
+      1.1754943508222875`*^-38,
+      AutoDelete->True],
+     ScientificForm]}], TraditionalForm]],ExpressionUUID->
+  "50d23273-5834-4115-9aa7-aeaf11cd5e3e"],
+ " all the binary bits are significant."
+}], "Subitem",
+ CellChangeTimes->{{3.8471104333038597`*^9, 3.8471105765158567`*^9}, {
+  3.847111378407073*^9, 3.847111578725299*^9}, {3.847112474325416*^9, 
+  3.847112551384869*^9}, {3.847112601416778*^9, 3.8471126176962347`*^9}, {
+  3.847112658346923*^9, 3.847112672333932*^9}, {3.847112705454969*^9, 
+  3.84711272443762*^9}, {3.847112760699938*^9, 3.8471127985396757`*^9}, {
+  3.847112902153665*^9, 3.847112902153762*^9}, {3.847114225085589*^9, 
+  3.8471142264616003`*^9}, {3.847115761568972*^9, 3.847115762273472*^9}, {
+  3.847116111017151*^9, 
+  3.847116125395754*^9}},ExpressionUUID->"3245565d-2d65-43da-90ab-\
+78da62197e0a"],
+
+Cell[TextData[{
+ "The largest positive floating point number is ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{
+     SuperscriptBox["2", "127"], "\[Times]", 
+     RowBox[{"(", 
+      RowBox[{"2", "-", 
+       SuperscriptBox["2", 
+        RowBox[{"-", "24"}]]}], ")"}]}], "\[TildeTilde]", 
+    TagBox[
+     InterpretationBox[
+      StyleBox[
+       RowBox[{"\<\"3.40282\"\>", "\[Times]", 
+        SuperscriptBox["10", "\<\"38\"\>"]}],
+       ShowStringCharacters->False],
+      3.4028235677973366`*^38,
+      AutoDelete->True],
+     ScientificForm]}], TraditionalForm]],ExpressionUUID->
+  "e3db7434-14ba-483a-b26d-62e58c6b6634"]
+}], "Subitem",
+ CellChangeTimes->{{3.8471104333038597`*^9, 3.8471105765158567`*^9}, {
+  3.847111378407073*^9, 3.847111578725299*^9}, {3.847112474325416*^9, 
+  3.847112551384869*^9}, {3.847112601416778*^9, 3.8471126176962347`*^9}, {
+  3.847112658346923*^9, 3.8471127017671547`*^9}, {3.847112803188876*^9, 
+  3.847112875225514*^9}, {3.8471157687452717`*^9, 3.84711577626348*^9}, {
+  3.847116070789422*^9, 
+  3.847116070789562*^9}},ExpressionUUID->"48d6278c-48e6-4179-8665-\
+17bd54fc9983"]
+}, Open  ]],
+
+Cell[TextData[{
+ "If the the exponent is ",
+ Cell[BoxData[
+  FormBox["\"\<00\[Ellipsis]00\>\"", TraditionalForm]],ExpressionUUID->
+  "c8791ac2-12b7-4a67-875b-4fcfdba506cb"],
+ " the significand is interpreted as \t\n\t",
+ Cell[BoxData[
+  SubscriptBox[GridBox[{
+     {"0", ".", 
+      SubscriptBox["b", "1"], 
+      SubscriptBox["b", "2"], "\[Ellipsis]", 
+      SubscriptBox["b", "22"], 
+      SubscriptBox["b", "23"]}
+    },
+    GridBoxDividers->{"Columns" -> {{True}}, "Rows" -> {{True}}}], "2"]],
+  ExpressionUUID->"8e6d037e-2098-4cc4-8384-8d4305cbf95f"],
+ " "
+}], "Item",
+ CellChangeTimes->{{3.8471104333038597`*^9, 3.8471105765158567`*^9}, {
+   3.847111378407073*^9, 3.847111583329627*^9}, {3.847111651734149*^9, 
+   3.847111689170394*^9}, 3.847111729791257*^9, {3.847111791999097*^9, 
+   3.847111810012145*^9}, {3.847115788688911*^9, 
+   3.847115829856743*^9}},ExpressionUUID->"511a7f46-5d28-4a15-a1bc-\
+fe216fe11f5b"],
+
+Cell[CellGroupData[{
+
+Cell["This is a denormalized or subnormal floating point number.  ", "Subitem",
+ CellChangeTimes->{{3.8471104333038597`*^9, 3.8471105765158567`*^9}, {
+   3.847111378407073*^9, 3.847111583329627*^9}, {3.847111651734149*^9, 
+   3.847111689170394*^9}, 3.847111729791257*^9, {3.847111791999097*^9, 
+   3.847111861486019*^9}, {3.847112031999387*^9, 
+   3.84711203559969*^9}},ExpressionUUID->"d05a0989-ac7c-4d05-a29f-\
+bee96fab0cc3"],
+
+Cell[TextData[{
+ "The smallest positive denormalized number is ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{
+     SuperscriptBox["2", 
+      RowBox[{"-", "126"}]], "\[Times]", 
+     SuperscriptBox["2", 
+      RowBox[{"-", "23"}]]}], "\[TildeTilde]", 
+    TagBox[
+     InterpretationBox[
+      StyleBox[
+       RowBox[{"\<\"1.4013\"\>", "\[Times]", 
+        SuperscriptBox["10", "\<\"-45\"\>"]}],
+       ShowStringCharacters->False],
+      1.401298464324817*^-45,
+      AutoDelete->True],
+     ScientificForm]}], TraditionalForm]],ExpressionUUID->
+  "a0c5bb01-5922-4653-8918-1e65a6370771"],
+ ". It only has one significant binary bit. "
+}], "Subitem",
+ CellChangeTimes->{{3.8471104333038597`*^9, 3.8471105765158567`*^9}, {
+   3.847111378407073*^9, 3.847111583329627*^9}, {3.847111651734149*^9, 
+   3.847111689170394*^9}, 3.847111729791257*^9, {3.847111791999097*^9, 
+   3.8471120093120213`*^9}, {3.847112116350753*^9, 3.847112121093256*^9}, {
+   3.847112175611319*^9, 3.847112175956243*^9}, {3.847112447855853*^9, 
+   3.847112469250718*^9}, {3.8471158411765738`*^9, 3.847115849537075*^9}, {
+   3.847116035486155*^9, 
+   3.847116035486224*^9}},ExpressionUUID->"0b803722-ad04-4d8c-8b7c-\
+bc8f79b7e09a"]
+}, Open  ]],
+
+Cell[TextData[{
+ "If the exponent is ",
+ Cell[BoxData[
+  FormBox["\"\<11\[Ellipsis]11\>\"", TraditionalForm]],ExpressionUUID->
+  "dc7f7d17-bdbb-4285-a04d-7a085b7aa10c"]
+}], "Item",
+ CellChangeTimes->{{3.84711262107486*^9, 3.847112624839754*^9}, {
+  3.84711291385376*^9, 3.84711295464784*^9}, {3.8471129968808928`*^9, 
+  3.8471129970819693`*^9}, {3.847115856848527*^9, 
+  3.847115857593143*^9}},ExpressionUUID->"1b69547d-0d91-427d-9818-\
+cb64531a95ab"],
+
+Cell[CellGroupData[{
+
+Cell[TextData[{
+ "If ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    SubscriptBox["b", "1"], "=", 
+    RowBox[{
+     SubscriptBox["b", "2"], "=", 
+     RowBox[{"\[Ellipsis]", "=", 
+      RowBox[{
+       SubscriptBox["b", "23"], "=", "0"}]}]}]}], TraditionalForm]],
+  ExpressionUUID->"0da47bbe-da70-4a2e-8540-1e64418b3b78"],
+ " we have ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"\[PlusMinus]", "\[Infinity]"}], TraditionalForm]],ExpressionUUID->
+  "dbc979bf-03f6-4c5b-a877-fbf1397b4d7a"],
+ "."
+}], "Subitem",
+ CellChangeTimes->{{3.84711262107486*^9, 3.847112624839754*^9}, {
+  3.84711291385376*^9, 3.847113014736985*^9}, {3.847115860984414*^9, 
+  3.8471158611043177`*^9}},ExpressionUUID->"813f6d1d-bdb4-4e14-803f-\
+00c487cd41c4"],
+
+Cell["\<\
+If they are not all zero it is a flavor of \[OpenCurlyDoubleQuote]NaN\
+\[CloseCurlyDoubleQuote]  (error form standing for Not A Number).  For a \
+summary see https://en.wikipedia.org/wiki/NaN. For details look at the \
+technical specification!     \
+\>", "Subitem",
+ CellChangeTimes->{{3.84711262107486*^9, 3.847112624839754*^9}, {
+  3.84711291385376*^9, 3.8471130305288763`*^9}, {3.8471130775998173`*^9, 
+  3.847113207897735*^9}, {3.847114105300961*^9, 
+  3.8471141053022327`*^9}},ExpressionUUID->"8d47bb32-0947-489d-ab9c-\
+2e24ec59949d"]
+}, Open  ]],
+
+Cell[TextData[{
+ "The largest positive number satisfying ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox[
+    FrameBox[
+     RowBox[{
+      RowBox[{"1.0", " ", "+", " ", "\[Epsilon]"}], " ", "=", " ", "1.0"}]], 
+    "FP32"], TraditionalForm]],ExpressionUUID->
+  "0e1f1359-3bc5-4636-ac22-28bcaed6c384"],
+ " is ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    SubscriptBox["\[Epsilon]", "32"], "=", 
+    RowBox[{
+     SuperscriptBox["2", 
+      RowBox[{"-", "23"}]], "\[TildeTilde]", 
+     TagBox[
+      InterpretationBox[
+       StyleBox[
+        RowBox[{"\<\"1.19209\"\>", "\[Times]", 
+         SuperscriptBox["10", "\<\"-7\"\>"]}],
+        ShowStringCharacters->False],
+       1.1920928955078125`*^-7,
+       AutoDelete->True],
+      ScientificForm]}]}], TraditionalForm]],ExpressionUUID->
+  "4990b1f6-8ab7-494a-9c96-1cb361519f42"],
+ "  So FP32 has roughly 7 decimal digits of precision.  "
+}], "Item",
+ CellChangeTimes->{{3.84711262107486*^9, 3.847112624839754*^9}, {
+  3.84711291385376*^9, 3.8471130305288763`*^9}, {3.8471130775998173`*^9, 
+  3.847113207897735*^9}, {3.847114118891501*^9, 3.847114164133177*^9}, {
+  3.847114238196292*^9, 3.847114685814982*^9}, {3.847114961484981*^9, 
+  3.847114980211501*^9}, {3.847115873806324*^9, 3.8471159612135553`*^9}, {
+  3.8471160038835773`*^9, 
+  3.8471160038836823`*^9}},ExpressionUUID->"043053ff-a3ca-4823-8442-\
+0ac79744f80f"]
+}, Open  ]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["FP64", "Subsubsection",
+ CellChangeTimes->{{3.84710614380542*^9, 3.847106145437181*^9}, {
+  3.8471155359255943`*^9, 3.8471155365098248`*^9}, {3.84711615756605*^9, 
+  3.847116157798566*^9}},ExpressionUUID->"f6940618-1fcd-47e9-b623-\
+aa00120816b4"],
+
+Cell["The specification says there is:", "Text",
+ CellChangeTimes->{{3.847106301965248*^9, 3.8471063048161907`*^9}, {
+  3.847110403380074*^9, 
+  3.8471104249434633`*^9}},ExpressionUUID->"04f14cba-2423-416e-b8de-\
+ef4dd614fc56"],
+
+Cell[CellGroupData[{
+
+Cell["1 sign bit interpreted as \[PlusMinus]", "Item",
+ CellChangeTimes->{{3.8471104333038597`*^9, 
+  3.847110461640869*^9}},ExpressionUUID->"088d813c-70a7-434c-9017-\
+59daa624a961"],
+
+Cell[TextData[{
+ "11 exponent bits interpreted as the power p in ",
+ Cell[BoxData[
+  FormBox[
+   SuperscriptBox["2", "p"], TraditionalForm]],ExpressionUUID->
+  "09fe36c0-e7c7-49b4-9ef3-7b581feae818"]
+}], "Item",
+ CellChangeTimes->{{3.8471104333038597`*^9, 3.847110528174024*^9}, {
+   3.847110597326745*^9, 3.847110597327137*^9}, 3.847115563334057*^9, {
+   3.847116864578514*^9, 
+   3.847116864809898*^9}},ExpressionUUID->"6be81c99-c393-4a01-a1a9-\
+a5dcfa09e691"],
+
+Cell[CellGroupData[{
+
+Cell[TextData[{
+ Cell[BoxData[
+  FormBox["\"\<11\[Ellipsis]11\>\"", TraditionalForm]],ExpressionUUID->
+  "bc45dff3-3ce9-4023-bfc8-57b7a9d69e58"],
+ " is reserved for as big as possible i.e. \[PlusMinus]\[Infinity]"
+}], "Subitem",
+ CellChangeTimes->{{3.8471104333038597`*^9, 3.847110528174024*^9}, {
+  3.8471105987602167`*^9, 3.8471106104424267`*^9}, {3.847110715851933*^9, 
+  3.8471109162001*^9}, {3.8471155685531797`*^9, 
+  3.847115569271246*^9}},ExpressionUUID->"85184e16-4eb0-4249-bf59-\
+1b5c534702ac"],
+
+Cell[TextData[{
+ Cell[BoxData[
+  FormBox["\"\<00\[Ellipsis]00\>\"", TraditionalForm]],ExpressionUUID->
+  "5709e5b8-eb0a-4f40-8293-37c298258494"],
+ " is reserved for as small as possible i.e. \[PlusMinus]0 and tiny \
+denormalized numbers.  "
+}], "Subitem",
+ CellChangeTimes->{{3.8471104333038597`*^9, 3.847110528174024*^9}, {
+  3.8471105987602167`*^9, 3.8471106104424267`*^9}, {3.847110715851933*^9, 
+  3.847110964409786*^9}, {3.847115571792111*^9, 
+  3.847115572704466*^9}},ExpressionUUID->"1da7096e-43b6-4145-b9c3-\
+32fa83a6be5f"],
+
+Cell[TextData[{
+ "The bit patterns are interpreted as \n\t",
+ Cell[BoxData[
+  FormBox[
+   SuperscriptBox["2", 
+    RowBox[{"(", 
+     RowBox[{
+      RowBox[{"-", "1023"}], " ", "+", "  ", 
+      SubscriptBox[GridBox[{
+         {
+          SubscriptBox["e", "1"], 
+          SubscriptBox["e", "2"], "\[Ellipsis]", 
+          SubscriptBox["e", "10"], 
+          SubscriptBox["e", "11"]}
+        },
+        GridBoxDividers->{"Columns" -> {{True}}, "Rows" -> {{True}}}], "2"]}],
+      ")"}]], TraditionalForm]],ExpressionUUID->
+  "ccb9daf6-0dc1-4aeb-b703-06c0d0712ae5"],
+ "\nThe offset 1023 gives the exponent range is \n\t",
+ Cell[BoxData[
+  FormBox[
+   FrameBox[
+    RowBox[{
+     RowBox[{
+      RowBox[{"-", "1022"}], "\[LessEqual]", "p", "\[LessEqual]"}], " ", "=", 
+     "1023"}]], TraditionalForm]],ExpressionUUID->
+  "392a8f62-7a59-48ff-bd5d-7fe99f249795"]
+}], "Subitem",
+ CellChangeTimes->{{3.8471104333038597`*^9, 3.847110528174024*^9}, {
+  3.8471105987602167`*^9, 3.8471106104424267`*^9}, {3.847110715851933*^9, 
+  3.847110799793475*^9}, {3.847110973361701*^9, 3.8471111015456953`*^9}, {
+  3.8471111971908092`*^9, 3.847111371070426*^9}, {3.847111743291171*^9, 
+  3.8471117627985477`*^9}, {3.847112183346249*^9, 3.8471122600701027`*^9}, {
+  3.847112387905012*^9, 3.847112414967847*^9}, {3.84711561179386*^9, 
+  3.847115664680632*^9}, {3.8471157003360777`*^9, 3.847115704353443*^9}, {
+  3.84711687245545*^9, 3.847116875269453*^9}, {3.847117431838434*^9, 
+  3.8471174604422073`*^9}},ExpressionUUID->"9b67531b-6790-4dca-8702-\
+58d211aba0c3"]
+}, Open  ]],
+
+Cell[TextData[{
+ "The 52 significand bits ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    SubscriptBox["b", "1"], ",", 
+    SubscriptBox["b", "2"], ",", "\[Ellipsis]", ",", 
+    SubscriptBox["b", "52"]}], TraditionalForm]],ExpressionUUID->
+  "bde774af-7714-4255-9ce8-b0055be552d9"],
+ " are interpreted as\n\t ",
+ Cell[BoxData[
+  SubscriptBox[GridBox[{
+     {"1", ".", 
+      SubscriptBox["b", "1"], 
+      SubscriptBox["b", "2"], "\[Ellipsis]", 
+      SubscriptBox["b", "51"], 
+      SubscriptBox["b", "52"]}
+    },
+    GridBoxDividers->{"Columns" -> {{True}}, "Rows" -> {{True}}}], "2"]],
+  ExpressionUUID->"c8ed357f-4039-49ef-967d-6156ccca1893"],
+ " \nunless the exponent is ",
+ Cell[BoxData[
+  FormBox["\"\<00\[Ellipsis]00\>\"", TraditionalForm]],ExpressionUUID->
+  "2ddd8b53-f846-41da-9ff6-8b228913da9e"],
+ " or ",
+ Cell[BoxData[
+  FormBox["\"\<11\[Ellipsis]11\>\"", TraditionalForm]],ExpressionUUID->
+  "5eb25f68-2562-4f2c-a1a2-e3545fffd69b"]
+}], "Item",
+ CellChangeTimes->{{3.8471104333038597`*^9, 3.8471105765158567`*^9}, {
+  3.847111378407073*^9, 3.847111507119957*^9}, {3.847111552551746*^9, 
+  3.84711155255182*^9}, {3.847111606014989*^9, 3.847111636431231*^9}, {
+  3.847111736276227*^9, 3.847111736276395*^9}, {3.847111780486156*^9, 
+  3.847111784778276*^9}, {3.847112727196033*^9, 3.847112737532296*^9}, {
+  3.847115717549892*^9, 3.847115747784541*^9}, {3.847115810970372*^9, 
+  3.847115824914556*^9}, {3.8471173443824472`*^9, 
+  3.847117356669725*^9}},ExpressionUUID->"0d819732-f259-4c7a-bd30-\
+ef42d5e1d877"],
+
+Cell[CellGroupData[{
+
+Cell["\<\
+This is a normalized floating point number and has 52 specified binary bits\
+\>", "Subitem",
+ CellChangeTimes->{{3.8471104333038597`*^9, 3.8471105765158567`*^9}, {
+  3.847111378407073*^9, 3.847111578725299*^9}, {3.8471124732482557`*^9, 
+  3.847112473252565*^9}, {3.84711575321376*^9, 3.847115753324417*^9}, {
+  3.847117364205944*^9, 
+  3.8471173644233093`*^9}},ExpressionUUID->"1465a11d-077f-4932-bd5b-\
+c03c35d7694a"],
+
+Cell[TextData[{
+ "The smallest positive normalized floating point number is ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{
+     SuperscriptBox["2", 
+      RowBox[{"-", "1022"}]], "\[Times]", "1"}], "\[TildeTilde]", 
+    TagBox[
+     InterpretationBox[
+      StyleBox[
+       RowBox[{"\<\"2.22507\"\>", "\[Times]", 
+        SuperscriptBox["10", "\<\"-308\"\>"]}],
+       ShowStringCharacters->False],
+      2.2250738585072014`*^-308,
+      AutoDelete->True],
+     ScientificForm]}], TraditionalForm]],ExpressionUUID->
+  "8f8e3a83-b263-4e7a-ab4a-7bcf1c13d030"]
+}], "Subitem",
+ CellChangeTimes->{{3.8471104333038597`*^9, 3.8471105765158567`*^9}, {
+  3.847111378407073*^9, 3.847111578725299*^9}, {3.847112474325416*^9, 
+  3.847112551384869*^9}, {3.847112601416778*^9, 3.8471126176962347`*^9}, {
+  3.847112658346923*^9, 3.847112672333932*^9}, {3.847112705454969*^9, 
+  3.84711272443762*^9}, {3.847112760699938*^9, 3.8471127985396757`*^9}, {
+  3.847112902153665*^9, 3.847112902153762*^9}, {3.847114225085589*^9, 
+  3.8471142264616003`*^9}, {3.847115761568972*^9, 3.847115762273472*^9}, {
+  3.847116111017151*^9, 3.847116125395754*^9}, {3.8471174720573387`*^9, 
+  3.8471174726811934`*^9}, {3.847117749431151*^9, 
+  3.847117766442266*^9}},ExpressionUUID->"2f7bd63b-4126-48b4-a7aa-\
+37dfc7441850"],
+
+Cell[TextData[{
+ "The largest positive floating point number is ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{
+     SuperscriptBox["2", "1023"], "\[Times]", 
+     RowBox[{"(", 
+      RowBox[{"2", "-", 
+       SuperscriptBox["2", 
+        RowBox[{"-", "52"}]]}], ")"}]}], "\[TildeTilde]", 
+    TagBox[
+     InterpretationBox[
+      StyleBox[
+       RowBox[{"\<\"1.79769\"\>", "\[Times]", 
+        SuperscriptBox["10", "\<\"308\"\>"]}],
+       ShowStringCharacters->False],
+      1.7976931348623157`*^308,
+      AutoDelete->True],
+     ScientificForm]}], TraditionalForm]],ExpressionUUID->
+  "caa9652e-cb6b-4098-bfb3-a006f070d9be"]
+}], "Subitem",
+ CellChangeTimes->{{3.8471104333038597`*^9, 3.8471105765158567`*^9}, {
+  3.847111378407073*^9, 3.847111578725299*^9}, {3.847112474325416*^9, 
+  3.847112551384869*^9}, {3.847112601416778*^9, 3.8471126176962347`*^9}, {
+  3.847112658346923*^9, 3.8471127017671547`*^9}, {3.847112803188876*^9, 
+  3.847112875225514*^9}, {3.8471157687452717`*^9, 3.84711577626348*^9}, {
+  3.847116070789422*^9, 3.847116070789562*^9}, {3.847117477456544*^9, 
+  3.8471174878978252`*^9}, {3.847117698593081*^9, 
+  3.847117713143063*^9}},ExpressionUUID->"ea7a8d26-61a7-4783-8578-\
+6d7186dd4b27"]
+}, Open  ]],
+
+Cell[TextData[{
+ "If the the exponent is ",
+ Cell[BoxData[
+  FormBox["\"\<00\[Ellipsis]00\>\"", TraditionalForm]],ExpressionUUID->
+  "bd7cab5b-9f3f-4af8-bede-a81210064efb"],
+ " the significand is interpreted as \t\n\t",
+ Cell[BoxData[
+  SubscriptBox[GridBox[{
+     {"0", ".", 
+      SubscriptBox["b", "1"], 
+      SubscriptBox["b", "2"], "\[Ellipsis]", 
+      SubscriptBox["b", "51"], 
+      SubscriptBox["b", "52"]}
+    },
+    GridBoxDividers->{"Columns" -> {{True}}, "Rows" -> {{True}}}], "2"]],
+  ExpressionUUID->"d9c7ecc1-7c24-47f4-b97e-f517eb63c519"],
+ " "
+}], "Item",
+ CellChangeTimes->{{3.8471104333038597`*^9, 3.8471105765158567`*^9}, {
+   3.847111378407073*^9, 3.847111583329627*^9}, {3.847111651734149*^9, 
+   3.847111689170394*^9}, 3.847111729791257*^9, {3.847111791999097*^9, 
+   3.847111810012145*^9}, {3.847115788688911*^9, 3.847115829856743*^9}, {
+   3.847117499090659*^9, 
+   3.8471175046997557`*^9}},ExpressionUUID->"ccaac994-bdbc-44de-86d1-\
+82f4d5ad5239"],
+
+Cell[CellGroupData[{
+
+Cell["This is a denormalized or subnormal floating point number.  ", "Subitem",
+ CellChangeTimes->{{3.8471104333038597`*^9, 3.8471105765158567`*^9}, {
+   3.847111378407073*^9, 3.847111583329627*^9}, {3.847111651734149*^9, 
+   3.847111689170394*^9}, 3.847111729791257*^9, {3.847111791999097*^9, 
+   3.847111861486019*^9}, {3.847112031999387*^9, 
+   3.84711203559969*^9}},ExpressionUUID->"19f36bd6-c107-409b-8c5a-\
+ecd1825dbc9d"],
+
+Cell[TextData[{
+ "The smallest positive denormalized number is ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{
+     SuperscriptBox["2", 
+      RowBox[{"-", "1022"}]], "\[Times]", 
+     SuperscriptBox["2", 
+      RowBox[{"-", "52"}]]}], "\[TildeTilde]", 
+    TagBox[
+     InterpretationBox[
+      StyleBox[
+       RowBox[{"\<\"4.94066\"\>", "\[Times]", 
+        SuperscriptBox["10", "\<\"-324\"\>"]}],
+       ShowStringCharacters->False],
+      0.,
+      AutoDelete->True],
+     ScientificForm]}], TraditionalForm]],ExpressionUUID->
+  "8e0ac9dd-ee16-4225-a4fd-db0088566296"],
+ " "
+}], "Subitem",
+ CellChangeTimes->{{3.8471104333038597`*^9, 3.8471105765158567`*^9}, {
+   3.847111378407073*^9, 3.847111583329627*^9}, {3.847111651734149*^9, 
+   3.847111689170394*^9}, 3.847111729791257*^9, {3.847111791999097*^9, 
+   3.8471120093120213`*^9}, {3.847112116350753*^9, 3.847112121093256*^9}, {
+   3.847112175611319*^9, 3.847112175956243*^9}, {3.847112447855853*^9, 
+   3.847112469250718*^9}, {3.8471158411765738`*^9, 3.847115849537075*^9}, {
+   3.847116035486155*^9, 3.847116035486224*^9}, {3.84711760005002*^9, 
+   3.847117607274774*^9}, {3.847117645512241*^9, 
+   3.8471176651111393`*^9}},ExpressionUUID->"a1a0e0a9-9535-415e-8084-\
+03b29455599f"]
+}, Open  ]],
+
+Cell[TextData[{
+ "If the exponent is ",
+ Cell[BoxData[
+  FormBox["\"\<11\[Ellipsis]11\>\"", TraditionalForm]],ExpressionUUID->
+  "f1d22d46-648a-4355-bcda-2a59d8d5b4a3"]
+}], "Item",
+ CellChangeTimes->{{3.84711262107486*^9, 3.847112624839754*^9}, {
+  3.84711291385376*^9, 3.84711295464784*^9}, {3.8471129968808928`*^9, 
+  3.8471129970819693`*^9}, {3.847115856848527*^9, 
+  3.847115857593143*^9}},ExpressionUUID->"75f9c5ac-cf38-43aa-8df0-\
+0e867355a54a"],
+
+Cell[CellGroupData[{
+
+Cell[TextData[{
+ "If ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    SubscriptBox["b", "1"], "=", 
+    RowBox[{
+     SubscriptBox["b", "2"], "=", 
+     RowBox[{"\[Ellipsis]", "=", 
+      RowBox[{
+       SubscriptBox["b", "52"], "=", "0"}]}]}]}], TraditionalForm]],
+  ExpressionUUID->"1ab73cf8-dc1b-4177-928c-c0d79e795562"],
+ " we have ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"\[PlusMinus]", "\[Infinity]"}], TraditionalForm]],ExpressionUUID->
+  "7d8b69cc-6302-4e3a-bd27-f47d9aca393d"],
+ "."
+}], "Subitem",
+ CellChangeTimes->{{3.84711262107486*^9, 3.847112624839754*^9}, {
+  3.84711291385376*^9, 3.847113014736985*^9}, {3.847115860984414*^9, 
+  3.8471158611043177`*^9}, {3.847117513001759*^9, 
+  3.8471175131349*^9}},ExpressionUUID->"6d883f0c-9eb4-49c8-9928-63ce5dfe6d42"],
+
+Cell["\<\
+If they are not all zero it is a flavor of \[OpenCurlyDoubleQuote]NaN\
+\[CloseCurlyDoubleQuote]  (error form standing for Not A Number).  For a \
+summary see https://en.wikipedia.org/wiki/NaN. For details look at the \
+technical specification!     \
+\>", "Subitem",
+ CellChangeTimes->{{3.84711262107486*^9, 3.847112624839754*^9}, {
+  3.84711291385376*^9, 3.8471130305288763`*^9}, {3.8471130775998173`*^9, 
+  3.847113207897735*^9}, {3.847114105300961*^9, 
+  3.8471141053022327`*^9}},ExpressionUUID->"0f0d6269-1325-4053-9086-\
+991bb39685db"]
+}, Open  ]],
+
+Cell[TextData[{
+ "The largest positive number satisfying ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox[
+    FrameBox[
+     RowBox[{
+      RowBox[{"1.0", " ", "+", " ", "\[Epsilon]"}], " ", "=", " ", "1.0"}]], 
+    "FP64"], TraditionalForm]],ExpressionUUID->
+  "1a6cf6a7-5f2e-498a-a6f1-c2890249f8ac"],
+ " is ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    SubscriptBox["\[Epsilon]", "64"], "=", 
+    RowBox[{
+     RowBox[{"2", "*", 
+      SuperscriptBox["2", 
+       RowBox[{"-", "53"}]]}], "\[TildeTilde]", 
+     RowBox[{"2", "*", 
+      TagBox[
+       InterpretationBox[
+        StyleBox[
+         RowBox[{"\<\"1.11022\"\>", "\[Times]", 
+          SuperscriptBox["10", "\<\"-16\"\>"]}],
+         ShowStringCharacters->False],
+        1.1102230246251565`*^-16,
+        AutoDelete->True],
+       ScientificForm]}]}]}], TraditionalForm]],ExpressionUUID->
+  "c840a519-46f3-4bb5-90f9-fdefdee1bebe"],
+ "  So FP64 has roughly 15 decimal digits of precision.  "
+}], "Item",
+ CellChangeTimes->{{3.84711262107486*^9, 3.847112624839754*^9}, {
+  3.84711291385376*^9, 3.8471130305288763`*^9}, {3.8471130775998173`*^9, 
+  3.847113207897735*^9}, {3.847114118891501*^9, 3.847114164133177*^9}, {
+  3.847114238196292*^9, 3.847114685814982*^9}, {3.847114961484981*^9, 
+  3.847114980211501*^9}, {3.847115873806324*^9, 3.8471159612135553`*^9}, {
+  3.8471160038835773`*^9, 3.8471160038836823`*^9}, {3.84711752013826*^9, 
+  3.847117586318777*^9}, {3.8534155072184644`*^9, 
+  3.8534155144331994`*^9}},ExpressionUUID->"104edf13-c141-4f19-8c95-\
+99ca1c841b8a"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{"$MachinePrecision", "\[IndentingNewLine]", \
+"$MachineEpsilon"}], "Input",
+ CellChangeTimes->{{3.8534154784513364`*^9, 3.853415493410573*^9}, {
+  3.8534155314417453`*^9, 3.853415559402297*^9}},
+ CellLabel->"In[7]:=",ExpressionUUID->"75b1e48c-5c0f-4325-b0f8-c30a7596cdf2"],
+
+Cell[BoxData["15.954589770191003`"], "Output",
+ CellChangeTimes->{{3.853415482049271*^9, 3.8534154938547864`*^9}, {
+   3.8534155424554605`*^9, 3.8534155601486998`*^9}, 3.8534311989377975`*^9, 
+   3.8848816137724257`*^9},
+ CellLabel->"Out[7]=",ExpressionUUID->"e88358a3-1e69-4cf9-b0b5-5721d121e23a"],
+
+Cell[BoxData["2.220446049250313`*^-16"], "Output",
+ CellChangeTimes->{{3.853415482049271*^9, 3.8534154938547864`*^9}, {
+   3.8534155424554605`*^9, 3.8534155601486998`*^9}, 3.8534311989377975`*^9, 
+   3.884881613775875*^9},
+ CellLabel->"Out[8]=",ExpressionUUID->"3ab75065-be91-4f39-a21c-53c767cb6aee"]
+}, Open  ]]
+}, Open  ]]
+}, Open  ]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Floating Point Axioms", "Section",
+ CellChangeTimes->{{3.85341740575716*^9, 
+  3.8534174169534397`*^9}},ExpressionUUID->"6bac0fd8-f3e5-4b30-beba-\
+357458796996"],
+
+Cell["\<\
+All the arithmetic (and some other things) are correctly rounded in IEEE \
+compliant arithmetic.\
+\>", "Text",
+ CellChangeTimes->{{3.853417434468219*^9, 
+  3.853417544442483*^9}},ExpressionUUID->"3f198c23-20ba-4510-bb81-\
+36ce7df1d771"],
+
+Cell[TextData[{
+ "Every compliant floating point operation is exact \nup to a relative error \
+of size at most ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["\[Epsilon]", "machine"], TraditionalForm]],
+  FormatType->TraditionalForm,ExpressionUUID->
+  "31012cf6-b021-42d0-adde-be14fc34b91b"],
+ "!"
+}], "Text",
+ CellChangeTimes->{{3.853417434468219*^9, 3.853417544442483*^9}, {
+   3.853417580108426*^9, 3.8534177474752455`*^9}, 3.8534251973125052`*^9},
+ Background->RGBColor[
+  1, 0.85, 0.85],ExpressionUUID->"d92128b9-5502-43e0-ae48-c17eaddbb383"],
+
+Cell[TextData[{
+ "Compliant operations include:  ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"+", 
+    RowBox[{",", 
+     RowBox[{"-", 
+      RowBox[{",", 
+       RowBox[{"\[Times]", 
+        RowBox[{",", 
+         RowBox[{"\[Divide]", 
+          RowBox[{",", 
+           SqrtBox[" "], ",", "\[Ellipsis]"}]}]}]}]}]}]}]}], TraditionalForm]],
+  FormatType->TraditionalForm,ExpressionUUID->
+  "e93b17ac-6558-4651-8b2d-3972f05f6bc6"]
+}], "Text",
+ CellChangeTimes->{{3.853417434468219*^9, 3.853417544442483*^9}, {
+  3.853417580108426*^9, 3.8534177474752455`*^9}, {3.85341781734155*^9, 
+  3.853417901987728*^9}},
+ Background->RGBColor[
+  1, 0.85, 0.85],ExpressionUUID->"3b370e07-121f-4f29-8e3a-5d947d37e720"],
+
+Cell["\<\
+In practice basic math functions (sin, cos, atan, \[Ellipsis]) which are part \
+of the distribution are compliant over reduced ranges. \
+\>", "Text",
+ CellChangeTimes->{{3.853417434468219*^9, 3.853417544442483*^9}, {
+  3.853417580108426*^9, 3.8534177474752455`*^9}, {3.85341781734155*^9, 
+  3.8534180009553304`*^9}},
+ Background->RGBColor[
+  1, 0.85, 0.85],ExpressionUUID->"c4b52413-b72a-40a9-8b0d-385ff17e94ac"]
+}, Open  ]]
+}, Open  ]]
+},
+WindowToolbars->"EditBar",
+WindowSize->{1140.6, 574.8},
+WindowMargins->{{0, Automatic}, {Automatic, 0}},
+TaggingRules->Association[
+ "PresenterSettings" -> Association["Dialogs" -> {}], "TryRealOnly" -> False],
+Magnification:>1.5 Inherited,
+FrontEndVersion->"12.3 for Microsoft Windows (64-bit) (May 11, 2021)",
+StyleDefinitions->FrontEnd`FileName[{"PresenterTools"}, "Aqua.nb", 
+  CharacterEncoding -> "UTF-8"],
+ExpressionUUID->"fb4e4a44-23fc-4efa-b4a0-96ec3555f1a3"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[CellGroupData[{
+Cell[580, 22, 815, 12, 184, "Title",ExpressionUUID->"bb443c9e-1a1c-437e-b10c-400e63a30bb8"],
+Cell[1398, 36, 414, 6, 50, "Text",ExpressionUUID->"19c34891-b4a5-4bb2-9167-f8ac0b4049d9"],
+Cell[CellGroupData[{
+Cell[1837, 46, 188, 3, 47, "Item",ExpressionUUID->"d2479e02-cf85-4789-9d82-04670b9aa0a7"],
+Cell[2028, 51, 179, 3, 40, "Subitem",ExpressionUUID->"43e06c19-c9e8-4172-8b45-3e31c32a7eb9"],
+Cell[2210, 56, 494, 9, 47, "Item",ExpressionUUID->"300f81c9-a625-47b9-b833-6e4cf19c19f3"],
+Cell[CellGroupData[{
+Cell[2729, 69, 466, 9, 40, "Subitem",ExpressionUUID->"04714adc-d81c-4daf-be1b-d364328f119d"],
+Cell[3198, 80, 383, 6, 40, "Subitem",ExpressionUUID->"2079700e-3255-45ee-a35d-7f354697d691"],
+Cell[CellGroupData[{
+Cell[3606, 90, 320, 5, 40, "Subsubitem",ExpressionUUID->"9a712012-4226-4204-a809-fe780c22356c"],
+Cell[3929, 97, 322, 5, 40, "Subsubitem",ExpressionUUID->"62c00152-9521-40b0-9e2e-978abe5c0e67"],
+Cell[4254, 104, 318, 5, 40, "Subsubitem",ExpressionUUID->"d36f8784-6063-4b45-a053-93210bc9e95f"]
+}, Open  ]],
+Cell[4587, 112, 494, 9, 40, "Subitem",ExpressionUUID->"0cebe6a1-9b20-4825-9260-dbf3f44d1e22"],
+Cell[CellGroupData[{
+Cell[5106, 125, 577, 10, 38, "Subsubitem",ExpressionUUID->"7caff664-df30-4f14-b9cf-5a53b163f695"],
+Cell[5686, 137, 921, 20, 69, "Subsubitem",ExpressionUUID->"1f530542-63b0-4cfd-b366-907c65b2bc3e"]
+}, Open  ]]
+}, Open  ]]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[6668, 164, 287, 4, 97, "Section",ExpressionUUID->"96b74ac9-986d-4b34-8e54-69b391dc4db0"],
+Cell[CellGroupData[{
+Cell[6980, 172, 180, 3, 72, "Subsection",ExpressionUUID->"ca1af951-8fb7-474b-ae87-e3d1af2591e7"],
+Cell[7163, 177, 1610, 46, 284, "Text",ExpressionUUID->"06a9245e-6d53-429f-846c-04265fe2c048"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[8810, 228, 232, 4, 72, "Subsection",ExpressionUUID->"98079de3-acce-47af-9b5b-b587188bf294"],
+Cell[9045, 234, 3118, 86, 318, "Text",ExpressionUUID->"450d72c8-12f8-450a-abea-0b58564dd788"],
+Cell[CellGroupData[{
+Cell[12188, 324, 801, 20, 71, "Input",ExpressionUUID->"9eeaa0ee-c423-49ce-9ab6-f2367c7a093e"],
+Cell[12992, 346, 332, 7, 48, "Output",ExpressionUUID->"33b89418-deae-4f45-88f4-dee97001e399"],
+Cell[13327, 355, 297, 6, 48, "Output",ExpressionUUID->"d6a10a6a-70aa-431a-9a94-d8ff39c51c21"]
+}, Open  ]],
+Cell[13639, 364, 395, 8, 50, "Text",ExpressionUUID->"d737f6ad-d1c3-4a87-9790-6fe750712628"],
+Cell[CellGroupData[{
+Cell[14059, 376, 937, 24, 157, "Input",ExpressionUUID->"6be54f30-591e-47ee-b91a-49dce559ed29"],
+Cell[14999, 402, 710, 14, 48, "Output",ExpressionUUID->"413888a5-c357-4e9e-896c-a811fe0c0e1d"],
+Cell[15712, 418, 449, 8, 68, "Output",ExpressionUUID->"d1926cc3-23bd-4fdf-9b1b-8d26fc5022f4"],
+Cell[16164, 428, 553, 11, 48, "Output",ExpressionUUID->"3ab89e71-6cce-490b-a107-270185acf6ff"]
+}, Open  ]]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[16766, 445, 248, 4, 72, "Subsection",ExpressionUUID->"7e753978-55e2-4482-b361-233b44ed83ca"],
+Cell[17017, 451, 1823, 44, 184, "Text",ExpressionUUID->"24f8f57a-e845-487e-a9f2-23fe905b0fb7"],
+Cell[CellGroupData[{
+Cell[18865, 499, 1078, 26, 186, "Input",ExpressionUUID->"21a4983c-1ede-40ec-9383-6e42f83869eb"],
+Cell[19946, 527, 274, 4, 48, "Output",ExpressionUUID->"e19f0b86-1f78-403a-b566-f2f47a553054"],
+Cell[20223, 533, 603, 13, 48, "Output",ExpressionUUID->"6dafd409-9656-46d5-b57d-1ce299e7b918"],
+Cell[20829, 548, 310, 6, 68, "Output",ExpressionUUID->"5bf0e953-fbe3-463c-b1f1-23a9122b2d2c"],
+Cell[21142, 556, 420, 9, 48, "Output",ExpressionUUID->"ce73fad0-9713-4695-afa0-6d3c285be07e"]
+}, Open  ]]
+}, Open  ]]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[21623, 572, 313, 5, 97, "Section",ExpressionUUID->"89580b5d-13b3-45be-828b-4d89ec582bfd"],
+Cell[CellGroupData[{
+Cell[21961, 581, 244, 4, 72, "Subsection",ExpressionUUID->"ff1653a3-7b18-4c0a-9b25-21877115862f"],
+Cell[22208, 587, 395, 8, 117, "Text",ExpressionUUID->"e8a23721-b391-482e-8648-0e0fae894d57"],
+Cell[22606, 597, 1463, 30, 257, "Text",ExpressionUUID->"8801470f-4114-473b-a07b-6eb2a9f214aa"],
+Cell[24072, 629, 1166, 19, 217, "Text",ExpressionUUID->"46472984-d43d-40c3-a0c1-ab964a911a33"],
+Cell[CellGroupData[{
+Cell[25263, 652, 321, 6, 47, "Item",ExpressionUUID->"de85a29c-0d22-4465-b7a5-fdea286315fc"],
+Cell[25587, 660, 372, 7, 47, "Item",ExpressionUUID->"3018d7dc-d263-4ed5-b719-9d311abf6729"],
+Cell[25962, 669, 371, 7, 47, "Item",ExpressionUUID->"e8e20e62-c417-4507-bd0a-dd57c09404b5"]
+}, Open  ]],
+Cell[26348, 679, 1050, 17, 150, "Text",ExpressionUUID->"bf9b7806-47e7-42d2-be2e-8bc52c40c1c6"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[27435, 701, 304, 5, 72, "Subsection",ExpressionUUID->"ec8563f0-e6fd-4f87-855c-f5c60eec71be"],
+Cell[27742, 708, 912, 24, 117, "Text",ExpressionUUID->"976975ef-a0de-46ed-9579-4623a25938bb"],
+Cell[28657, 734, 664, 11, 150, "Text",ExpressionUUID->"450beb31-a8e5-41aa-8799-51bf41c2ee9e"],
+Cell[29324, 747, 598, 10, 150, "Text",ExpressionUUID->"26cd46a9-a627-47a7-a8e5-6d8022f2576d"],
+Cell[CellGroupData[{
+Cell[29947, 761, 418, 9, 75, "Input",ExpressionUUID->"fcfc97ea-92de-4236-aac3-b29ba64fb1a8"],
+Cell[30368, 772, 365, 7, 52, "Output",ExpressionUUID->"ae4ffb8e-a568-4abf-97d7-7f874175e422"],
+Cell[30736, 781, 290, 4, 48, "Output",ExpressionUUID->"437dec41-a125-4743-989b-f78893d9b604"]
+}, Open  ]],
+Cell[31041, 788, 205, 4, 71, "Input",ExpressionUUID->"06b8eb09-8d95-415e-ac00-80449b3e1efc"],
+Cell[31249, 794, 205, 4, 71, "Input",ExpressionUUID->"38fae779-879c-4928-aa32-460c31bc5e3a"],
+Cell[CellGroupData[{
+Cell[31479, 802, 169, 3, 42, "Input",ExpressionUUID->"36e3e7e4-3f0f-4c12-9f05-98c01b3fd981"],
+Cell[31651, 807, 172, 3, 48, "Output",ExpressionUUID->"2599207f-34b3-4b63-adb5-a2fbd2eee9e2"]
+}, Open  ]],
+Cell[31838, 813, 239, 4, 50, "Text",ExpressionUUID->"3fa4ce92-83cd-4044-b31e-915b4b42747d"],
+Cell[CellGroupData[{
+Cell[32102, 821, 154, 3, 57, "Subsubsection",ExpressionUUID->"b140f0af-96c3-4d00-a947-517dadee4192"],
+Cell[32259, 826, 227, 4, 50, "Text",ExpressionUUID->"5517caf8-2695-4d21-b4ca-45909e01aca2"],
+Cell[CellGroupData[{
+Cell[32511, 834, 182, 3, 47, "Item",ExpressionUUID->"95873ced-8a5b-4a9b-8c96-a0b4bcd4e3b9"],
+Cell[32696, 839, 387, 10, 47, "Item",ExpressionUUID->"7c6302a9-5948-4ee7-9350-93f33a480718"],
+Cell[CellGroupData[{
+Cell[33108, 853, 441, 8, 40, "Subitem",ExpressionUUID->"7bb40a7a-23b2-4029-8229-3de00c466f90"],
+Cell[33552, 863, 472, 10, 40, "Subitem",ExpressionUUID->"ebdd8757-85e8-4d4c-b0ff-9e015eec9731"],
+Cell[34027, 875, 2139, 60, 154, "Subitem",ExpressionUUID->"18d6c0ae-b80c-4c1c-b169-da4ee801a7a5"]
+}, Open  ]],
+Cell[36181, 938, 1523, 41, 115, "Item",ExpressionUUID->"956acb52-f932-4786-8727-5c334a66f0b2"],
+Cell[CellGroupData[{
+Cell[37729, 983, 329, 6, 40, "Subitem",ExpressionUUID->"c4c458b6-b7d2-4fbe-a447-46b65c24adfe"],
+Cell[38061, 991, 1123, 27, 69, "Subitem",ExpressionUUID->"0df6eab8-e0ea-43c8-8e9f-f776386d5858"],
+Cell[39187, 1020, 1001, 27, 41, "Subitem",ExpressionUUID->"65c02531-072a-4b38-b9e7-4f0c82c02629"]
+}, Open  ]],
+Cell[40203, 1050, 1032, 28, 85, "Item",ExpressionUUID->"a6f7a086-0bce-4e7c-8588-a27ec8bd57f3"],
+Cell[CellGroupData[{
+Cell[41260, 1082, 427, 6, 40, "Subitem",ExpressionUUID->"03a2ebec-0eef-4f57-91a9-186d819f9596"],
+Cell[41690, 1090, 1093, 27, 69, "Subitem",ExpressionUUID->"f568a82b-00ad-49a1-9634-05bb9a62f6f6"]
+}, Open  ]],
+Cell[42798, 1120, 392, 9, 47, "Item",ExpressionUUID->"70c5d0cf-7844-4b26-afdd-3c5d0f4029a4"],
+Cell[CellGroupData[{
+Cell[43215, 1133, 675, 22, 40, "Subitem",ExpressionUUID->"7509613b-2c5e-4354-98f1-8a1637a2163f"],
+Cell[43893, 1157, 549, 10, 69, "Subitem",ExpressionUUID->"931dc29d-c284-42c0-9f5b-5ac866652b9c"]
+}, Open  ]],
+Cell[44457, 1170, 1792, 49, 193, "Item",ExpressionUUID->"996724dd-9502-4eb2-871d-0e105afb35b7"],
+Cell[46252, 1221, 2760, 74, 183, "Subitem",ExpressionUUID->"d3456aff-b0de-4833-b119-526227faea9f"]
+}, Open  ]]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[49061, 1301, 207, 4, 57, "Subsubsection",ExpressionUUID->"96dd4782-ba14-4c8a-a63c-82313939b5eb"],
+Cell[49271, 1307, 227, 4, 50, "Text",ExpressionUUID->"ee47ac29-3229-4a24-8852-97c9367cb60f"],
+Cell[CellGroupData[{
+Cell[49523, 1315, 182, 3, 47, "Item",ExpressionUUID->"11afe287-e5f9-4641-9dc2-d3e25bd547c4"],
+Cell[49708, 1320, 411, 10, 47, "Item",ExpressionUUID->"2cfbf907-eaf0-4b0e-a3e1-02e58c7f2570"],
+Cell[CellGroupData[{
+Cell[50144, 1334, 504, 10, 40, "Subitem",ExpressionUUID->"dfd6c789-c054-4024-b49f-58463e7fc3f5"],
+Cell[50651, 1346, 531, 11, 40, "Subitem",ExpressionUUID->"6113711f-14ec-4318-874b-acc702718ca1"],
+Cell[51185, 1359, 1467, 35, 154, "Subitem",ExpressionUUID->"5787bf2f-06f8-4ef0-a17f-97e8334a0f02"]
+}, Open  ]],
+Cell[52667, 1397, 1468, 36, 115, "Item",ExpressionUUID->"e3ac5a57-5da0-4091-a5d9-802ba19774b0"],
+Cell[CellGroupData[{
+Cell[54160, 1437, 377, 7, 40, "Subitem",ExpressionUUID->"ff109d2a-9c77-4ef4-b389-61b5c19e449f"],
+Cell[54540, 1446, 1235, 29, 69, "Subitem",ExpressionUUID->"3245565d-2d65-43da-90ab-78da62197e0a"],
+Cell[55778, 1477, 1120, 29, 41, "Subitem",ExpressionUUID->"48d6278c-48e6-4179-8665-17bd54fc9983"]
+}, Open  ]],
+Cell[56913, 1509, 922, 23, 85, "Item",ExpressionUUID->"511a7f46-5d28-4a15-a1bc-fe216fe11f5b"],
+Cell[CellGroupData[{
+Cell[57860, 1536, 427, 6, 40, "Subitem",ExpressionUUID->"d05a0989-ac7c-4d05-a29f-bee96fab0cc3"],
+Cell[58290, 1544, 1207, 30, 69, "Subitem",ExpressionUUID->"0b803722-ad04-4d8c-8b7c-bc8f79b7e09a"]
+}, Open  ]],
+Cell[59512, 1577, 451, 10, 47, "Item",ExpressionUUID->"1b69547d-0d91-427d-9818-cb64531a95ab"],
+Cell[CellGroupData[{
+Cell[59988, 1591, 723, 22, 40, "Subitem",ExpressionUUID->"813f6d1d-bdb4-4e14-803f-00c487cd41c4"],
+Cell[60714, 1615, 549, 10, 69, "Subitem",ExpressionUUID->"8d47bb32-0947-489d-ab9c-2e24ec59949d"]
+}, Open  ]],
+Cell[61278, 1628, 1367, 37, 96, "Item",ExpressionUUID->"043053ff-a3ca-4823-8442-0ac79744f80f"]
+}, Open  ]]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[62694, 1671, 252, 4, 57, "Subsubsection",ExpressionUUID->"f6940618-1fcd-47e9-b623-aa00120816b4"],
+Cell[62949, 1677, 227, 4, 50, "Text",ExpressionUUID->"04f14cba-2423-416e-b8de-ef4dd614fc56"],
+Cell[CellGroupData[{
+Cell[63201, 1685, 182, 3, 47, "Item",ExpressionUUID->"088d813c-70a7-434c-9017-59daa624a961"],
+Cell[63386, 1690, 462, 11, 47, "Item",ExpressionUUID->"6be81c99-c393-4a01-a1a9-a5dcfa09e691"],
+Cell[CellGroupData[{
+Cell[63873, 1705, 504, 10, 40, "Subitem",ExpressionUUID->"85184e16-4eb0-4249-bf59-1b5c534702ac"],
+Cell[64380, 1717, 531, 11, 40, "Subitem",ExpressionUUID->"1da7096e-43b6-4145-b9c3-32fa83a6be5f"],
+Cell[64914, 1730, 1543, 37, 154, "Subitem",ExpressionUUID->"9b67531b-6790-4dca-8702-58d211aba0c3"]
+}, Open  ]],
+Cell[66472, 1770, 1519, 37, 115, "Item",ExpressionUUID->"0d819732-f259-4c7a-bd30-ef42d5e1d877"],
+Cell[CellGroupData[{
+Cell[68016, 1811, 428, 8, 40, "Subitem",ExpressionUUID->"1465a11d-077f-4932-bd5b-c03c35d7694a"],
+Cell[68447, 1821, 1295, 29, 40, "Subitem",ExpressionUUID->"2f7bd63b-4126-48b4-a7aa-37dfc7441850"],
+Cell[69745, 1852, 1220, 30, 41, "Subitem",ExpressionUUID->"ea7a8d26-61a7-4783-8578-6d7186dd4b27"]
+}, Open  ]],
+Cell[70980, 1885, 974, 24, 85, "Item",ExpressionUUID->"ccaac994-bdbc-44de-86d1-82f4d5ad5239"],
+Cell[CellGroupData[{
+Cell[71979, 1913, 427, 6, 40, "Subitem",ExpressionUUID->"19f36bd6-c107-409b-8c5a-ecd1825dbc9d"],
+Cell[72409, 1921, 1246, 31, 40, "Subitem",ExpressionUUID->"a1a0e0a9-9535-415e-8084-03b29455599f"]
+}, Open  ]],
+Cell[73670, 1955, 451, 10, 47, "Item",ExpressionUUID->"75f9c5ac-cf38-43aa-8df0-0e867355a54a"],
+Cell[CellGroupData[{
+Cell[74146, 1969, 768, 22, 40, "Subitem",ExpressionUUID->"6d883f0c-9eb4-49c8-9928-63ce5dfe6d42"],
+Cell[74917, 1993, 549, 10, 69, "Subitem",ExpressionUUID->"0f0d6269-1325-4053-9086-991bb39685db"]
+}, Open  ]],
+Cell[75481, 2006, 1531, 40, 96, "Item",ExpressionUUID->"104edf13-c141-4f19-8c95-99ca1c841b8a"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[77049, 2051, 286, 4, 71, "Input",ExpressionUUID->"75b1e48c-5c0f-4325-b0f8-c30a7596cdf2"],
+Cell[77338, 2057, 298, 4, 48, "Output",ExpressionUUID->"e88358a3-1e69-4cf9-b0b5-5721d121e23a"],
+Cell[77639, 2063, 300, 4, 48, "Output",ExpressionUUID->"3ab75065-be91-4f39-a21c-53c767cb6aee"]
+}, Open  ]]
+}, Open  ]]
+}, Open  ]]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[78012, 2075, 167, 3, 97, "Section",ExpressionUUID->"6bac0fd8-f3e5-4b30-beba-357458796996"],
+Cell[78182, 2080, 246, 6, 50, "Text",ExpressionUUID->"3f198c23-20ba-4510-bb81-36ce7df1d771"],
+Cell[78431, 2088, 545, 13, 107, "Text",ExpressionUUID->"d92128b9-5502-43e0-ae48-c17eaddbb383"],
+Cell[78979, 2103, 698, 20, 74, "Text",ExpressionUUID->"3b370e07-121f-4f29-8e3a-5d947d37e720"],
+Cell[79680, 2125, 422, 8, 107, "Text",ExpressionUUID->"c4b52413-b72a-40a9-8b0d-385ff17e94ac"]
+}, Open  ]]
+}, Open  ]]
+}
+]
+*)
+
