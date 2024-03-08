@@ -1,0 +1,518 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 12.3' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       158,          7]
+NotebookDataLength[     18632,        510]
+NotebookOptionsPosition[     16641,        468]
+NotebookOutlinePosition[     17189,        488]
+CellTagsIndexPosition[     17146,        485]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+
+Cell[CellGroupData[{
+Cell["Projects", "Title",
+ CellChangeTimes->CompressedData["
+1:eJxTTMoPSmViYGCQBGIQ7cTkxHByxRvHQ7cXMYLoWRxPXD4A6eIJHB4guvef
+EddHIH2sYh4PiH7lc0brE5Be4fgITPssWzT/M5Ce9HrdAhDNV66gJLPyjaP5
+549gulXCcrMskC44dgJMT/7i+bgISG9wPfYERKvemfNyFpBO4VzyCkQ7RWw8
+MBtIN1T/PgiiNx6u1FkDpDkm2uuB6DMMbUUHgbRKqHgJiO6bsvsAiK65ewJM
+b5pate4akD5/etZ6EM1x5uJ+EB3kWXwARG95OeEhiD786fkTEM1yuewliPYU
+6n0FojOPXlx6HUgbad1eBqLrjtkfBtEyM6rA9B2Lk8dB9IlpeSdAtMr7kMsg
+WmxtxhUQ7W2rexNEs32cCKZ5Dx+zl94BDJfVZg4gmme/ea0HkLbquA6mE54I
+de80euvIlPqkD0QDALCa588=
+  "],ExpressionUUID->"bb443c9e-1a1c-437e-b10c-400e63a30bb8"],
+
+Cell["\<\
+Let me know if you have a project (basically anything to do with computing \
+with matrices) you are interested in. I will encourage you to try to get \
+other folks to join your group.  \
+\>", "Text",
+ CellChangeTimes->{{3.918910956683326*^9, 
+  3.918911062075389*^9}},ExpressionUUID->"13590c62-1073-4eed-b633-\
+d1626be0b846"],
+
+Cell["The projects I am proposing are below. ", "Text",
+ CellChangeTimes->{{3.9189110660286684`*^9, 
+  3.9189110769192915`*^9}},ExpressionUUID->"4f4b5726-0c14-4dae-922f-\
+f8e157e60cce"],
+
+Cell[CellGroupData[{
+
+Cell["Trust Region Sub-problem Algorithm", "Section",
+ CellChangeTimes->{{3.854698669786806*^9, 3.854698682911202*^9}, {
+  3.854699429879094*^9, 3.854699435748917*^9}, {3.8546994753288584`*^9, 
+  3.8546994776332197`*^9}, {3.854705840126957*^9, 3.854705841111046*^9}, {
+  3.85470595029817*^9, 3.8547059509189553`*^9}, {3.8547059860458355`*^9, 
+  3.8547059896891203`*^9}, {3.8547064525579233`*^9, 3.8547064660551825`*^9}, {
+  3.8547075145287123`*^9, 3.8547075319448447`*^9}, {3.854713886157198*^9, 
+  3.85471388635789*^9}, {3.918908549884141*^9, 
+  3.9189085647620234`*^9}},ExpressionUUID->"9293914e-1bd9-40ea-8b42-\
+9d64dfcb9132"],
+
+Cell[TextData[{
+ "Minimizing a constrained function\n\t",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    SubscriptBox["min", 
+     RowBox[{
+      RowBox[{"c", "(", "x", ")"}], "\[LessEqual]", "0"}]], 
+    RowBox[{"f", "(", "x", ")"}]}], TraditionalForm]],
+  FormatType->TraditionalForm,ExpressionUUID->
+  "10915bda-775c-4f14-a645-61db4d979a99"],
+ "\nis usually done by minimizing a sequence of quadratics \n\t",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    SubscriptBox["f", "k"], "+", 
+    RowBox[{
+     SubscriptBox["g", "k"], ".", 
+     RowBox[{"(", 
+      RowBox[{"x", "-", 
+       SubscriptBox["x", "k"]}], ")"}]}], "+", 
+    RowBox[{
+     FractionBox["1", "2"], 
+     RowBox[{
+      RowBox[{"(", 
+       RowBox[{"x", "-", 
+        SubscriptBox["x", "k"]}], ")"}], ".", 
+      SubscriptBox["A", "k"], ".", 
+      RowBox[{"(", 
+       RowBox[{"x", "-", 
+        SubscriptBox["x", "k"]}], ")"}]}]}]}], TraditionalForm]],
+  FormatType->TraditionalForm,ExpressionUUID->
+  "79d3acaa-2ecc-471a-be2c-f57fd0d264ff"],
+ " \nwhere \n\t",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    SubscriptBox["f", "k"], "=", 
+    RowBox[{"f", "(", 
+     SubscriptBox["x", "k"], ")"}]}], TraditionalForm]],
+  FormatType->TraditionalForm,ExpressionUUID->
+  "9606a095-9241-4df0-aa0c-96b32392c9ef"],
+ ", ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    SubscriptBox["g", "k"], "=", 
+    RowBox[{"Df", "(", 
+     SubscriptBox["x", "k"], ")"}]}], TraditionalForm]],
+  FormatType->TraditionalForm,ExpressionUUID->
+  "2fa03b3a-4a72-4646-b72e-a59295a8ae70"],
+ ", and ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    SubscriptBox["A", "k"], "=", 
+    RowBox[{"DDf", "(", 
+     SubscriptBox["x", "k"], ")"}]}], TraditionalForm]],
+  FormatType->TraditionalForm,ExpressionUUID->
+  "6a7fa483-edc7-45c0-b621-aa5b1c5e8447"],
+ "\nand there is a trust region requirement that  \n\t",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"p", "=", 
+    RowBox[{"x", "-", 
+     SubscriptBox["x", "k"]}]}], TraditionalForm]],
+  FormatType->TraditionalForm,ExpressionUUID->
+  "60dbe066-f06c-4508-9a04-52faf312ec64"],
+ " \nis small in the sense that\n\t",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{"p", ".", 
+     SubscriptBox["B", "k"], ".", "p"}], "\[LessEqual]", 
+    SuperscriptBox["\[CapitalDelta]", "2"]}], TraditionalForm]],
+  FormatType->TraditionalForm,ExpressionUUID->
+  "07e7c070-2468-453f-aa15-8cdfb6839880"],
+ "\nfor a Symmetric Positive Definite (SPD) weight matrix ",
+ Cell[BoxData[
+  FormBox[
+   SubscriptBox["B", "k"], TraditionalForm]],
+  FormatType->TraditionalForm,ExpressionUUID->
+  "0347727a-62e7-4a04-93ad-b0822ee35875"],
+ ".  The problem\n\t",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    SubscriptBox["p", "*"], "=", 
+    RowBox[{
+     RowBox[{
+      SubscriptBox["argmin", 
+       RowBox[{
+        RowBox[{"p", ".", "B", ".", "p"}], "\[LessEqual]", 
+        SuperscriptBox["\[CapitalDelta]", "2"]}]], 
+      RowBox[{"g", ".", "p"}]}], "+", 
+     RowBox[{
+      RowBox[{"1", "/", "2"}], 
+      RowBox[{"p", ".", "A", ".", "p"}]}]}]}], TraditionalForm]],
+  FormatType->TraditionalForm,ExpressionUUID->
+  "1a5cf55c-5271-4110-bffe-c8c24f235951"],
+ "\nis called the trust region sub problem. "
+}], "Text",
+ CellChangeTimes->{{3.9189087145599723`*^9, 3.9189092742247295`*^9}, {
+  3.9189110849656563`*^9, 
+  3.9189111245597315`*^9}},ExpressionUUID->"67d52fcf-ab19-4432-994e-\
+7a74366a6653"],
+
+Cell["\<\
+This project is to implement and test the (relatively new) trust region sub \
+problem algorithm described in the Julia package notes 
+\thttps://github.com/oxfordcontrol/TRS.jl 
+which includes references to the original paper. \
+\>", "Text",
+ CellChangeTimes->{{3.9189092774659505`*^9, 3.9189093099817896`*^9}, {
+  3.9189093522309*^9, 
+  3.918909395730899*^9}},ExpressionUUID->"3bad69a4-400d-491f-9bb7-\
+52b5972a9b3f"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Partial and Rook Pivoting", "Section",
+ CellChangeTimes->{{3.854698669786806*^9, 3.854698682911202*^9}, {
+  3.854699429879094*^9, 3.854699435748917*^9}, {3.8546994753288584`*^9, 
+  3.8546994776332197`*^9}, {3.854705840126957*^9, 3.854705841111046*^9}, {
+  3.85470595029817*^9, 3.8547059509189553`*^9}, {3.8547059860458355`*^9, 
+  3.8547059896891203`*^9}, {3.8547064525579233`*^9, 3.8547064660551825`*^9}, {
+  3.8547075145287123`*^9, 3.8547075319448447`*^9}, {3.854713886157198*^9, 
+  3.85471388635789*^9}, {3.918908549884141*^9, 
+  3.918908583964037*^9}},ExpressionUUID->"0dd3c1c9-38cf-4858-ba65-\
+73aa0c64388c"],
+
+Cell["\<\
+You have been told that pivoting is essential, partial pivoting is almost \
+always good enough, and complete pivoting is incredibly expensive for real \
+word matrices when computing an LU Decomposition.   Rook pivoting is a pivot \
+strategy between partial and complete pivoting.  \
+\>", "Text",
+ CellChangeTimes->{{3.9189087145599723`*^9, 3.9189092742247295`*^9}, {
+  3.9189094157156086`*^9, 
+  3.91890957334031*^9}},ExpressionUUID->"d01f74eb-7c5f-4a08-a964-\
+419cb41bb2e6"],
+
+Cell["\<\
+This project is to implement rook and complete pivoting in an LU \
+decomposition and then test the algorithms on a sample of real world matrices \
+from test suites on the internet.  The article 
+\thttps://www.sciencedirect.com/science/article/pii/S0377042700004064
+and the notes
+http://buzzard.ups.edu/courses/2014spring/420projects/math420-UPS-spring-2014-\
+reid-LU-pivoting-present.pdf
+should provide a reasonable starting point. \
+\>", "Text",
+ CellChangeTimes->{{3.9189092774659505`*^9, 3.9189093099817896`*^9}, {
+  3.9189093522309*^9, 3.918909395730899*^9}, {3.9189095995751057`*^9, 
+  3.9189097094123898`*^9}, {3.9189097620596466`*^9, 
+  3.918909793919378*^9}},ExpressionUUID->"95be68df-183b-4372-a406-\
+519423be05ce"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[TextData[{
+ "Finite Difference Approximations for\n",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    SuperscriptBox["\[Del]", "2"], "u"}], TraditionalForm]],
+  FormatType->TraditionalForm,ExpressionUUID->
+  "e3ee97a8-37ab-4505-b981-0bdf260440f5"],
+ "  and ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    SuperscriptBox["\[Del]", "4"], "u"}], TraditionalForm]],
+  FormatType->TraditionalForm,ExpressionUUID->
+  "fdecab0f-0e79-4d9d-85a4-0a8d17e4e7af"]
+}], "Section",
+ CellChangeTimes->{{3.854698669786806*^9, 3.854698682911202*^9}, {
+  3.854699429879094*^9, 3.854699435748917*^9}, {3.8546994753288584`*^9, 
+  3.8546994776332197`*^9}, {3.854705840126957*^9, 3.854705841111046*^9}, {
+  3.85470595029817*^9, 3.8547059509189553`*^9}, {3.8547059860458355`*^9, 
+  3.8547059896891203`*^9}, {3.8547064525579233`*^9, 3.8547064660551825`*^9}, {
+  3.8547075145287123`*^9, 3.8547075319448447`*^9}, {3.854713886157198*^9, 
+  3.85471388635789*^9}, {3.918908549884141*^9, 
+  3.9189086496215553`*^9}},ExpressionUUID->"8d3125b2-7be6-4483-878f-\
+678d23b169ff"],
+
+Cell[TextData[{
+ "The first real PDE that most classes look at is the harmonic equation in \
+Cartesian coordinates\n\t",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{
+     SuperscriptBox["\[Del]", "2"], "u"}], "=", 
+    RowBox[{
+     RowBox[{
+      SubscriptBox["u", "xx"], "+", 
+      SubscriptBox["u", "yy"]}], "=", 
+     RowBox[{"f", "(", 
+      RowBox[{"x", ",", "y"}], ")"}]}]}], TraditionalForm]],
+  FormatType->TraditionalForm,ExpressionUUID->
+  "0192c270-cc0b-42ef-900b-36f3edfc5fdc"],
+ " for ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{"{", 
+     RowBox[{"x", ",", "y"}], "}"}], "\[Element]", "\[CapitalOmega]"}], 
+   TraditionalForm]],
+  FormatType->TraditionalForm,ExpressionUUID->
+  "6daac2a0-ed09-49d0-9f9b-d3245c30924d"],
+ "\non some domain ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"\[CapitalOmega]", "\[Subset]", 
+    SuperscriptBox["\[DoubleStruckCapitalR]", "2"]}], TraditionalForm]],
+  FormatType->TraditionalForm,ExpressionUUID->
+  "616b3af1-b50b-4655-b2b5-31121759c3e3"],
+ " which comes equipped with a variety possible boundary conditions on the \
+boundary ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"\[PartialD]", "\[CapitalOmega]"}], TraditionalForm]],
+  FormatType->TraditionalForm,ExpressionUUID->
+  "6cad14b2-3c9a-46b0-8ae4-98771cd62f2a"],
+ ". The one dimensional version is\n\t",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    SubscriptBox["u", "xx"], "=", 
+    RowBox[{"f", "(", "x", ")"}]}], TraditionalForm]],
+  FormatType->TraditionalForm,ExpressionUUID->
+  "e07cb947-52d2-43e9-954e-15e89bf59206"],
+ " for ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"x", "\[Element]", 
+    RowBox[{"(", 
+     RowBox[{"a", ",", "b"}], ")"}]}], TraditionalForm]],
+  FormatType->TraditionalForm,ExpressionUUID->
+  "a91a906f-22ba-4dc1-b987-e8ec59ce7233"],
+ " \nwith either ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{
+     SubscriptBox["\[Alpha]", "a"], " ", 
+     RowBox[{"u", "(", "a", ")"}]}], "+", 
+    RowBox[{
+     SubscriptBox["\[Beta]", "a"], " ", 
+     RowBox[{
+      SubscriptBox["u", "x"], "(", "a", ")"}]}]}], TraditionalForm]],
+  FormatType->TraditionalForm,ExpressionUUID->
+  "c8ed8efc-ed9f-4c5c-a901-46e9d5b3f1af"],
+ " and ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{
+     SubscriptBox["\[Alpha]", "b"], " ", 
+     RowBox[{"u", "(", "b", ")"}]}], "+", 
+    RowBox[{
+     SubscriptBox["\[Beta]", "b"], " ", 
+     RowBox[{
+      SubscriptBox["u", "x"], "(", "b", ")"}]}]}], TraditionalForm]],
+  FormatType->TraditionalForm,ExpressionUUID->
+  "a87c5b19-11ef-4026-984d-32ddd96d2f6d"],
+ " given for some constants ",
+ Cell[BoxData[
+  FormBox["\[Alpha]", TraditionalForm]],
+  FormatType->TraditionalForm,ExpressionUUID->
+  "202c8636-c894-4d2b-8908-0f853772d39c"],
+ " and \[Beta].  This Harmonic equation turns up in electricity and \
+magnetism, heat conduction, and a host of other physical problems."
+}], "Text",
+ CellChangeTimes->{{3.9189098031688795`*^9, 3.918910179527721*^9}, {
+  3.91891116015318*^9, 
+  3.9189112084423313`*^9}},ExpressionUUID->"82ea2364-95c5-441d-88a5-\
+38c358ae7d27"],
+
+Cell[TextData[{
+ "The biharmonic PDE in Cartesian coordinates is\n\t",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{
+     SuperscriptBox["\[Del]", "4"], "u"}], "=", 
+    RowBox[{
+     RowBox[{
+      SubscriptBox["u", "xxxx"], "+", 
+      RowBox[{"2", 
+       SubscriptBox["u", "xx"], 
+       SubscriptBox["u", "yy"]}], "+", 
+      SubscriptBox["u", "yyyy"]}], "=", 
+     RowBox[{"f", "(", 
+      RowBox[{"x", ",", "y"}], ")"}]}]}], TraditionalForm]],
+  FormatType->TraditionalForm,ExpressionUUID->
+  "24d07dde-c695-45b2-ad58-6ced14d186fd"],
+ " for ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{"{", 
+     RowBox[{"x", ",", "y"}], "}"}], "\[Element]", "\[CapitalOmega]"}], 
+   TraditionalForm]],
+  FormatType->TraditionalForm,ExpressionUUID->
+  "743a4ef1-c344-49cc-867e-361477daf1bf"],
+ "\non some domain ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"\[CapitalOmega]", "\[Subset]", 
+    SuperscriptBox["\[DoubleStruckCapitalR]", "2"]}], TraditionalForm]],
+  FormatType->TraditionalForm,ExpressionUUID->
+  "cf143b30-bb6f-4cc9-81e9-48b03669f418"],
+ " which comes equipped with a variety possible boundary conditions on the \
+boundary ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"\[PartialD]", "\[CapitalOmega]"}], TraditionalForm]],
+  FormatType->TraditionalForm,ExpressionUUID->
+  "ee32e388-c986-47a0-9d5d-c1d26b26e0d6"],
+ ". The one dimensional version is\n\t",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    SubscriptBox["u", "xxxx"], "=", 
+    RowBox[{"f", "(", "x", ")"}]}], TraditionalForm]],
+  FormatType->TraditionalForm,ExpressionUUID->
+  "e40cc339-5176-440f-a259-0ec8cf6fc958"],
+ " for ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"x", "\[Element]", 
+    RowBox[{"(", 
+     RowBox[{"a", ",", "b"}], ")"}]}], TraditionalForm]],
+  FormatType->TraditionalForm,ExpressionUUID->
+  "8c6831b7-9a04-44af-b381-cfc21aceb102"],
+ " \nwith linear combination derivatives (with order less than 4) specified \
+on the boundary.   This Biharmonic equation turns up in fancier electricity \
+and magnetism and fluid flow problems. "
+}], "Text",
+ CellChangeTimes->{{3.9189098031688795`*^9, 3.9189103270597305`*^9}, {
+  3.9189112179812403`*^9, 
+  3.918911246918392*^9}},ExpressionUUID->"e3365f25-dd55-4848-8d94-\
+f2bafd41eea7"],
+
+Cell[TextData[{
+ "This project is to construct sparse matrices giving different finite \
+difference approximations to ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"\[Del]", "u"}], TraditionalForm]],
+  FormatType->TraditionalForm,ExpressionUUID->
+  "77be00a1-ca34-4bb8-9843-bba06600e587"],
+ " and ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    SuperscriptBox["\[Del]", "2"], "u"}], TraditionalForm]],
+  FormatType->TraditionalForm,ExpressionUUID->
+  "948c50e7-85a5-4fbc-89c9-e700c0b9b079"],
+ " for a variety of domains ",
+ Cell[BoxData[
+  FormBox["\[CapitalOmega]", TraditionalForm]],
+  FormatType->TraditionalForm,ExpressionUUID->
+  "186cc391-5522-456b-ac51-4e75708599ad"],
+ " and boundary conditions.   The notes \n\
+https://www.public.asu.edu/~hhuang38/pde_slides_numerical_laplace.pdf\nshould \
+provide a start. "
+}], "Text",
+ CellChangeTimes->{{3.9189103427311783`*^9, 3.918910424299206*^9}, {
+  3.9189106719035687`*^9, 
+  3.9189106858872747`*^9}},ExpressionUUID->"35a4dc59-e9a3-4023-bf94-\
+322ca3ea5e2b"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["MA5627:  AD Tools for Linear Algebra", "Section",
+ CellChangeTimes->{{3.854698669786806*^9, 3.854698682911202*^9}, {
+  3.854699429879094*^9, 3.854699435748917*^9}, {3.8546994753288584`*^9, 
+  3.8546994776332197`*^9}, {3.854705840126957*^9, 3.854705841111046*^9}, {
+  3.85470595029817*^9, 3.8547059509189553`*^9}, {3.8547059860458355`*^9, 
+  3.8547059896891203`*^9}, {3.8547064525579233`*^9, 3.8547064660551825`*^9}, {
+  3.8547075145287123`*^9, 3.8547075319448447`*^9}, {3.854713886157198*^9, 
+  3.85471388635789*^9}, {3.918908549884141*^9, 3.918908583964037*^9}, {
+  3.918908661262538*^9, 
+  3.918908689153141*^9}},ExpressionUUID->"27bac3c4-eacc-4540-a7f1-\
+e722d0b0f009"],
+
+Cell["\<\
+This project is to understand and implement the forward mode Algorithmic \
+Differentiation (AD) formulae in the article
+https://people.maths.ox.ac.uk/gilesm/files/AD2008.pdf
+and use them to incorporate AD based corrections into existing Incomplete LU \
+(ILU) decompositions.   The 5627 students have already started on this \
+project.  \
+\>", "Text",
+ CellChangeTimes->{{3.9189106958874063`*^9, 3.9189107557764864`*^9}, {
+  3.918910831043404*^9, 3.9189109447154875`*^9}, {3.9189112595693607`*^9, 
+  3.918911273532914*^9}},ExpressionUUID->"af1eb3cd-6c5f-48eb-8a6d-\
+8e4d6608133c"]
+}, Open  ]]
+}, Open  ]]
+},
+WindowToolbars->"EditBar",
+WindowSize->{1141, 575},
+WindowMargins->{{1459, Automatic}, {Automatic, -100}},
+TaggingRules-><|
+ "PresenterSettings" -> <|"Dialogs" -> {}|>, "TryRealOnly" -> False|>,
+Magnification:>1.5 Inherited,
+FrontEndVersion->"13.3 for Microsoft Windows (64-bit) (July 24, 2023)",
+StyleDefinitions->"Default.nb",
+ExpressionUUID->"eb9f000c-3922-4383-8fbb-2b05c202af36"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[CellGroupData[{
+Cell[580, 22, 575, 10, 146, "Title",ExpressionUUID->"bb443c9e-1a1c-437e-b10c-400e63a30bb8"],
+Cell[1158, 34, 335, 7, 87, "Text",ExpressionUUID->"13590c62-1073-4eed-b633-d1626be0b846"],
+Cell[1496, 43, 185, 3, 52, "Text",ExpressionUUID->"4f4b5726-0c14-4dae-922f-f8e157e60cce"],
+Cell[CellGroupData[{
+Cell[1706, 50, 629, 9, 100, "Section",ExpressionUUID->"9293914e-1bd9-40ea-8b42-9d64dfcb9132"],
+Cell[2338, 61, 3337, 105, 475, "Text",ExpressionUUID->"67d52fcf-ab19-4432-994e-7a74366a6653"],
+Cell[5678, 168, 427, 9, 156, "Text",ExpressionUUID->"3bad69a4-400d-491f-9bb7-52b5972a9b3f"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[6142, 182, 618, 9, 100, "Section",ExpressionUUID->"0dd3c1c9-38cf-4858-ba65-73aa0c64388c"],
+Cell[6763, 193, 485, 9, 121, "Text",ExpressionUUID->"d01f74eb-7c5f-4a08-a964-419cb41bb2e6"],
+Cell[7251, 204, 734, 14, 259, "Text",ExpressionUUID->"95be68df-183b-4372-a406-519423be05ce"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[8022, 223, 1037, 24, 157, "Section",ExpressionUUID->"8d3125b2-7be6-4483-878f-678d23b169ff"],
+Cell[9062, 249, 3030, 92, 260, "Text",ExpressionUUID->"82ea2364-95c5-441d-88a5-38c358ae7d27"],
+Cell[12095, 343, 2206, 64, 260, "Text",ExpressionUUID->"e3365f25-dd55-4848-8d94-f2bafd41eea7"],
+Cell[14304, 409, 1002, 27, 156, "Text",ExpressionUUID->"35a4dc59-e9a3-4023-bf94-322ca3ea5e2b"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[15343, 441, 678, 10, 100, "Section",ExpressionUUID->"27bac3c4-eacc-4540-a7f1-e722d0b0f009"],
+Cell[16024, 453, 589, 11, 190, "Text",ExpressionUUID->"af1eb3cd-6c5f-48eb-8a6d-8e4d6608133c"]
+}, Open  ]]
+}, Open  ]]
+}
+]
+*)
+
