@@ -10,10 +10,10 @@
 NotebookFileLineBreakTest
 NotebookFileLineBreakTest
 NotebookDataPosition[       158,          7]
-NotebookDataLength[     17739,        478]
-NotebookOptionsPosition[     15753,        436]
-NotebookOutlinePosition[     16299,        456]
-CellTagsIndexPosition[     16256,        453]
+NotebookDataLength[     29981,        770]
+NotebookOptionsPosition[     26678,        706]
+NotebookOutlinePosition[     27224,        726]
+CellTagsIndexPosition[     27181,        723]
 WindowFrame->Normal*)
 
 (* Beginning of Notebook Content *)
@@ -167,7 +167,7 @@ which includes references to the original paper. \
   3.9189093522309*^9, 
   3.918909395730899*^9}},ExpressionUUID->"3bad69a4-400d-491f-9bb7-\
 52b5972a9b3f"]
-}, Open  ]],
+}, Closed]],
 
 Cell[CellGroupData[{
 
@@ -208,7 +208,7 @@ should provide a reasonable starting point. \
   3.9189097094123898`*^9}, {3.9189097620596466`*^9, 
   3.918909793919378*^9}},ExpressionUUID->"95be68df-183b-4372-a406-\
 519423be05ce"]
-}, Open  ]],
+}, Closed]],
 
 Cell[CellGroupData[{
 
@@ -403,7 +403,277 @@ provide a start. "
   3.9189106719035687`*^9, 
   3.9189106858872747`*^9}},ExpressionUUID->"35a4dc59-e9a3-4023-bf94-\
 322ca3ea5e2b"]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["\<\
+Algorithms for Matrix Equations
+Sylvester and Lyapunov Equations etc.\
+\>", "Section",
+ CellChangeTimes->{{3.854698669786806*^9, 3.854698682911202*^9}, {
+  3.854699429879094*^9, 3.854699435748917*^9}, {3.8546994753288584`*^9, 
+  3.8546994776332197`*^9}, {3.854705840126957*^9, 3.854705841111046*^9}, {
+  3.85470595029817*^9, 3.8547059509189553`*^9}, {3.8547059860458355`*^9, 
+  3.8547059896891203`*^9}, {3.8547064525579233`*^9, 3.8547064660551825`*^9}, {
+  3.8547075145287123`*^9, 3.8547075319448447`*^9}, {3.854713886157198*^9, 
+  3.85471388635789*^9}, {3.918908549884141*^9, 3.9189086496215553`*^9}, {
+  3.919163252040233*^9, 
+  3.9191632968833838`*^9}},ExpressionUUID->"65411b5a-1d40-4149-8cb7-\
+357fbc088321"],
+
+Cell[TextData[{
+ "The equation ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{
+     RowBox[{"A1", ".", "X", ".", "B1"}], "+", 
+     RowBox[{"A1", ".", "X", ".", "B2"}]}], "=", "C"}], TraditionalForm]],
+  FormatType->TraditionalForm,ExpressionUUID->
+  "fcd2e329-bd8b-40ae-8b19-7bffaa595aba"],
+ " is a Sylvester or Lyapunov equation for the ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"m", "\[Times]", "n"}], TraditionalForm]],
+  FormatType->TraditionalForm,ExpressionUUID->
+  "2cd3ee16-4fe6-422c-a0eb-0e6631f62311"],
+ " matrix ",
+ Cell[BoxData[
+  FormBox["X", TraditionalForm]],
+  FormatType->TraditionalForm,ExpressionUUID->
+  "eb0ab2e0-ae6d-4e9b-abc1-f37d22dbf020"],
+ ". In the above A1, A2, B1, and B2 are square conforming matrices and C is \
+an ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"m", "\[Times]", "n"}], TraditionalForm]],
+  FormatType->TraditionalForm,ExpressionUUID->
+  "6fbd4bb6-acfc-48f4-bc19-bc87fef4501c"],
+ " matrix.  Mathematica, matlab, and Julia etc all have Lyapunov or Sylvester \
+Solvers.   "
+}], "Text",
+ CellChangeTimes->{{3.9189098031688795`*^9, 3.9189103270597305`*^9}, {
+  3.9189112179812403`*^9, 3.918911246918392*^9}, {3.9189217755793343`*^9, 
+  3.918921782689208*^9}, {3.9191633025650215`*^9, 3.919163310061785*^9}, {
+  3.9191633752058964`*^9, 3.919163549059273*^9}, {3.9191635986610365`*^9, 
+  3.9191636366631093`*^9}},ExpressionUUID->"83dbbd95-9406-4ec9-8b6a-\
+86d679ca04df"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{
+   RowBox[{"{", 
+    RowBox[{"m", ",", "n"}], "}"}], "=", 
+   RowBox[{"{", 
+    RowBox[{"12", ",", "11"}], "}"}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"{", 
+    RowBox[{"A1", ",", "A2"}], "}"}], "=", 
+   RowBox[{"RandomReal", "[", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"-", "1"}], ",", "1"}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"2", ",", "m", ",", "m"}], "}"}]}], "]"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"{", 
+    RowBox[{"B1", ",", "B2"}], "}"}], "=", 
+   RowBox[{"RandomReal", "[", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"-", "1"}], ",", "1"}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"2", ",", "n", ",", "n"}], "}"}]}], "]"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"X", "=", 
+   RowBox[{"RandomReal", "[", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"-", "1"}], ",", "1"}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"m", ",", "n"}], "}"}]}], "]"}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"CMat", "=", 
+   RowBox[{
+    RowBox[{"A1", ".", "X", ".", "B1"}], "+", 
+    RowBox[{"A2", ".", "X", ".", "B2"}]}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"XMma", "=", 
+   RowBox[{"LyapunovSolve", "[", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"A1", ",", "A2"}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"B2", ",", "B1"}], "}"}], ",", "CMat"}], "]"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{"Norm", "[", 
+  RowBox[{"X", "-", "XMma"}], "]"}]}], "Input",
+ CellChangeTimes->{{3.919163551419895*^9, 3.919163593382169*^9}, {
+  3.9191636405958695`*^9, 3.919163747924243*^9}},
+ CellLabel->"In[35]:=",ExpressionUUID->"3c313c62-3e7e-44b6-b810-27d16352bc15"],
+
+Cell[BoxData["2.096265710231902`*^-13"], "Output",
+ CellChangeTimes->{3.919163748858448*^9},
+ CellLabel->"Out[41]=",ExpressionUUID->"b60f052e-fec9-4891-ad29-4241c847fd51"]
 }, Open  ]],
+
+Cell["\<\
+This project is to understand and implement some standard algorithms for \
+solving these equations.  The blog post
+\thttps://nhigham.com/2020/09/01/what-is-the-sylvester-equation/
+and the article 
+\thttps://epubs.siam.org/doi/10.1137/130912839
+should provide a start.  Note: you need to watch out for minus signs, \
+transposes, and argument order when using built in tools for these equations.\
+\>", "Text",
+ CellChangeTimes->{{3.9189103427311783`*^9, 3.918910424299206*^9}, {
+  3.9189106719035687`*^9, 3.9189106858872747`*^9}, {3.9191637611808996`*^9, 
+  3.9191637821095133`*^9}, {3.9191638453975844`*^9, 3.9191638589170666`*^9}, {
+  3.919163916852291*^9, 
+  3.9191640070431147`*^9}},ExpressionUUID->"ac8efee0-65eb-4b3d-b857-\
+a62abfe5bb62"]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["\<\
+Sylvester and Lyapunov Equations
+Where do they come from\
+\>", "Section",
+ CellChangeTimes->{{3.854698669786806*^9, 3.854698682911202*^9}, {
+  3.854699429879094*^9, 3.854699435748917*^9}, {3.8546994753288584`*^9, 
+  3.8546994776332197`*^9}, {3.854705840126957*^9, 3.854705841111046*^9}, {
+  3.85470595029817*^9, 3.8547059509189553`*^9}, {3.8547059860458355`*^9, 
+  3.8547059896891203`*^9}, {3.8547064525579233`*^9, 3.8547064660551825`*^9}, {
+  3.8547075145287123`*^9, 3.8547075319448447`*^9}, {3.854713886157198*^9, 
+  3.85471388635789*^9}, {3.918908549884141*^9, 3.9189086496215553`*^9}, {
+  3.919163252040233*^9, 3.9191632968833838`*^9}, {3.9191640445497203`*^9, 
+  3.9191640587242146`*^9}},ExpressionUUID->"2ba90989-8d9b-4ded-b60e-\
+4aaa9c31d05f"],
+
+Cell[TextData[{
+ "The equation ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{
+     RowBox[{"A1", ".", "X", ".", "B1"}], "+", 
+     RowBox[{"A1", ".", "X", ".", "B2"}]}], "=", "C"}], TraditionalForm]],
+  FormatType->TraditionalForm,ExpressionUUID->
+  "c714b298-b4b5-4a98-a35d-8082b7e3f9cf"],
+ " is a Sylvester or Lyapunov equation for the ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"m", "\[Times]", "n"}], TraditionalForm]],
+  FormatType->TraditionalForm,ExpressionUUID->
+  "646f288d-7b64-4b2a-b605-ca0e69a34902"],
+ " matrix ",
+ Cell[BoxData[
+  FormBox["X", TraditionalForm]],
+  FormatType->TraditionalForm,ExpressionUUID->
+  "e39c3397-79c6-4a28-abe8-59610a4bff01"],
+ ". In the above A1, A2, B1, and B2 are square conforming matrices and C is \
+an ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"m", "\[Times]", "n"}], TraditionalForm]],
+  FormatType->TraditionalForm,ExpressionUUID->
+  "15170ff7-1109-482f-b905-f182cff2fada"],
+ " matrix.  Mathematica, matlab, and Julia etc all have Lyapunov or Sylvester \
+Solvers.   "
+}], "Text",
+ CellChangeTimes->{{3.9189098031688795`*^9, 3.9189103270597305`*^9}, {
+  3.9189112179812403`*^9, 3.918911246918392*^9}, {3.9189217755793343`*^9, 
+  3.918921782689208*^9}, {3.9191633025650215`*^9, 3.919163310061785*^9}, {
+  3.9191633752058964`*^9, 3.919163549059273*^9}, {3.9191635986610365`*^9, 
+  3.9191636366631093`*^9}},ExpressionUUID->"3170e808-a556-44e5-8846-\
+36593e4fdb91"],
+
+Cell["\<\
+This project is to explain to the class a field or fields (other than PDEs) \
+where these equations arise. understand and implement some standard \
+algorithms for solving these equations.  The references in the algorithm \
+project should provide a starting point. \
+\>", "Text",
+ CellChangeTimes->{{3.9189103427311783`*^9, 3.918910424299206*^9}, {
+  3.9189106719035687`*^9, 3.9189106858872747`*^9}, {3.9191637611808996`*^9, 
+  3.9191637821095133`*^9}, {3.9191638453975844`*^9, 3.9191638589170666`*^9}, {
+  3.919163916852291*^9, 3.9191640070431147`*^9}, {3.919164077528279*^9, 
+  3.919164191484687*^9}},ExpressionUUID->"a1b67400-d587-4fa3-8662-\
+48f40544cd12"]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["Bohemian Matrices", "Section",
+ CellChangeTimes->{{3.854698669786806*^9, 3.854698682911202*^9}, {
+  3.854699429879094*^9, 3.854699435748917*^9}, {3.8546994753288584`*^9, 
+  3.8546994776332197`*^9}, {3.854705840126957*^9, 3.854705841111046*^9}, {
+  3.85470595029817*^9, 3.8547059509189553`*^9}, {3.8547059860458355`*^9, 
+  3.8547059896891203`*^9}, {3.8547064525579233`*^9, 3.8547064660551825`*^9}, {
+  3.8547075145287123`*^9, 3.8547075319448447`*^9}, {3.854713886157198*^9, 
+  3.85471388635789*^9}, {3.918908549884141*^9, 3.9189086496215553`*^9}, {
+  3.919163252040233*^9, 3.9191632968833838`*^9}, {3.9191640445497203`*^9, 
+  3.9191640587242146`*^9}, {3.9191642929409924`*^9, 
+  3.9191643032539396`*^9}},ExpressionUUID->"389abe20-b13b-4135-b9af-\
+9a24ae4257bf"],
+
+Cell["\<\
+The aim of this project is to understand something about Bohemian matrices \
+and translate and possibly extend the Maple notebook at 
+\thttps://mapletransactions.org/index.php/maple/article/view/14039
+into Mathematica.  \
+\>", "Text",
+ CellChangeTimes->{{3.9189098031688795`*^9, 3.9189103270597305`*^9}, {
+  3.9189112179812403`*^9, 3.918911246918392*^9}, {3.9189217755793343`*^9, 
+  3.918921782689208*^9}, {3.9191633025650215`*^9, 3.919163310061785*^9}, {
+  3.9191633752058964`*^9, 3.919163549059273*^9}, {3.9191635986610365`*^9, 
+  3.9191636366631093`*^9}, {3.919164311365056*^9, 
+  3.9191644382846603`*^9}},ExpressionUUID->"59ea62b4-ea80-48a4-8cf9-\
+45553f68f7fc"]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["Fiedler Companion Matrix", "Section",
+ CellChangeTimes->{{3.854698669786806*^9, 3.854698682911202*^9}, {
+  3.854699429879094*^9, 3.854699435748917*^9}, {3.8546994753288584`*^9, 
+  3.8546994776332197`*^9}, {3.854705840126957*^9, 3.854705841111046*^9}, {
+  3.85470595029817*^9, 3.8547059509189553`*^9}, {3.8547059860458355`*^9, 
+  3.8547059896891203`*^9}, {3.8547064525579233`*^9, 3.8547064660551825`*^9}, {
+  3.8547075145287123`*^9, 3.8547075319448447`*^9}, {3.854713886157198*^9, 
+  3.85471388635789*^9}, {3.918908549884141*^9, 3.9189086496215553`*^9}, {
+  3.919163252040233*^9, 3.9191632968833838`*^9}, {3.9191640445497203`*^9, 
+  3.9191640587242146`*^9}, {3.9191642929409924`*^9, 3.9191643032539396`*^9}, {
+  3.9191652612020206`*^9, 
+  3.9191652714616413`*^9}},ExpressionUUID->"bdd3599b-2d4e-4d4a-89c5-\
+2b6a85eac12f"],
+
+Cell["\<\
+The aim of this project is to construct (and test) Fiedler companion matrices \
+from polynomials.  The blog 
+\thttps://blogs.mathworks.com/cleve/2013/12/23/fiedler-companion-matrix
+should provide an introduction \
+\>", "Text",
+ CellChangeTimes->{{3.9189098031688795`*^9, 3.9189103270597305`*^9}, {
+  3.9189112179812403`*^9, 3.918911246918392*^9}, {3.9189217755793343`*^9, 
+  3.918921782689208*^9}, {3.9191633025650215`*^9, 3.919163310061785*^9}, {
+  3.9191633752058964`*^9, 3.919163549059273*^9}, {3.9191635986610365`*^9, 
+  3.9191636366631093`*^9}, {3.919164311365056*^9, 3.9191644382846603`*^9}, {
+  3.919165284115691*^9, 3.9191653811088114`*^9}, {3.9191657368507247`*^9, 
+  3.9191657402201176`*^9}},ExpressionUUID->"31299ae3-271c-4bd8-8210-\
+ee1edc3e453a"]
+}, Closed]],
 
 Cell[CellGroupData[{
 
@@ -435,7 +705,7 @@ project.  \
 }, Open  ]]
 },
 WindowToolbars->"EditBar",
-WindowSize->{1141.2, 604.8},
+WindowSize->{1141.2, 574.8},
 WindowMargins->{{0, Automatic}, {Automatic, 0}},
 TaggingRules-><|
  "PresenterSettings" -> <|"Dialogs" -> {}|>, "TryRealOnly" -> False|>,
@@ -463,21 +733,43 @@ Cell[CellGroupData[{
 Cell[1706, 50, 629, 9, 100, "Section",ExpressionUUID->"9293914e-1bd9-40ea-8b42-9d64dfcb9132"],
 Cell[2338, 61, 3058, 96, 475, "Text",ExpressionUUID->"67d52fcf-ab19-4432-994e-7a74366a6653"],
 Cell[5399, 159, 427, 9, 156, "Text",ExpressionUUID->"3bad69a4-400d-491f-9bb7-52b5972a9b3f"]
-}, Open  ]],
+}, Closed]],
 Cell[CellGroupData[{
-Cell[5863, 173, 618, 9, 100, "Section",ExpressionUUID->"0dd3c1c9-38cf-4858-ba65-73aa0c64388c"],
+Cell[5863, 173, 618, 9, 77, "Section",ExpressionUUID->"0dd3c1c9-38cf-4858-ba65-73aa0c64388c"],
 Cell[6484, 184, 485, 9, 121, "Text",ExpressionUUID->"d01f74eb-7c5f-4a08-a964-419cb41bb2e6"],
 Cell[6972, 195, 734, 14, 259, "Text",ExpressionUUID->"95be68df-183b-4372-a406-519423be05ce"]
-}, Open  ]],
+}, Closed]],
 Cell[CellGroupData[{
-Cell[7743, 214, 975, 22, 157, "Section",ExpressionUUID->"8d3125b2-7be6-4483-878f-678d23b169ff"],
+Cell[7743, 214, 975, 22, 134, "Section",ExpressionUUID->"8d3125b2-7be6-4483-878f-678d23b169ff"],
 Cell[8721, 238, 2748, 82, 260, "Text",ExpressionUUID->"82ea2364-95c5-441d-88a5-38c358ae7d27"],
 Cell[11472, 322, 2034, 56, 260, "Text",ExpressionUUID->"e3365f25-dd55-4848-8d94-f2bafd41eea7"],
 Cell[13509, 380, 909, 24, 156, "Text",ExpressionUUID->"35a4dc59-e9a3-4023-bf94-322ca3ea5e2b"]
-}, Open  ]],
+}, Closed]],
 Cell[CellGroupData[{
-Cell[14455, 409, 678, 10, 100, "Section",ExpressionUUID->"27bac3c4-eacc-4540-a7f1-e722d0b0f009"],
-Cell[15136, 421, 589, 11, 190, "Text",ExpressionUUID->"af1eb3cd-6c5f-48eb-8a6d-8e4d6608133c"]
+Cell[14455, 409, 723, 13, 134, "Section",ExpressionUUID->"65411b5a-1d40-4149-8cb7-357fbc088321"],
+Cell[15181, 424, 1409, 36, 121, "Text",ExpressionUUID->"83dbbd95-9406-4ec9-8b6a-86d679ca04df"],
+Cell[CellGroupData[{
+Cell[16615, 464, 1789, 58, 214, "Input",ExpressionUUID->"3c313c62-3e7e-44b6-b810-27d16352bc15"],
+Cell[18407, 524, 171, 2, 48, "Output",ExpressionUUID->"b60f052e-fec9-4891-ad29-4241c847fd51"]
+}, Open  ]],
+Cell[18593, 529, 752, 14, 259, "Text",ExpressionUUID->"ac8efee0-65eb-4b3d-b857-a62abfe5bb62"]
+}, Closed]],
+Cell[CellGroupData[{
+Cell[19382, 548, 760, 13, 134, "Section",ExpressionUUID->"2ba90989-8d9b-4ded-b60e-4aaa9c31d05f"],
+Cell[20145, 563, 1409, 36, 121, "Text",ExpressionUUID->"3170e808-a556-44e5-8846-36593e4fdb91"],
+Cell[21557, 601, 669, 11, 121, "Text",ExpressionUUID->"a1b67400-d587-4fa3-8662-48f40544cd12"]
+}, Closed]],
+Cell[CellGroupData[{
+Cell[22263, 617, 766, 11, 77, "Section",ExpressionUUID->"389abe20-b13b-4135-b9af-9a24ae4257bf"],
+Cell[23032, 630, 676, 12, 156, "Text",ExpressionUUID->"59ea62b4-ea80-48a4-8cf9-45553f68f7fc"]
+}, Closed]],
+Cell[CellGroupData[{
+Cell[23745, 647, 826, 12, 77, "Section",ExpressionUUID->"bdd3599b-2d4e-4d4a-89c5-2b6a85eac12f"],
+Cell[24574, 661, 769, 13, 121, "Text",ExpressionUUID->"31299ae3-271c-4bd8-8210-ee1edc3e453a"]
+}, Closed]],
+Cell[CellGroupData[{
+Cell[25380, 679, 678, 10, 77, "Section",ExpressionUUID->"27bac3c4-eacc-4540-a7f1-e722d0b0f009"],
+Cell[26061, 691, 589, 11, 190, "Text",ExpressionUUID->"af1eb3cd-6c5f-48eb-8a6d-8e4d6608133c"]
 }, Open  ]]
 }, Open  ]]
 }
